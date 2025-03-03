@@ -29,8 +29,11 @@
 <meta property="og:description" content="RedisRedis 介绍Redis 全称 Remote Dictionary Server，即远程字典服务器。是一个基于内存的键值型NoSQL数据库，支持多种数据结构，如字符串、哈希、列表、集合、有序集合等。Redis 是一个高性能的 key-value 存储系统，常用于缓存、消息队列、排行榜等场景。 Redis 特点 键值存储：Redis 是一个键值存储系统，支持多种数据结构，如字符串、哈希、">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xudong7.github.io/images/image6.png">
+<meta property="og:image" content="https://xudong7.github.io/images/image7.png">
+<meta property="og:image" content="https://xudong7.github.io/images/image8.png">
+<meta property="og:image" content="https://xudong7.github.io/images/image9.png">
 <meta property="article:published_time" content="2024-12-23T11:36:52.000Z">
-<meta property="article:modified_time" content="2025-03-03T02:48:44.523Z">
+<meta property="article:modified_time" content="2025-03-03T04:27:13.057Z">
 <meta property="article:author" content="Dunjia">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://xudong7.github.io/images/image6.png">
@@ -222,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-03-03 10:48:44" itemprop="dateModified" datetime="2025-03-03T10:48:44+08:00">2025-03-03</time>
+                <time title="Modified: 2025-03-03 12:27:13" itemprop="dateModified" datetime="2025-03-03T12:27:13+08:00">2025-03-03</time>
               </span>
 
           
@@ -255,8 +258,35 @@
 <h2 id="Redis-安装"><a href="#Redis-安装" class="headerlink" title="Redis 安装"></a>Redis 安装</h2><p>官网下载地址：<a target="_blank" rel="noopener" href="https://redis.io/download">https://redis.io/download</a></p>
 <h2 id="Redis-命令"><a href="#Redis-命令" class="headerlink" title="Redis 命令"></a>Redis 命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server redis.conf</span><br></pre></td></tr></table></figure>
 
-<h2 id="Redis-缓存"><a href="#Redis-缓存" class="headerlink" title="Redis 缓存"></a>Redis 缓存</h2><p>缓存作用模型：</p>
-<p><img src="/images/image6.png" alt="alt text"></p>
+<h2 id="Redis-缓存"><a href="#Redis-缓存" class="headerlink" title="Redis 缓存"></a>Redis 缓存</h2><h3 id="缓存作用模型"><a href="#缓存作用模型" class="headerlink" title="缓存作用模型"></a>缓存作用模型</h3><p><img src="/images/image6.png" alt="alt text"></p>
+<h3 id="缓存更新策略"><a href="#缓存更新策略" class="headerlink" title="缓存更新策略"></a>缓存更新策略</h3><p><img src="/images/image7.png" alt="alt text"></p>
+<h4 id="主动更新策略"><a href="#主动更新策略" class="headerlink" title="主动更新策略"></a>主动更新策略</h4><ol>
+<li>由缓存的调用者，在更新数据库的同时，更新缓存。</li>
+<li>将缓存和数据库整合为一个服务，由服务来维护统一性。</li>
+<li>调用者只操作缓存，由其他线程异步的将缓存数据持久化到数据库。</li>
+</ol>
+<p>一般采用第一种方案，即在更新数据库的同时，更新缓存。</p>
+<p>方案二会导致缓存和数据库的耦合度过高，不利于系统的扩展和维护。</p>
+<p>方案三会可能导致缓存数据和数据库数据不一致，不利于数据的一致性。</p>
+<h4 id="缓存更新策略的最佳实践方案"><a href="#缓存更新策略的最佳实践方案" class="headerlink" title="缓存更新策略的最佳实践方案"></a>缓存更新策略的最佳实践方案</h4><ol>
+<li>低一致性需求：使用Redis自带的内存淘汰机制</li>
+<li>高一致性需求：主动更新，并以超时剔除作为兜底策略</li>
+</ol>
+<p><img src="/images/image8.png" alt="alt text"></p>
+<ul>
+<li>读操作<ul>
+<li>缓存命中则直接返回</li>
+<li>缓存未命中则查询数据库，并写入缓存，设定超时时间</li>
+</ul>
+</li>
+<li>写操作<ul>
+<li>先写数据库，再删除缓存</li>
+<li>要确保数据库与缓存操作的原子性</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/image9.png" alt="alt text"></p>
+<p>ps. 缓存为快速操作，可能会在数据库写入之前读取到脏数据，造成线程安全问题;之所以不选择更新缓存，因为更新操作相比删除操作，会带来更多无用操作。</p>
 <!-- redis 简介视频 -->
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113526672857610&bvid=BV18jBiYpEDJ&cid=26907247203&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
 
@@ -363,7 +393,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-number">1.</span> <span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">Redis 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">Redis 特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.</span> <span class="nav-text">Redis 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.</span> <span class="nav-text">Redis 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E7%BC%93%E5%AD%98"><span class="nav-number">1.5.</span> <span class="nav-text">Redis 缓存</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-number">1.</span> <span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">Redis 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">Redis 特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.</span> <span class="nav-text">Redis 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.</span> <span class="nav-text">Redis 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E7%BC%93%E5%AD%98"><span class="nav-number">1.5.</span> <span class="nav-text">Redis 缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E4%BD%9C%E7%94%A8%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.5.1.</span> <span class="nav-text">缓存作用模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5"><span class="nav-number">1.5.2.</span> <span class="nav-text">缓存更新策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E5%8A%A8%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">主动更新策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E6%96%B9%E6%A1%88"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">缓存更新策略的最佳实践方案</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
