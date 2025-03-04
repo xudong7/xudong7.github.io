@@ -227,4 +227,18 @@
   </style>
 ]]></content>
   </entry>
+  <entry>
+    <title>gorm-mysql数组类型的处理方法</title>
+    <url>/2025/03/04/gorm-mysql%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="gorm-mysql数组类型的处理方法"><a href="#gorm-mysql数组类型的处理方法" class="headerlink" title="gorm-mysql数组类型的处理方法"></a>gorm-mysql数组类型的处理方法</h2><h3 id="1-使用json存储数组"><a href="#1-使用json存储数组" class="headerlink" title="1. 使用json存储数组"></a>1. 使用json存储数组</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">FormList []<span class="type">uint</span> <span class="string">`json:&quot;form_list&quot; gorm:&quot;type:json;serializer:json&quot;`</span></span><br></pre></td></tr></table></figure>
+
+<p>FormList存储了表单的ID，是一个数组类型，使用json存储。</p>
+<p>使用序列化来处理数组的存储和读取。</p>
+<h3 id="2-使用string拼接"><a href="#2-使用string拼接" class="headerlink" title="2. 使用string拼接"></a>2. 使用string拼接</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">FormList <span class="type">string</span> <span class="string">`json:&quot;form_list&quot; gorm:&quot;type:varchar(255)&quot;`</span></span><br></pre></td></tr></table></figure>
+
+<p>FormList存储了表单的ID，使用string拼接存储。</p>
+<p>例如：<code>1,2,3,4,5</code></p>
+<p>之后读取的时候，使用<code>strings.Split</code>来处理。</p>
+<h3 id="其他方法（待补充）"><a href="#其他方法（待补充）" class="headerlink" title="其他方法（待补充）"></a>其他方法（待补充）</h3>]]></content>
+  </entry>
 </search>

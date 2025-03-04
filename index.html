@@ -185,6 +185,73 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/03/04/gorm-mysql%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/favicon.ico">
+      <meta itemprop="name" content="Dunjia">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunjia's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/03/04/gorm-mysql%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">gorm-mysql数组类型的处理方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-03-04 14:44:48 / Modified: 14:49:38" itemprop="dateCreated datePublished" datetime="2025-03-04T14:44:48+08:00">2025-03-04</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="gorm-mysql数组类型的处理方法"><a href="#gorm-mysql数组类型的处理方法" class="headerlink" title="gorm-mysql数组类型的处理方法"></a>gorm-mysql数组类型的处理方法</h2><h3 id="1-使用json存储数组"><a href="#1-使用json存储数组" class="headerlink" title="1. 使用json存储数组"></a>1. 使用json存储数组</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FormList []<span class="type">uint</span> <span class="string">`json:&quot;form_list&quot; gorm:&quot;type:json;serializer:json&quot;`</span></span><br></pre></td></tr></table></figure>
+
+<p>FormList存储了表单的ID，是一个数组类型，使用json存储。</p>
+<p>使用序列化来处理数组的存储和读取。</p>
+<h3 id="2-使用string拼接"><a href="#2-使用string拼接" class="headerlink" title="2. 使用string拼接"></a>2. 使用string拼接</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FormList <span class="type">string</span> <span class="string">`json:&quot;form_list&quot; gorm:&quot;type:varchar(255)&quot;`</span></span><br></pre></td></tr></table></figure>
+
+<p>FormList存储了表单的ID，使用string拼接存储。</p>
+<p>例如：<code>1,2,3,4,5</code></p>
+<p>之后读取的时候，使用<code>strings.Split</code>来处理。</p>
+<h3 id="其他方法（待补充）"><a href="#其他方法（待补充）" class="headerlink" title="其他方法（待补充）"></a>其他方法（待补充）</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/01/16/%E4%BD%BF%E7%94%A8%E5%AE%9D%E5%A1%94%E9%83%A8%E7%BD%B2%E5%89%8D%E5%90%8E%E7%AB%AF%E9%A1%B9%E7%9B%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -830,7 +897,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
