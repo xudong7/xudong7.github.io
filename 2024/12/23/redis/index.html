@@ -23,7 +23,7 @@
 
   <meta name="description" content="RedisRedis 介绍Redis 全称 Remote Dictionary Server，即远程字典服务器。是一个基于内存的键值型NoSQL数据库，支持多种数据结构，如字符串、哈希、列表、集合、有序集合等。Redis 是一个高性能的 key-value 存储系统，常用于缓存、消息队列、排行榜等场景。 Redis 特点 键值存储：Redis 是一个键值存储系统，支持多种数据结构，如字符串、哈希、">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis简介">
+<meta property="og:title" content="Redis">
 <meta property="og:url" content="https://xudong7.github.io/2024/12/23/redis/index.html">
 <meta property="og:site_name" content="Dunjia&#39;s Blog">
 <meta property="og:description" content="RedisRedis 介绍Redis 全称 Remote Dictionary Server，即远程字典服务器。是一个基于内存的键值型NoSQL数据库，支持多种数据结构，如字符串、哈希、列表、集合、有序集合等。Redis 是一个高性能的 key-value 存储系统，常用于缓存、消息队列、排行榜等场景。 Redis 特点 键值存储：Redis 是一个键值存储系统，支持多种数据结构，如字符串、哈希、">
@@ -32,8 +32,14 @@
 <meta property="og:image" content="https://xudong7.github.io/images/image7.png">
 <meta property="og:image" content="https://xudong7.github.io/images/image8.png">
 <meta property="og:image" content="https://xudong7.github.io/images/image9.png">
+<meta property="og:image" content="https://xudong7.github.io/images/image10.png">
+<meta property="og:image" content="https://xudong7.github.io/images/image11.png">
+<meta property="og:image" content="https://xudong7.github.io/images/image12.png">
+<meta property="og:image" content="https://xudong7.github.io/images/image13.png">
+<meta property="og:image" content="https://xudong7.github.io/images/image14.png">
+<meta property="og:image" content="https://xudong7.github.io/images/image15.png">
 <meta property="article:published_time" content="2024-12-23T11:36:52.000Z">
-<meta property="article:modified_time" content="2025-03-03T04:27:13.057Z">
+<meta property="article:modified_time" content="2025-03-13T16:12:47.780Z">
 <meta property="article:author" content="Dunjia">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://xudong7.github.io/images/image6.png">
@@ -51,7 +57,7 @@
   };
 </script>
 
-  <title>Redis简介 | Dunjia's Blog</title>
+  <title>Redis | Dunjia's Blog</title>
   
 
 
@@ -208,7 +214,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Redis简介
+          Redis
         </h1>
 
         <div class="post-meta">
@@ -225,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-03-03 12:27:13" itemprop="dateModified" datetime="2025-03-03T12:27:13+08:00">2025-03-03</time>
+                <time title="Modified: 2025-03-14 00:12:47" itemprop="dateModified" datetime="2025-03-14T00:12:47+08:00">2025-03-14</time>
               </span>
 
           
@@ -287,6 +293,78 @@
 </ul>
 <p><img src="/images/image9.png" alt="alt text"></p>
 <p>ps. 缓存为快速操作，可能会在数据库写入之前读取到脏数据，造成线程安全问题;之所以不选择更新缓存，因为更新操作相比删除操作，会带来更多无用操作。</p>
+<h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><p>缓存穿透是指客户端请求的数据在缓存和数据库中都不存在，这样缓存永远不会命中，导致请求直接访问数据库，增加数据库的压力。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p><img src="/images/image10.png" alt="alt text"></p>
+<ol>
+<li><strong>缓存空对象</strong></li>
+</ol>
+<ul>
+<li>实现简单， 维护成本低</li>
+<li>额外的内存开销（可以设置较短的过期时间）</li>
+<li>可能造成短期的不一致（当有新的数据插入时，造成数据不一致）</li>
+</ul>
+<ol start="2">
+<li><strong>布隆过滤器</strong></li>
+</ol>
+<ul>
+<li>一个很长的二进制向量和一系列随机映射函数</li>
+<li>内存占用少，没有多余key</li>
+<li>有一定的误判率（不存在是真的不存在，存在是可能存在）</li>
+</ul>
+<ol start="3">
+<li><strong>增强id复杂度</strong></li>
+</ol>
+<ul>
+<li>对id进行加密，增加复杂度</li>
+<li>一定程度上可以防止穿透</li>
+</ul>
+<ol start="4">
+<li><strong>限流</strong></li>
+</ol>
+<ul>
+<li>限制请求频率，防止攻击</li>
+</ul>
+<p>一般在开发中，会使用第一种方案，即缓存空对象。</p>
+<p>流程图变化：</p>
+<p><img src="/images/image11.png" alt="alt text"></p>
+<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><p>缓存雪崩是指缓存中的大量数据同时过期或者Redis服务宕机，导致请求直接访问数据库，增加数据库的压力。</p>
+<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h4><ol>
+<li><strong>缓存数据过期时间随机</strong></li>
+</ol>
+<ul>
+<li>给不同的key的TTL设置随机值，避免大量key同时过期</li>
+</ul>
+<ol start="2">
+<li><p><strong>多级缓存</strong></p>
+</li>
+<li><p><strong>Redis集群</strong></p>
+</li>
+</ol>
+<ul>
+<li>通过主从复制和哨兵机制，保证Redis的高可用性</li>
+</ul>
+<ol start="4">
+<li><strong>限流</strong></li>
+</ol>
+<p><img src="/images/image12.png" alt="alt text"></p>
+<h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><p><img src="/images/image13.png" alt="alt text"></p>
+<p>缓存击穿问题也叫热点Key问题，是指一个被高并发访问且缓存重建业务较复杂的Key突然失效，导致大量请求瞬间访问数据库，增加数据库的压力。</p>
+<h4 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a>解决方案</h4><ol>
+<li><strong>互斥锁</strong></li>
+</ol>
+<ul>
+<li>在缓存失效的时候，使用互斥锁，只允许一个线程访问数据库，其他线程等待</li>
+<li>适用于缓存失效后，数据重建时间较短的情况</li>
+</ul>
+<ol start="2">
+<li><strong>逻辑过期</strong></li>
+</ol>
+<ul>
+<li>设置一个逻辑上不会过期的缓存，当逻辑过期时，重新设置缓存</li>
+<li>某个线程设置缓存时，其他线程直接得到缓存数据，不考虑缓存是否过期</li>
+</ul>
+<p><img src="/images/image14.png" alt="alt text"></p>
+<p><img src="/images/image15.png" alt="alt text"></p>
 <!-- redis 简介视频 -->
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113526672857610&bvid=BV18jBiYpEDJ&cid=26907247203&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
 
@@ -311,7 +389,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://xudong7.github.io/2024/12/23/redis/" title="Redis简介">https://xudong7.github.io/2024/12/23/redis/</a>
+    <a href="https://xudong7.github.io/2024/12/23/redis/" title="Redis">https://xudong7.github.io/2024/12/23/redis/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -393,7 +471,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-number">1.</span> <span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">Redis 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">Redis 特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.</span> <span class="nav-text">Redis 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.</span> <span class="nav-text">Redis 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E7%BC%93%E5%AD%98"><span class="nav-number">1.5.</span> <span class="nav-text">Redis 缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E4%BD%9C%E7%94%A8%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.5.1.</span> <span class="nav-text">缓存作用模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5"><span class="nav-number">1.5.2.</span> <span class="nav-text">缓存更新策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E5%8A%A8%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">主动更新策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E6%96%B9%E6%A1%88"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">缓存更新策略的最佳实践方案</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-number">1.</span> <span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">Redis 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">Redis 特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.</span> <span class="nav-text">Redis 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.</span> <span class="nav-text">Redis 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E7%BC%93%E5%AD%98"><span class="nav-number">1.5.</span> <span class="nav-text">Redis 缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E4%BD%9C%E7%94%A8%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.5.1.</span> <span class="nav-text">缓存作用模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5"><span class="nav-number">1.5.2.</span> <span class="nav-text">缓存更新策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E5%8A%A8%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">主动更新策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E6%96%B9%E6%A1%88"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">缓存更新策略的最佳实践方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F"><span class="nav-number">1.5.3.</span> <span class="nav-text">缓存穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="nav-number">1.5.4.</span> <span class="nav-text">缓存雪崩</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-1"><span class="nav-number">1.5.4.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF"><span class="nav-number">1.5.5.</span> <span class="nav-text">缓存击穿</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-2"><span class="nav-number">1.5.5.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
