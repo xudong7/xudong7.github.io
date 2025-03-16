@@ -358,7 +358,7 @@
   </entry>
   <entry>
     <title>Redis-缓存</title>
-    <url>/2024/03/16/Redis-%E7%BC%93%E5%AD%98/</url>
+    <url>/2025/03/16/Redis-%E7%BC%93%E5%AD%98/</url>
     <content><![CDATA[<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="Redis-介绍"><a href="#Redis-介绍" class="headerlink" title="Redis 介绍"></a>Redis 介绍</h2><p>Redis 全称 Remote Dictionary Server，即远程字典服务器。是一个基于内存的键值型NoSQL数据库，支持多种数据结构，如字符串、哈希、列表、集合、有序集合等。Redis 是一个高性能的 key-value 存储系统，常用于缓存、消息队列、排行榜等场景。</p>
 <h2 id="Redis-特点"><a href="#Redis-特点" class="headerlink" title="Redis 特点"></a>Redis 特点</h2><ul>
 <li><strong>键值存储</strong>：Redis 是一个键值存储系统，支持多种数据结构，如字符串、哈希、列表、集合、有序集合等。</li>
