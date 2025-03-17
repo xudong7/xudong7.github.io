@@ -23,26 +23,26 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="Dunjia&#39;s Blog">
-<meta property="og:url" content="https://xudong7.github.io/archives/2025/index.html">
+<meta property="og:url" content="https://xudong7.github.io/page/2/index.html">
 <meta property="og:site_name" content="Dunjia&#39;s Blog">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Dunjia">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://xudong7.github.io/archives/2025/">
+<link rel="canonical" href="https://xudong7.github.io/page/2/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
+    isHome : true,
     isPost : false,
     lang   : 'en'
   };
 </script>
 
-  <title>Archive | Dunjia's Blog</title>
+  <title>Dunjia's Blog</title>
   
 
 
@@ -179,191 +179,109 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2024/12/23/vite-vs-webpack/">
 
-  
-  
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 11 posts in total. Keep on posting.</span>
-      </div>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/favicon.ico">
+      <meta itemprop="name" content="Dunjia">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunjia's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/23/vite-vs-webpack/" class="post-title-link" itemprop="url">前端构建工具 Vite vs Webpack</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-12-23 18:40:48" itemprop="dateCreated datePublished" datetime="2024-12-23T18:40:48+08:00">2024-12-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-01-24 00:56:19" itemprop="dateModified" datetime="2025-01-24T00:56:19+08:00">2025-01-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2025</span>
+          <h1 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h1><p>Webpack 是一个基于打包器的构建工具，同一个入口文件的代码会打包成一个 Bundle 文件。Webpack 长期来的一个痛点是对于大规模应用的应用启动和热更新速度很慢。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g vue-cli@latest</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue create my-project</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run serve</span><br></pre></td></tr></table></figure>
+
+<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=513827141&bvid=BV11g411y7Sd&cid=782308128&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+
+<h1 id="Vite"><a href="#Vite" class="headerlink" title="Vite"></a>Vite</h1><p>Vite 是旨在提升开发者体验的下一代 JavaScript 构建工具，核心借助了浏览器的原生 ES Modules 和像 esbuild 这样的将代码编译成 native code 的打包工具。</p>
+<h2 id="创建项目-1"><a href="#创建项目-1" class="headerlink" title="创建项目"></a>创建项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm create vite</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装依赖-1"><a href="#安装依赖-1" class="headerlink" title="安装依赖"></a>安装依赖</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<h2 id="运行-1"><a href="#运行-1" class="headerlink" title="运行"></a>运行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+<h2 id="打包-1"><a href="#打包-1" class="headerlink" title="打包"></a>打包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=724167325&bvid=BV1yS4y1r7nE&cid=512991161&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Webpack 和 Vite 都是构建工具，个人而言，开发小型项目时，Vite 会更快，而开发大型项目时，Webpack 会更稳定。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sunyctf/article/details/128059586">https://blog.csdn.net/sunyctf/article/details/128059586</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7106136866381889573">https://juejin.cn/post/7106136866381889573</a></p>
+<style>
+    iframe {
+      width: 100%;
+      height: 500px;
+    }
+  </style>
+
+      
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-03-17T20:42:16+08:00"
-              content="2025-03-17">
-          03-17
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/03/17/linux%E4%B8%8B%E4%BD%BF%E7%94%A8zsh%E4%BB%A5%E5%8F%8Aoh-my-zsh/" itemprop="url">
-            <span itemprop="name">linux下使用zsh以及oh-my-zsh</span>
-          </a>
-      </div>
-
-    </header>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
   </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-03-16T19:36:52+08:00"
-              content="2025-03-16">
-          03-16
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/03/16/Redis-%E7%BC%93%E5%AD%98/" itemprop="url">
-            <span itemprop="name">Redis-缓存</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-03-07T11:22:21+08:00"
-              content="2025-03-07">
-          03-07
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/03/07/rust-copy-trait%E7%9A%84%E5%88%86%E6%9E%90/" itemprop="url">
-            <span itemprop="name">rust-copy_trait的分析</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-03-07T10:51:28+08:00"
-              content="2025-03-07">
-          03-07
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/03/07/rust-ownership%E7%9A%84%E5%88%86%E6%9E%90/" itemprop="url">
-            <span itemprop="name">rust-ownership的分析</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-03-04T20:31:13+08:00"
-              content="2025-03-04">
-          03-04
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/03/04/SecureJSON-%E9%98%B2%E8%8C%83JSON%E5%8A%AB%E6%8C%81/" itemprop="url">
-            <span itemprop="name">SecureJSON-防范JSON劫持</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-03-04T14:44:48+08:00"
-              content="2025-03-04">
-          03-04
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/03/04/gorm-mysql%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/" itemprop="url">
-            <span itemprop="name">gorm-mysql数组类型的处理方法</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-01-16T18:48:42+08:00"
-              content="2025-01-16">
-          01-16
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/01/16/%E4%BD%BF%E7%94%A8%E5%AE%9D%E5%A1%94%E9%83%A8%E7%BD%B2%E5%89%8D%E5%90%8E%E7%AB%AF%E9%A1%B9%E7%9B%AE/" itemprop="url">
-            <span itemprop="name">使用宝塔部署前后端项目</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-01-03T14:24:57+08:00"
-              content="2025-01-03">
-          01-03
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/01/03/cursor%E7%99%BD%E5%AB%96/" itemprop="url">
-            <span itemprop="name">cursor白嫖</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-
-    </div>
-  </div>
   
   
   
 
+
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
 
 
 

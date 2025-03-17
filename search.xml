@@ -496,4 +496,23 @@
   </style>
 ]]></content>
   </entry>
+  <entry>
+    <title>linux下使用zsh以及oh-my-zsh</title>
+    <url>/2025/03/17/linux%E4%B8%8B%E4%BD%BF%E7%94%A8zsh%E4%BB%A5%E5%8F%8Aoh-my-zsh/</url>
+    <content><![CDATA[<h2 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装zsh"><a href="#安装zsh" class="headerlink" title="安装zsh"></a>安装zsh</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install zsh</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装oh-my-zsh"><a href="#安装oh-my-zsh" class="headerlink" title="安装oh-my-zsh"></a>安装oh-my-zsh</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="切换shell"><a href="#切换shell" class="headerlink" title="切换shell"></a>切换shell</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
+
+<p>注意，需要重启终端才能生效。</p>
+<h2 id="不重启保持使用zsh"><a href="#不重启保持使用zsh" class="headerlink" title="不重启保持使用zsh"></a>不重启保持使用zsh</h2><p>打开preferences，找到profiles，选择command，将command改为<code>/bin/zsh</code>，然后重启终端。</p>
+<h2 id="主题切换"><a href="#主题切换" class="headerlink" title="主题切换"></a>主题切换</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<p>找到<code>ZSH_THEME=&quot;robbyrussell&quot;</code>，可以修改主题，例如<code>ZSH_THEME=&quot;random&quot;</code>。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果windows默认shell是zsh该多好啊…</p>
+]]></content>
+  </entry>
 </search>
