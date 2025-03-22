@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="什么是事务事务是一组操作单元，是一个不可分割的工作单位，要么都执行，要么都不执行。保证数据的一致性和完整性。 事务的特性事务具有四个特性：ACID  原子性（Atomicity）：事务是一个不可分割的工作单位，要么都执行，要么都不执行。 一致性（Consistency）：事务执行前后，数据的完整性保持一致。 隔离性（Isolation）：多个事务之间互不干扰。 持久性（Durability）：事务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="事务-@transactional注解">
+<meta property="og:url" content="https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Dunjia&#39;s Blog">
+<meta property="og:description" content="什么是事务事务是一组操作单元，是一个不可分割的工作单位，要么都执行，要么都不执行。保证数据的一致性和完整性。 事务的特性事务具有四个特性：ACID  原子性（Atomicity）：事务是一个不可分割的工作单位，要么都执行，要么都不执行。 一致性（Consistency）：事务执行前后，数据的完整性保持一致。 隔离性（Isolation）：多个事务之间互不干扰。 持久性（Durability）：事务">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-03-18T09:18:52.000Z">
+<meta property="article:modified_time" content="2025-03-18T09:49:11.995Z">
+<meta property="article:author" content="Dunjia">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>事务-@transactional注解</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/03/19/aop/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/03/18/%E4%B8%80%E4%BA%BA%E4%B8%80%E5%8D%95%E9%97%AE%E9%A2%98/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&text=事务-@transactional注解"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&title=事务-@transactional注解"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&is_video=false&description=事务-@transactional注解"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=事务-@transactional注解&body=Check out this article: https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&title=事务-@transactional注解"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&title=事务-@transactional注解"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&title=事务-@transactional注解"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&title=事务-@transactional注解"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&name=事务-@transactional注解&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&t=事务-@transactional注解"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E5%8A%A1"><span class="toc-number">1.</span> <span class="toc-text">什么是事务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">事务的特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transactional%E6%B3%A8%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">@Transactional注解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Transactional%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">3.1.</span> <span class="toc-text">@Transactional注解的属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rollbackFor%E5%B1%9E%E6%80%A7"><span class="toc-number">3.1.1.</span> <span class="toc-text">rollbackFor属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#propagation%E5%B1%9E%E6%80%A7"><span class="toc-number">3.1.2.</span> <span class="toc-text">propagation属性</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        事务-@transactional注解
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Dunjia</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-03-18T09:18:52.000Z" class="dt-published" itemprop="datePublished">2025-03-18</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务"></a>什么是事务</h2><p>事务是一组操作单元，是一个不可分割的工作单位，要么都执行，要么都不执行。保证数据的一致性和完整性。</p>
+<h2 id="事务的特性"><a href="#事务的特性" class="headerlink" title="事务的特性"></a>事务的特性</h2><p>事务具有四个特性：ACID</p>
+<ul>
+<li><strong>原子性（Atomicity）</strong>：事务是一个不可分割的工作单位，要么都执行，要么都不执行。</li>
+<li><strong>一致性（Consistency）</strong>：事务执行前后，数据的完整性保持一致。</li>
+<li><strong>隔离性（Isolation）</strong>：多个事务之间互不干扰。</li>
+<li><strong>持久性（Durability）</strong>：事务执行成功后，数据的修改是永久的。</li>
+</ul>
+<h2 id="Transactional注解"><a href="#Transactional注解" class="headerlink" title="@Transactional注解"></a>@Transactional注解</h2><p><code>@Transactional</code>注解用于声明一个方法需要事务支持，Spring会为这个方法创建一个事务代理，当方法执行时，如果抛出异常，则事务会回滚，否则事务会提交。</p>
+<h3 id="Transactional注解的属性"><a href="#Transactional注解的属性" class="headerlink" title="@Transactional注解的属性"></a>@Transactional注解的属性</h3><ul>
+<li><strong>rollbackFor</strong>：哪些异常会导致事务回滚，默认值是<code>RuntimeException</code>。</li>
+<li><strong>propagation</strong>：事务的传播行为，默认值是<code>REQUIRED</code>。</li>
+</ul>
+<h4 id="rollbackFor属性"><a href="#rollbackFor属性" class="headerlink" title="rollbackFor属性"></a>rollbackFor属性</h4><p>rollbackFor属性的默认值是RuntimeException，所以默认情况下，只有RuntimeException及其子类会导致事务回滚，其他异常不会导致事务回滚。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deleteDepartment</span><span class="params">(Long id)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="comment">// 删除部门</span></span><br><span class="line">    departmentMapper.deleteById(id);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Exception</span>(<span class="string">&quot;删除员工失败&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除部门下的员工</span></span><br><span class="line">    employeeMapper.deleteByDepartmentId(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时，删除部门成功，但是删除员工失败，因为删除员工失败抛出的是Exception异常，而Exception不是RuntimeException的子类，所以不会导臿事务回滚，导致部门删除成功，员工删除失败。</p>
+<p>如果想让删除员工失败时也回滚事务，可以将rollbackFor属性设置为Exception：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Transactional(rollbackFor = Exception.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deleteDepartment</span><span class="params">(Long id)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="comment">// 删除部门</span></span><br><span class="line">    departmentMapper.deleteById(id);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Exception</span>(<span class="string">&quot;删除员工失败&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除部门下的员工</span></span><br><span class="line">    employeeMapper.deleteByDepartmentId(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，删除员工失败时会导致事务回滚，部门也不会删除。</p>
+<h4 id="propagation属性"><a href="#propagation属性" class="headerlink" title="propagation属性"></a>propagation属性</h4><p>propagation属性用于设置事务的传播行为，有以下几种取值：</p>
+<ul>
+<li><strong>REQUIRED</strong>：如果当前没有事务，则创建一个新事务，如果当前有事务，则加入当前事务。</li>
+<li><strong>REQUIRES_NEW</strong>：需要新事务，无论当前是否有事务，都会创建一个新事务。</li>
+<li><strong>SUPPORTS</strong>：如果当前有事务，则加入当前事务，如果当前没有事务，则以非事务的方式执行。<br>…</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Transactional(propagation = Propagation.REQUIRES_NEW)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">log</span><span class="params">(String message)</span> &#123;</span><br><span class="line">    logMapper.insert(message);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Transactional(propagation = Propagation.REQUIRED)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deleteDepartment</span><span class="params">(Long id)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 删除部门</span></span><br><span class="line">        departmentMapper.deleteById(id);</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span> / <span class="number">0</span>; <span class="comment">// 抛出异常</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 删除部门下的员工</span></span><br><span class="line">        employeeMapper.deleteByDepartmentId(id);</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="comment">// 记录日志</span></span><br><span class="line">        log(<span class="string">&quot;删除部门：&quot;</span> + id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上代码需求为：无论是否删除部门成功，都要记录日志，如果删除部门失败，日志也要记录，所以需要使用REQUIRES_NEW传播行为，这样无论删除部门是否成功，都会记录日志。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E5%8A%A1"><span class="toc-number">1.</span> <span class="toc-text">什么是事务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">事务的特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transactional%E6%B3%A8%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">@Transactional注解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Transactional%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">3.1.</span> <span class="toc-text">@Transactional注解的属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rollbackFor%E5%B1%9E%E6%80%A7"><span class="toc-number">3.1.1.</span> <span class="toc-text">rollbackFor属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#propagation%E5%B1%9E%E6%80%A7"><span class="toc-number">3.1.2.</span> <span class="toc-text">propagation属性</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&text=事务-@transactional注解"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&title=事务-@transactional注解"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&is_video=false&description=事务-@transactional注解"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=事务-@transactional注解&body=Check out this article: https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&title=事务-@transactional注解"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&title=事务-@transactional注解"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&title=事务-@transactional注解"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&title=事务-@transactional注解"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&name=事务-@transactional注解&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://xudong7.github.io/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/&t=事务-@transactional注解"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    Dunjia
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
