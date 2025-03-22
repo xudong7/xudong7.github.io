@@ -1,694 +1,328 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang=en>
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"xudong7.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
-
-  <meta property="og:type" content="website">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta property="og:type" content="website">
 <meta property="og:title" content="Dunjia&#39;s Blog">
 <meta property="og:url" content="https://xudong7.github.io/page/2/index.html">
 <meta property="og:site_name" content="Dunjia&#39;s Blog">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Dunjia">
 <meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://xudong7.github.io/page/2/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'en'
-  };
-</script>
-
-  <title>Dunjia's Blog</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Dunjia's Blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
-        </a>
-      </li>
-  </ul>
-</nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="Searching..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content index posts-expand">
-            
+    
       
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2024/12/26/Vue3-Vite%E9%A1%B9%E7%9B%AE%E5%B7%A5%E7%A8%8B%E5%8C%96%E6%90%AD%E5%BB%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/favicon.ico">
-      <meta itemprop="name" content="Dunjia">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunjia's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/26/Vue3-Vite%E9%A1%B9%E7%9B%AE%E5%B7%A5%E7%A8%8B%E5%8C%96%E6%90%AD%E5%BB%BA/" class="post-title-link" itemprop="url">Vue3 + Vite项目工程化搭建</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-12-26 20:24:52" itemprop="dateCreated datePublished" datetime="2024-12-26T20:24:52+08:00">2024-12-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-01-24 00:57:53" itemprop="dateModified" datetime="2025-01-24T00:57:53+08:00">2025-01-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Vue3-Vite项目工程化搭建"><a href="#Vue3-Vite项目工程化搭建" class="headerlink" title="Vue3 + Vite项目工程化搭建"></a>Vue3 + Vite项目工程化搭建</h1><h2 id="安装-Vite"><a href="#安装-Vite" class="headerlink" title="安装 Vite"></a>安装 Vite</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g create-vite</span><br></pre></td></tr></table></figure>
-
-<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm create vite</span><br></pre></td></tr></table></figure>
-
-<h2 id="进入项目目录"><a href="#进入项目目录" class="headerlink" title="进入项目目录"></a>进入项目目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入项目目录</span></span><br><span class="line"><span class="built_in">cd</span> my-vite-app</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"><span class="comment">#安装 Element Plus</span></span><br><span class="line">npm install element-plus</span><br><span class="line"><span class="comment">#安装 Vue Router</span></span><br><span class="line">npm install vue-router</span><br><span class="line"><span class="comment">#安装 Pinia</span></span><br><span class="line">npm install pinia</span><br><span class="line"><span class="comment">#安装 Sass，安装时需要添加 -D 参数，表示将 Sass 添加到开发依赖中，在打包过程中，Sass 会自动编译为 CSS</span></span><br><span class="line">npm install sass -D</span><br><span class="line"><span class="comment">#安装 VueUse</span></span><br><span class="line">npm i @vueuse/core</span><br><span class="line"><span class="comment">#安装 Axios</span></span><br><span class="line">npm install axios</span><br><span class="line"><span class="comment">#安装 Echarts</span></span><br><span class="line">npm install echarts</span><br><span class="line"><span class="comment">#安装 Prettier 及相关插件</span></span><br><span class="line">npm install -D prettier</span><br><span class="line">npm install -D eslint-plugin-prettier</span><br><span class="line"><span class="comment">#安装插件</span></span><br><span class="line">npm install -D unplugin-vue-components unplugin-auto-import</span><br></pre></td></tr></table></figure>
-
-<h2 id="创建目录结构"><a href="#创建目录结构" class="headerlink" title="创建目录结构"></a>创建目录结构</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> src</span><br><span class="line"><span class="built_in">rm</span> -rf components/* modules</span><br><span class="line"><span class="built_in">mkdir</span> views router store api styles utils layouts</span><br><span class="line"><span class="built_in">cd</span> views</span><br><span class="line"><span class="built_in">mkdir</span> dashboard login</span><br><span class="line"><span class="built_in">touch</span> dashboard/index.vue login/index.vue</span><br><span class="line"><span class="built_in">mkdir</span> hall</span><br><span class="line"><span class="built_in">touch</span> hall/index.vue</span><br><span class="line"><span class="built_in">cd</span> ../router</span><br><span class="line"><span class="built_in">touch</span> index.js</span><br><span class="line"><span class="built_in">cd</span> ../store</span><br><span class="line"><span class="built_in">touch</span> index.js</span><br><span class="line"><span class="built_in">mkdir</span> modules</span><br><span class="line"><span class="built_in">touch</span> modules/user.js</span><br><span class="line"><span class="built_in">cd</span> ../layouts</span><br><span class="line"><span class="built_in">touch</span> HomeLayout.vue NotFoundLayout.vue</span><br><span class="line"><span class="built_in">cd</span> ../api</span><br><span class="line"><span class="built_in">touch</span> user.js</span><br><span class="line"><span class="built_in">cd</span> ../styles</span><br><span class="line"><span class="built_in">touch</span> variables.scss</span><br><span class="line"><span class="built_in">cd</span> ../utils</span><br><span class="line"><span class="built_in">touch</span> request.js echarts.js</span><br><span class="line"><span class="built_in">cd</span> ../..</span><br></pre></td></tr></table></figure>
-
-<h2 id="配置-Vite"><a href="#配置-Vite" class="headerlink" title="配置 Vite"></a>配置 Vite</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF &gt; vite.config.js</span></span><br><span class="line"><span class="string">import &#123; defineConfig &#125; from &#x27;vite&#x27;</span></span><br><span class="line"><span class="string">import vue from &#x27;@vitejs/plugin-vue&#x27;</span></span><br><span class="line"><span class="string">import AutoImport from &quot;unplugin-auto-import/vite&quot;;</span></span><br><span class="line"><span class="string">import Components from &quot;unplugin-vue-components/vite&quot;;</span></span><br><span class="line"><span class="string">import &#123;ElementPlusResolver&#125; from &quot;unplugin-vue-components/resolvers&quot;;</span></span><br><span class="line"><span class="string">import &#123; resolve &#125; from &quot;path&quot;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// https://vite.dev/config/</span></span><br><span class="line"><span class="string">export default defineConfig(&#123;</span></span><br><span class="line"><span class="string">  plugins: [</span></span><br><span class="line"><span class="string">    vue(),</span></span><br><span class="line"><span class="string">    // 自动导入</span></span><br><span class="line"><span class="string">    AutoImport(&#123;</span></span><br><span class="line"><span class="string">      // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等</span></span><br><span class="line"><span class="string">      imports: [&quot;vue&quot;, &quot;vue-router&quot;, &quot;@vueuse/core&quot;],</span></span><br><span class="line"><span class="string">      resolvers: [</span></span><br><span class="line"><span class="string">        // 自动导入 Element Plus 相关函数</span></span><br><span class="line"><span class="string">        ElementPlusResolver(),</span></span><br><span class="line"><span class="string">      ],</span></span><br><span class="line"><span class="string">      // 配置文件位置 (false:关闭自动生成)</span></span><br><span class="line"><span class="string">      dts: resolve(__dirname, &quot;src/types/auto-imports.d.ts&quot;),</span></span><br><span class="line"><span class="string">    &#125;),</span></span><br><span class="line"><span class="string">    Components(&#123;</span></span><br><span class="line"><span class="string">      resolvers: [</span></span><br><span class="line"><span class="string">        // 自动导入 Element Plus 组件</span></span><br><span class="line"><span class="string">        ElementPlusResolver(),</span></span><br><span class="line"><span class="string">      ],</span></span><br><span class="line"><span class="string">      // 指定自定义组件位置(默认:src/components)</span></span><br><span class="line"><span class="string">      dirs: [&quot;src/**/components&quot;],</span></span><br><span class="line"><span class="string">      // 配置文件位置 (false:关闭自动生成)</span></span><br><span class="line"><span class="string">      dts: resolve(__dirname, &quot;src/types/components.d.ts&quot;),</span></span><br><span class="line"><span class="string">    &#125;),</span></span><br><span class="line"><span class="string">  ],</span></span><br><span class="line"><span class="string">  resolve: &#123;</span></span><br><span class="line"><span class="string">    // 导入文件时省略文件扩展名</span></span><br><span class="line"><span class="string">    extensions: [&quot;.js&quot;, &quot;.ts&quot;, &quot;.vue&quot;, &quot;.json&quot;, &quot;es&quot;],</span></span><br><span class="line"><span class="string">    // 配置路径别名</span></span><br><span class="line"><span class="string">    alias: &#123; &quot;@&quot;: resolve(__dirname, &quot;src&quot;) &#125;,</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  css: &#123;</span></span><br><span class="line"><span class="string">    // CSS 预处理器</span></span><br><span class="line"><span class="string">    preprocessorOptions: &#123;</span></span><br><span class="line"><span class="string">      // 定义全局 SCSS 变量</span></span><br><span class="line"><span class="string">      scss: &#123;</span></span><br><span class="line"><span class="string">        javascriptEnabled: true,</span></span><br><span class="line"><span class="string">        additionalData: &quot;@use &#x27;/src/styles/variables.scss&#x27; as *;&quot;,</span></span><br><span class="line"><span class="string">      &#125;,</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">&#125;)</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> src</span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF &gt; views/dashboard/index.vue</span></span><br><span class="line"><span class="string">&lt;script setup&gt;</span></span><br><span class="line"><span class="string">import echarts from &quot;@/utils/echarts&quot;;</span></span><br><span class="line"><span class="string">import &#123; onMounted, ref &#125; from &quot;vue&quot;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">const chartRef = ref(null);</span></span><br><span class="line"><span class="string">let echartClient = null;</span></span><br><span class="line"><span class="string">onMounted(() =&gt; &#123;</span></span><br><span class="line"><span class="string">  initChart();</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">function initChart() &#123;</span></span><br><span class="line"><span class="string">  echartClient = echarts.init(chartRef.value);</span></span><br><span class="line"><span class="string">  echartClient.setOption(&#123;</span></span><br><span class="line"><span class="string">    tooltip: &#123;&#125;,</span></span><br><span class="line"><span class="string">    xAxis: &#123;</span></span><br><span class="line"><span class="string">      data: [&quot;衬衫&quot;, &quot;羊毛衫&quot;, &quot;雪纺衫&quot;, &quot;裤子&quot;, &quot;高跟鞋&quot;, &quot;袜子&quot;],</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    yAxis: &#123;&#125;,</span></span><br><span class="line"><span class="string">    series: [</span></span><br><span class="line"><span class="string">      &#123;</span></span><br><span class="line"><span class="string">        name: &quot;销量&quot;,</span></span><br><span class="line"><span class="string">        type: &quot;bar&quot;,</span></span><br><span class="line"><span class="string">        data: [5, 20, 36, 10, 10, 20],</span></span><br><span class="line"><span class="string">      &#125;,</span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;template&gt;</span></span><br><span class="line"><span class="string">  &lt;div class=&quot;chart-box&quot; ref=&quot;chartRef&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;/template&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;style scoped lang=&quot;scss&quot;&gt;</span></span><br><span class="line"><span class="string">.chart-box &#123;</span></span><br><span class="line"><span class="string">  width: 600px;</span></span><br><span class="line"><span class="string">  height: 400px;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&lt;/style&gt;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF &gt; views/login/index.vue</span></span><br><span class="line"><span class="string">&lt;!--src/views/login/index.vue--&gt;</span></span><br><span class="line"><span class="string">&lt;script setup&gt;</span></span><br><span class="line"><span class="string">import useUserStore from &quot;../../store/modules/user&quot;;</span></span><br><span class="line"><span class="string">import &#123; getCodeInfo &#125; from &quot;../../api/user&quot;;</span></span><br><span class="line"><span class="string">import &#123; onMounted, ref &#125; from &quot;vue&quot;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">const userStore = useUserStore();</span></span><br><span class="line"><span class="string">const captchaInfo = ref(&quot;&quot;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">/**</span></span><br><span class="line"><span class="string"> * 登录</span></span><br><span class="line"><span class="string"> */</span></span><br><span class="line"><span class="string">function login() &#123;</span></span><br><span class="line"><span class="string">  userStore</span></span><br><span class="line"><span class="string">    .handleLogin()</span></span><br><span class="line"><span class="string">    .then((res) =&gt; &#123;</span></span><br><span class="line"><span class="string">      ElMessage.success(res);</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">    .catch((err) =&gt; &#123;</span></span><br><span class="line"><span class="string">      ElMessage.error(err);</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">/**</span></span><br><span class="line"><span class="string"> * 退出登录</span></span><br><span class="line"><span class="string"> */</span></span><br><span class="line"><span class="string">function loginOut() &#123;</span></span><br><span class="line"><span class="string">  userStore</span></span><br><span class="line"><span class="string">    .handleLogout()</span></span><br><span class="line"><span class="string">    .then(() =&gt; &#123;</span></span><br><span class="line"><span class="string">      ElMessage.success(&quot;退出登录成功&quot;);</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">    .catch((err) =&gt; &#123;</span></span><br><span class="line"><span class="string">      ElMessage.error(err);</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">onMounted(() =&gt; &#123;</span></span><br><span class="line"><span class="string">  getCodeInfo(new Date().getTime()).then((&#123; data &#125;) =&gt; &#123;</span></span><br><span class="line"><span class="string">    captchaInfo.value = data.result;</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;template&gt;</span></span><br><span class="line"><span class="string">  &lt;div class=&quot;login-container&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;el-button type=&quot;primary&quot; @click=&quot;login&quot;&gt;登 录&lt;/el-button&gt;</span></span><br><span class="line"><span class="string">    &lt;el-button type=&quot;primary&quot; @click=&quot;loginOut&quot;&gt;退出登录&lt;/el-button&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &lt;hr /&gt;</span></span><br><span class="line"><span class="string">    &lt;h1&gt;当前登录状态：&#123;&#123; userStore.loginStatus ? &quot;已登录&quot; : &quot;未登录&quot; &#125;&#125;&lt;/h1&gt;</span></span><br><span class="line"><span class="string">    &lt;ul&gt;</span></span><br><span class="line"><span class="string">      &lt;li&gt;用户名：&#123;&#123; userStore.userInfo.name &#125;&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="string">      &lt;li&gt;头 像：&lt;img :src=&quot;userStore.userInfo.avatar&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">      &lt;li&gt;验证码：&lt;img :src=&quot;captchaInfo&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">    &lt;/ul&gt;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;/template&gt;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF &gt; App.vue</span></span><br><span class="line"><span class="string">&lt;template&gt;</span></span><br><span class="line"><span class="string">  &lt;component :is=&quot;currentLayout&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;router-view&gt;&lt;/router-view&gt;</span></span><br><span class="line"><span class="string">  &lt;/component&gt;</span></span><br><span class="line"><span class="string">&lt;/template&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;script&gt;</span></span><br><span class="line"><span class="string">import HomeLayout from &#x27;./layouts/HomeLayout.vue&#x27;;</span></span><br><span class="line"><span class="string">import NotFoundLayout from &#x27;./layouts/NotFoundLayout.vue&#x27;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">export default &#123;</span></span><br><span class="line"><span class="string">  data() &#123;</span></span><br><span class="line"><span class="string">    return &#123;</span></span><br><span class="line"><span class="string">      currentLayout: this.getLayout(), // 获取当前布局</span></span><br><span class="line"><span class="string">    &#125;;</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  methods: &#123;</span></span><br><span class="line"><span class="string">    getLayout() &#123;</span></span><br><span class="line"><span class="string">      if (this.$route.path === &#x27;/404&#x27;) &#123;</span></span><br><span class="line"><span class="string">        return NotFoundLayout;</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">      return HomeLayout;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  watch: &#123;</span></span><br><span class="line"><span class="string">    $route() &#123;</span></span><br><span class="line"><span class="string">      this.currentLayout = this.getLayout(); // 路由变化时切换布局</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF &gt; main.js</span></span><br><span class="line"><span class="string">import &#123; createApp &#125; from &quot;vue&quot;;</span></span><br><span class="line"><span class="string">import App from &quot;./App.vue&quot;;</span></span><br><span class="line"><span class="string">import router from &quot;./router&quot;;</span></span><br><span class="line"><span class="string">import pinia from &quot;./store&quot;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">const app = createApp(App);</span></span><br><span class="line"><span class="string">app.use(router);</span></span><br><span class="line"><span class="string">app.use(pinia);</span></span><br><span class="line"><span class="string">app.mount(&quot;#app&quot;);</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF &gt; utils/request.js</span></span><br><span class="line"><span class="string">// src/utils/request.js</span></span><br><span class="line"><span class="string">import axios from &quot;axios&quot;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">const request = axios.create(&#123;</span></span><br><span class="line"><span class="string">  baseURL: &quot;http://xxx.xxx.xxx.xxx // 请求的后端接口地址&quot;,</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">/**</span></span><br><span class="line"><span class="string"> * 请求拦截器</span></span><br><span class="line"><span class="string"> */</span></span><br><span class="line"><span class="string">request.interceptors.request.use((config) =&gt; &#123;</span></span><br><span class="line"><span class="string">  console.log(&quot;请求参数：&quot;, config);</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">/**</span></span><br><span class="line"><span class="string"> * 响应拦截器</span></span><br><span class="line"><span class="string"> */</span></span><br><span class="line"><span class="string">request.interceptors.response.use((response) =&gt; &#123;</span></span><br><span class="line"><span class="string">  console.log(&quot;响应参数：&quot;, response);</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">export default request;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF &gt; utils/echarts.js</span></span><br><span class="line"><span class="string">// src/utils/echarts.js</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。</span></span><br><span class="line"><span class="string">import * as echarts from &quot;echarts/core&quot;;</span></span><br><span class="line"><span class="string">// 引入柱状图图表，图表后缀都为 Chart</span></span><br><span class="line"><span class="string">import &#123; BarChart &#125; from &quot;echarts/charts&quot;;</span></span><br><span class="line"><span class="string">// 引入提示框，标题，直角坐标系，数据集，内置数据转换器组件，组件后缀都为 Component</span></span><br><span class="line"><span class="string">import &#123;</span></span><br><span class="line"><span class="string">    TitleComponent,</span></span><br><span class="line"><span class="string">    TooltipComponent,</span></span><br><span class="line"><span class="string">    GridComponent,</span></span><br><span class="line"><span class="string">    DatasetComponent,</span></span><br><span class="line"><span class="string">    TransformComponent,</span></span><br><span class="line"><span class="string">&#125; from &quot;echarts/components&quot;;</span></span><br><span class="line"><span class="string">// 标签自动布局、全局过渡动画等特性</span></span><br><span class="line"><span class="string">import &#123; LabelLayout, UniversalTransition &#125; from &quot;echarts/features&quot;;</span></span><br><span class="line"><span class="string">// 引入 Canvas 渲染器，注意引入 CanvasRenderer 或者 SVGRenderer 是必须的一步</span></span><br><span class="line"><span class="string">import &#123; CanvasRenderer &#125; from &quot;echarts/renderers&quot;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// 注册必须的组件</span></span><br><span class="line"><span class="string">echarts.use([</span></span><br><span class="line"><span class="string">    TitleComponent,</span></span><br><span class="line"><span class="string">    TooltipComponent,</span></span><br><span class="line"><span class="string">    GridComponent,</span></span><br><span class="line"><span class="string">    DatasetComponent,</span></span><br><span class="line"><span class="string">    TransformComponent,</span></span><br><span class="line"><span class="string">    BarChart,</span></span><br><span class="line"><span class="string">    LabelLayout,</span></span><br><span class="line"><span class="string">    UniversalTransition,</span></span><br><span class="line"><span class="string">    CanvasRenderer,</span></span><br><span class="line"><span class="string">]);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">export default echarts;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF &gt; styles/variables.scss</span></span><br><span class="line"><span class="string">//src/styles/variables.scss</span></span><br><span class="line"><span class="string">\$success: #48c78e;</span></span><br><span class="line"><span class="string">\$danger: #f28482;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF &gt; api/user.js</span></span><br><span class="line"><span class="string">import request from &quot;../utils/request&quot;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">/**</span></span><br><span class="line"><span class="string"> * 获取验证码</span></span><br><span class="line"><span class="string"> * @param checkKey</span></span><br><span class="line"><span class="string"> */</span></span><br><span class="line"><span class="string">export function getCodeInfo(checkKey) &#123;</span></span><br><span class="line"><span class="string">  return request(&#123;</span></span><br><span class="line"><span class="string">    method: &quot;get&quot;,</span></span><br><span class="line"><span class="string">    url: &#x27;&#x27;,</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF &gt; store/modules/user.js</span></span><br><span class="line"><span class="string">// src/store/modules/user.js</span></span><br><span class="line"><span class="string">import &#123; defineStore &#125; from &quot;pinia&quot;;</span></span><br><span class="line"><span class="string">import &#123; ref &#125; from &quot;vue&quot;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">const useUserStore = defineStore(&quot;user&quot;, () =&gt; &#123;</span></span><br><span class="line"><span class="string">  const userInfo = ref(&#123;&#125;);</span></span><br><span class="line"><span class="string">  const loginStatus = ref(false);</span></span><br><span class="line"><span class="string">  const token = ref(&quot;&quot;);</span></span><br><span class="line"><span class="string">  /**</span></span><br><span class="line"><span class="string">   * 登录</span></span><br><span class="line"><span class="string">   */</span></span><br><span class="line"><span class="string">  function handleLogin() &#123;</span></span><br><span class="line"><span class="string">    return new Promise((resolve, reject) =&gt; &#123;</span></span><br><span class="line"><span class="string">      if (Math.random() &gt; 0.8) &#123;</span></span><br><span class="line"><span class="string">        loginStatus.value = true;</span></span><br><span class="line"><span class="string">        token.value = String(new Date().getTime());</span></span><br><span class="line"><span class="string">        userInfo.value = &#123;</span></span><br><span class="line"><span class="string">          name: &quot;admin&quot;,</span></span><br><span class="line"><span class="string">          avatar: &quot;https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80&quot;,</span></span><br><span class="line"><span class="string">        &#125;;</span></span><br><span class="line"><span class="string">        resolve(&quot;登录成功&quot;);</span></span><br><span class="line"><span class="string">      &#125; else &#123;</span></span><br><span class="line"><span class="string">        reject(&quot;登录失败&quot;);</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  /**</span></span><br><span class="line"><span class="string">   * 退出登录</span></span><br><span class="line"><span class="string">   */</span></span><br><span class="line"><span class="string">  function handleLogout() &#123;</span></span><br><span class="line"><span class="string">    return new Promise((resolve) =&gt; &#123;</span></span><br><span class="line"><span class="string">      loginStatus.value = false;</span></span><br><span class="line"><span class="string">      token.value = &quot;&quot;;</span></span><br><span class="line"><span class="string">      userInfo.value = &#123;&#125;;</span></span><br><span class="line"><span class="string">      resolve();</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  return &#123;</span></span><br><span class="line"><span class="string">    userInfo,</span></span><br><span class="line"><span class="string">    loginStatus,</span></span><br><span class="line"><span class="string">    token,</span></span><br><span class="line"><span class="string">    handleLogin,</span></span><br><span class="line"><span class="string">    handleLogout,</span></span><br><span class="line"><span class="string">  &#125;;</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">export default useUserStore;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF &gt; store/index.js</span></span><br><span class="line"><span class="string">// src/store/index.js</span></span><br><span class="line"><span class="string">import &#123; createPinia &#125; from &quot;pinia&quot;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">const pinia = createPinia();</span></span><br><span class="line"><span class="string">export default pinia;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF &gt; router/index.js</span></span><br><span class="line"><span class="string">// src/router/index.js</span></span><br><span class="line"><span class="string">import &#123;createRouter, createWebHistory&#125; from &quot;vue-router&quot;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">const router = new createRouter(&#123;</span></span><br><span class="line"><span class="string">  history: createWebHistory(),</span></span><br><span class="line"><span class="string">  routes: [</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">      path: &quot;/&quot;,</span></span><br><span class="line"><span class="string">      component: () =&gt; import(&quot;../views/hall/index.vue&quot;),</span></span><br><span class="line"><span class="string">      children: [</span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">          path: &quot;hall&quot;,</span></span><br><span class="line"><span class="string">          component: () =&gt; import(&quot;../views/hall/index.vue&quot;)</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      ]</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">      path: &quot;/login&quot;,</span></span><br><span class="line"><span class="string">      name: &quot;Login&quot;,</span></span><br><span class="line"><span class="string">      component: () =&gt; import(&quot;../views/login/index.vue&quot;),</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">      path: &quot;/dashboard&quot;,</span></span><br><span class="line"><span class="string">      name: &quot;Dashboard&quot;,</span></span><br><span class="line"><span class="string">      component: () =&gt; import(&quot;../views/dashboard/index.vue&quot;),</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">  ],</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">export default router;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF &gt; layouts/HomeLayout.vue</span></span><br><span class="line"><span class="string">&lt;template&gt;</span></span><br><span class="line"><span class="string">  &lt;header class=&quot;header&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;logo&quot;&gt;XXX&lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;search-bar&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;input type=&quot;text&quot; placeholder=&quot;提问&quot; /&gt;</span></span><br><span class="line"><span class="string">      &lt;button&gt;搜索&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;user-actions&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;span&gt;消息&lt;/span&gt;</span></span><br><span class="line"><span class="string">      &lt;span&gt;私信&lt;/span&gt;</span></span><br><span class="line"><span class="string">      &lt;span&gt;创作中心&lt;/span&gt;</span></span><br><span class="line"><span class="string">      &lt;span&gt;草稿箱&lt;/span&gt;</span></span><br><span class="line"><span class="string">      &lt;img src=&quot;https://img.icons8.com/ios/452/user&quot; alt=&quot;用户头像&quot; /&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  &lt;/header&gt;</span></span><br><span class="line"><span class="string">  &lt;el-main class=&quot;main-content&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;router-view&gt;&lt;/router-view&gt;</span></span><br><span class="line"><span class="string">  &lt;/el-main&gt;</span></span><br><span class="line"><span class="string">&lt;/template&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;script&gt;</span></span><br><span class="line"><span class="string">export default &#123;</span></span><br><span class="line"><span class="string">  name: &quot;HeaderLayout&quot;,</span></span><br><span class="line"><span class="string">  data() &#123;</span></span><br><span class="line"><span class="string">    return &#123;</span></span><br><span class="line"><span class="string">      activeMenu: this.getActiveMenu(),</span></span><br><span class="line"><span class="string">    &#125;;</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  methods: &#123;</span></span><br><span class="line"><span class="string">    goHome() &#123;</span></span><br><span class="line"><span class="string">      this.$router.push(&quot;/home&quot;);</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    getActiveMenu() &#123;</span></span><br><span class="line"><span class="string">      const path = this.$route.path;</span></span><br><span class="line"><span class="string">      return &quot;hall&quot;;</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  watch: &#123;</span></span><br><span class="line"><span class="string">    $route() &#123;</span></span><br><span class="line"><span class="string">      this.activeMenu = this.getActiveMenu();</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">&#125;;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;style scoped&gt;</span></span><br><span class="line"><span class="string">/* Header Styles */</span></span><br><span class="line"><span class="string">.header &#123;</span></span><br><span class="line"><span class="string">  display: flex;</span></span><br><span class="line"><span class="string">  justify-content: space-between;</span></span><br><span class="line"><span class="string">  align-items: center;</span></span><br><span class="line"><span class="string">  padding: 15px 30px;</span></span><br><span class="line"><span class="string">  background-color: #ffffff;</span></span><br><span class="line"><span class="string">  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);</span></span><br><span class="line"><span class="string">  border-bottom: 1px solid #f0f0f0;</span></span><br><span class="line"><span class="string">  font-family: Arial, sans-serif;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.logo &#123;</span></span><br><span class="line"><span class="string">  font-size: 28px;</span></span><br><span class="line"><span class="string">  font-weight: bold;</span></span><br><span class="line"><span class="string">  color: #333;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.search-bar &#123;</span></span><br><span class="line"><span class="string">  display: flex;</span></span><br><span class="line"><span class="string">  align-items: center;</span></span><br><span class="line"><span class="string">  position: relative;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.search-bar input &#123;</span></span><br><span class="line"><span class="string">  padding: 8px 15px;</span></span><br><span class="line"><span class="string">  border: 1px solid #ccc;</span></span><br><span class="line"><span class="string">  border-radius: 25px;</span></span><br><span class="line"><span class="string">  width: 250px;</span></span><br><span class="line"><span class="string">  font-size: 14px;</span></span><br><span class="line"><span class="string">  outline: none;</span></span><br><span class="line"><span class="string">  transition: border-color 0.3s;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.search-bar input:focus &#123;</span></span><br><span class="line"><span class="string">  border-color: #007aff;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.search-bar button &#123;</span></span><br><span class="line"><span class="string">  padding: 8px 15px;</span></span><br><span class="line"><span class="string">  background-color: #007aff;</span></span><br><span class="line"><span class="string">  color: white;</span></span><br><span class="line"><span class="string">  border: none;</span></span><br><span class="line"><span class="string">  cursor: pointer;</span></span><br><span class="line"><span class="string">  border-radius: 25px;</span></span><br><span class="line"><span class="string">  position: absolute;</span></span><br><span class="line"><span class="string">  right: -10px;</span></span><br><span class="line"><span class="string">  transition: background-color 0.3s;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.search-bar button:hover &#123;</span></span><br><span class="line"><span class="string">  background-color: #0056b3;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.user-actions &#123;</span></span><br><span class="line"><span class="string">  display: flex;</span></span><br><span class="line"><span class="string">  align-items: center;</span></span><br><span class="line"><span class="string">  font-size: 14px;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.user-actions span &#123;</span></span><br><span class="line"><span class="string">  margin-right: 15px;</span></span><br><span class="line"><span class="string">  cursor: pointer;</span></span><br><span class="line"><span class="string">  transition: color 0.3s;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.user-actions span:hover &#123;</span></span><br><span class="line"><span class="string">  color: #007aff;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.user-actions img &#123;</span></span><br><span class="line"><span class="string">  width: 36px;</span></span><br><span class="line"><span class="string">  height: 36px;</span></span><br><span class="line"><span class="string">  border-radius: 50%;</span></span><br><span class="line"><span class="string">  border: 2px solid #007aff;</span></span><br><span class="line"><span class="string">  cursor: pointer;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">/* Main Content Styles */</span></span><br><span class="line"><span class="string">.main-content &#123;</span></span><br><span class="line"><span class="string">  padding: 20px;</span></span><br><span class="line"><span class="string">  background-color: #f9f9f9;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&lt;/style&gt;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF &gt; layouts/NotFoundLayout.vue</span></span><br><span class="line"><span class="string">&lt;script setup&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;template&gt;</span></span><br><span class="line"><span class="string">  &lt;div&gt;</span></span><br><span class="line"><span class="string">    &lt;h1&gt;404 Not Found&lt;/h1&gt;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;/template&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;style scoped&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;/style&gt;</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
-
-<p>进入package.json文件，修改scripts字段</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="string">&quot;vite&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;vite build&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;serve&quot;</span><span class="punctuation">:</span> <span class="string">&quot;vite preview&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;prettier&quot;</span><span class="punctuation">:</span> <span class="string">&quot;prettier --write src/**/*.&#123;vue,js,jsx,ts,tsx,json,css,scss,md&#125;&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
-
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_74825447/article/details/144637339">手把手完成前端Vue3 + Vite项目工程化搭建</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2024/12/24/hexo%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/favicon.ico">
-      <meta itemprop="name" content="Dunjia">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunjia's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/24/hexo%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">hexo框架搭建个人博客</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-12-24 15:11:14" itemprop="dateCreated datePublished" datetime="2024-12-24T15:11:14+08:00">2024-12-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-01-24 00:56:09" itemprop="dateModified" datetime="2025-01-24T00:56:09+08:00">2025-01-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="hexo框架搭建个人博客"><a href="#hexo框架搭建个人博客" class="headerlink" title="hexo框架搭建个人博客"></a>hexo框架搭建个人博客</h1><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><h3 id="1-1-hexo是什么"><a href="#1-1-hexo是什么" class="headerlink" title="1.1 hexo是什么"></a>1.1 hexo是什么</h3><p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">hexo</a>是一个快速、简洁且高效的博客框架，基于Node.js，可以快速搭建个人博客。</p>
-<p><img src="/images/image5.png" alt="alt text"></p>
-<h3 id="1-2-hexo的优势"><a href="#1-2-hexo的优势" class="headerlink" title="1.2 hexo的优势"></a>1.2 hexo的优势</h3><ul>
-<li>快速搭建</li>
-<li>简洁高效</li>
-<li>支持markdown</li>
-<li>支持插件</li>
-<li>支持主题</li>
-</ul>
-<h2 id="二、环境准备"><a href="#二、环境准备" class="headerlink" title="二、环境准备"></a>二、环境准备</h2><h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h3><p>Git是一个先进的分布式版本控制工具，可以有效处理不同规模的项目版本管理。这里用于管理你的Hexo文章，将本地的博客上传至Github。到<a target="_blank" rel="noopener" href="https://git-scm.com/downloads">Git</a>官网选择合适的版本下载，安装后会有一个Git Bash的命令行工具，之后用该工具操作Git。</p>
-<p><img src="/images/image3.png" alt="alt text"></p>
-<p>检查是否安装成功：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
-
-<p>正常显示版本号，无报错即为安装成功。</p>
-<h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p>Hexo基于Node.js，所以需要安装Node.js及npm工具。可进入<a target="_blank" rel="noopener" href="https://nodejs.org/en">Node.js</a>官网下载，选择LTS（长期支持版本）即可。</p>
-<p><img src="/images/image4.png" alt="alt text"></p>
-<p>检查是否安装成功：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
-
-<p>正常显示版本号，无报错即为安装成功。</p>
-<h2 id="三、安装hexo"><a href="#三、安装hexo" class="headerlink" title="三、安装hexo"></a>三、安装hexo</h2><h3 id="3-1-安装hexo"><a href="#3-1-安装hexo" class="headerlink" title="3.1 安装hexo"></a>3.1 安装hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-2-初始化hexo"><a href="#3-2-初始化hexo" class="headerlink" title="3.2 初始化hexo"></a>3.2 初始化hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog-name</span><br><span class="line">hexo init </span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-3-启动hexo"><a href="#3-3-启动hexo" class="headerlink" title="3.3 启动hexo"></a>3.3 启动hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo server </span><br><span class="line"><span class="comment"># 或者 hexo s</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="3-4-访问博客"><a href="#3-4-访问博客" class="headerlink" title="3.4 访问博客"></a>3.4 访问博客</h3><p>打开浏览器，输入<code>http://localhost:4000</code>即可访问博客。</p>
-<h2 id="四、hexo常用命令"><a href="#四、hexo常用命令" class="headerlink" title="四、hexo常用命令"></a>四、hexo常用命令</h2><h3 id="4-1-新建文章"><a href="#4-1-新建文章" class="headerlink" title="4.1 新建文章"></a>4.1 新建文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;文章标题&quot;</span></span><br><span class="line"><span class="comment"># 或者 hexo n &quot;文章标题&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-2-生成静态文件"><a href="#4-2-生成静态文件" class="headerlink" title="4.2 生成静态文件"></a>4.2 生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line"><span class="comment"># 或者 hexo g</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-3-部署到github"><a href="#4-3-部署到github" class="headerlink" title="4.3 部署到github"></a>4.3 部署到github</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br><span class="line"><span class="comment"># 或者 hexo d</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-4-清除缓存"><a href="#4-4-清除缓存" class="headerlink" title="4.4 清除缓存"></a>4.4 清除缓存</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-5-本地预览"><a href="#4-5-本地预览" class="headerlink" title="4.5 本地预览"></a>4.5 本地预览</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br><span class="line"><span class="comment"># 或者 hexo s</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="五、hexo配置"><a href="#五、hexo配置" class="headerlink" title="五、hexo配置"></a>五、hexo配置</h2><h3 id="5-1-修改主题"><a href="#5-1-修改主题" class="headerlink" title="5.1 修改主题"></a>5.1 修改主题</h3><p>从<a target="_blank" rel="noopener" href="https://hexo.io/themes/">hexo官网</a>下载主题，解压到<code>themes</code>目录下，或者从github上clone主题到<code>themes</code>目录下，或者使用npm安装主题。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save <span class="string">&quot;主题名称&quot;</span></span><br><span class="line"><span class="comment"># 例如 npm install --save hexo-theme-next</span></span><br></pre></td></tr></table></figure>
-
-<p>或者使用git clone命令。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> <span class="string">&quot;主题地址&quot;</span> themes/<span class="string">&quot;主题名称&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>然后在<code>_config.yml</code>文件中修改<code>theme</code>字段，将默认主题<code>landscape</code>修改为其他主题。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">&quot;主题名称&quot;</span></span><br><span class="line"><span class="comment"># 例如 theme: hexo-theme-next</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="5-2-修改站点信息"><a href="#5-2-修改站点信息" class="headerlink" title="5.2 修改站点信息"></a>5.2 修改站点信息</h3><p>在<code>_config.yml</code>文件中修改<code>title</code>、<code>subtitle</code>、<code>description</code>、<code>author</code>等字段。</p>
-<p>…</p>
-<h2 id="六、部署到github"><a href="#六、部署到github" class="headerlink" title="六、部署到github"></a>六、部署到github</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<p>在<code>_config.yml</code>文件中修改<code>deploy</code>字段。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">&quot;仓库地址&quot;</span></span><br><span class="line">    <span class="attr">branch:</span> <span class="string">&quot;分支&quot;</span> <span class="comment"># 默认为main</span></span><br></pre></td></tr></table></figure>
-
-<p>然后执行部署命令。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-<p>等待部署完成后，打开浏览器，输入<code>https://用户名.github.io</code>即可访问博客。</p>
-<h2 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h2><p>至此，hexo框架搭建个人博客的过程已经介绍完毕，希望对你有所帮助。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://xudong7.github.io/2024/12/23/vite-vs-webpack/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/favicon.ico">
-      <meta itemprop="name" content="Dunjia">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunjia's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/23/vite-vs-webpack/" class="post-title-link" itemprop="url">前端构建工具 Vite vs Webpack</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-12-23 18:40:48" itemprop="dateCreated datePublished" datetime="2024-12-23T18:40:48+08:00">2024-12-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-01-24 00:56:19" itemprop="dateModified" datetime="2025-01-24T00:56:19+08:00">2025-01-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h1><p>Webpack 是一个基于打包器的构建工具，同一个入口文件的代码会打包成一个 Bundle 文件。Webpack 长期来的一个痛点是对于大规模应用的应用启动和热更新速度很慢。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g vue-cli@latest</span><br></pre></td></tr></table></figure>
-
-<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue create my-project</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
-
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run serve</span><br></pre></td></tr></table></figure>
-
-<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
-
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=513827141&bvid=BV11g411y7Sd&cid=782308128&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-
-<h1 id="Vite"><a href="#Vite" class="headerlink" title="Vite"></a>Vite</h1><p>Vite 是旨在提升开发者体验的下一代 JavaScript 构建工具，核心借助了浏览器的原生 ES Modules 和像 esbuild 这样的将代码编译成 native code 的打包工具。</p>
-<h2 id="创建项目-1"><a href="#创建项目-1" class="headerlink" title="创建项目"></a>创建项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm create vite</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装依赖-1"><a href="#安装依赖-1" class="headerlink" title="安装依赖"></a>安装依赖</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
-
-<h2 id="运行-1"><a href="#运行-1" class="headerlink" title="运行"></a>运行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
-
-<h2 id="打包-1"><a href="#打包-1" class="headerlink" title="打包"></a>打包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
-
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=724167325&bvid=BV1yS4y1r7nE&cid=512991161&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Webpack 和 Vite 都是构建工具，个人而言，开发小型项目时，Vite 会更快，而开发大型项目时，Webpack 会更稳定。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sunyctf/article/details/128059586">https://blog.csdn.net/sunyctf/article/details/128059586</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7106136866381889573">https://juejin.cn/post/7106136866381889573</a></p>
-<style>
-    iframe {
-      width: 100%;
-      height: 500px;
-    }
-  </style>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Dunjia"
-      src="/images/favicon.ico">
-  <p class="site-author-name" itemprop="name">Dunjia</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/xudong7" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xudong7" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:dunjiazz@gmail.com" title="E-Mail → mailto:dunjiazz@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-  </div>
-  <div class="cc-license motion-element" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
-  </div>
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Dunjia&#39;s Blog</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 h-card">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/logo.png" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Dunjia&#39;s Blog</h1>
     </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://www.zhihu.com/people/ssgang-ba-zi" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;ssgang-ba-zi" rel="noopener" target="_blank">Zhihu</a>
-        </li>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+   -->
     </ul>
   </div>
+</header>
 
-      </div>
+        
+        <section id="about" class="p-note">
+  
+  
+    <p>
+      Find me on
+      
+      
+      
+        
+        
+          <a class="icon u-url" target="_blank" rel="noopener me" href="https://github.com/xudong7" aria-label="github" title="github">
+            <i class="fa-brands fa-github"></i><!--
+      ---></a><!--
+    ---><!--
+    --->, 
+        
+      
+        
+        
+          <a class="icon u-url" target="_blank" rel="noopener me" href="/" aria-label="twitter" title="twitter">
+            <i class="fa-brands fa-twitter"></i><!--
+      ---></a><!--
+    ---><!--
+    --->, 
+        
+      
+        
+        
+          <a class="icon u-url" target="_blank" rel="noopener me" href="/" aria-label="facebook" title="facebook">
+            <i class="fa-brands fa-facebook"></i><!--
+      ---></a><!--
+    ---><!--
+    --->, 
+        
+      
+        
+        
+          <a class="icon u-email" target="_blank" rel="noopener" href="mailto:name@email.com" aria-label="mail" title="mail">
+            <i class="fa-solid fa-envelope"></i><!--
+      ---></a>
+        <!--
+    --->, 
+        
+      
+        
+        
+          <a class="icon u-url" target="_blank" rel="noopener me" href="https://mastodon.social/@alice" aria-label="mastodon.social" title="mastodon.social">
+            <i class="fa-brands fa-mastodon"></i><!--
+      ---></a><!--
+    ---><!--
+    ---> and 
+        
+      
+        
+        
+          <a class="icon u-url" target="_blank" rel="noopener me" href="https://fosstodon.org/@alice" aria-label="fosstodon.org" title="fosstodon.org">
+            <i class="fa-brands fa-mastodon"></i><!--
+      ---></a><!--
+    ---><!--
+    --->.
+        
+      
+    </p>
+  
+</section>
+
+<section id="writing">
+  <span class="h1"><a href="/archives/">Writing</a></span>
+  
+  <ul class="post-list">
+    
+    
+      
+    
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2025-03-21T02:52:32.000Z" class="dt-published" itemprop="datePublished">2025-03-21</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2025/03/21/rust-Vec%E5%AD%98%E5%82%A8%E4%B8%8D%E5%90%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">rust-Vec存储不同数据类型的几种方法</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2025-03-19T01:02:22.000Z" class="dt-published" itemprop="datePublished">2025-03-19</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2025/03/19/aop/">aop</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2025-03-18T09:18:52.000Z" class="dt-published" itemprop="datePublished">2025-03-18</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2025/03/18/%E4%BA%8B%E5%8A%A1-transactional%E6%B3%A8%E8%A7%A3/">事务-@transactional注解</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2025-03-18T06:47:58.000Z" class="dt-published" itemprop="datePublished">2025-03-18</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2025/03/18/%E4%B8%80%E4%BA%BA%E4%B8%80%E5%8D%95%E9%97%AE%E9%A2%98/">一人一单问题</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2025-03-18T04:38:46.000Z" class="dt-published" itemprop="datePublished">2025-03-18</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2025/03/18/%E8%B6%85%E5%8D%96%E9%97%AE%E9%A2%98/">超卖问题</a>
+    
+
+
+</span>
+      </li>
+    
+  </ul>
+  
+</section>
+
+
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    Dunjia
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
 
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+    <!-- styles -->
 
 
-      </div>
-    </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
 
-        
 
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2025</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Dunjia</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
+    <!-- jquery -->
 
-        
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="Total Visitors">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="Total Views">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
-</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
 
 
 
+<!-- clipboard -->
 
 
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
-      </div>
-    </footer>
-  </div>
+<!-- Baidu Analytics -->
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<!-- Cloudflare Analytics -->
 
-<script src="/js/utils.js"></script>
+<!-- Disqus Comments -->
 
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
+<!-- utterances Comments -->
 
 </body>
 </html>
