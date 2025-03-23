@@ -719,7 +719,7 @@
   <entry>
     <title>bv-downloader</title>
     <url>/2025/03/23/bv-downloader/</url>
-    <content><![CDATA[<h2 id="bv-downloader"><a href="#bv-downloader" class="headerlink" title="bv-downloader"></a>bv-downloader</h2><p>最近用大创经费买了一个硬盘，可以把之前想保存的视频都下载下来了，于是写了一个简单的脚本，可以自动化地下载合集视频。</p>
+    <content><![CDATA[<h2 id="bv-downloader"><a href="#bv-downloader" class="headerlink" title="bv-downloader"></a>bv-downloader</h2><p>最近用大创经费买了一个硬盘，可以把之前想保存的视频都下载下来了，于是写了一个简单的脚本，可以自动化地下载b站上的合集视频。</p>
 <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><ul>
 <li>项目地址：<a href="https://github.com/xudong7/bv-downloader">bv-downloader</a></li>
 <li>语言：JavaScript</li>
