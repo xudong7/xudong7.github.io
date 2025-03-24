@@ -743,4 +743,100 @@
 <p>…</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>springboot</title>
+    <url>/2025/03/24/springboot/</url>
+    <content><![CDATA[<h2 id="springboot"><a href="#springboot" class="headerlink" title="springboot"></a>springboot</h2><p>最近在学习springboot，记录一些学习笔记。</p>
+<h3 id="配置优先级"><a href="#配置优先级" class="headerlink" title="配置优先级"></a>配置优先级</h3><p>springboot的配置优先级如下(从高到低)：</p>
+<ol>
+<li>命令行参数</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">java -jar app.jar --server.port=8080</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>java系统属性</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">java -Dserver.port=8080 -jar app.jar</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>properties文件</li>
+</ol>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">server.port</span>=<span class="string">8080</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>yml文件</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>yaml文件</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="bean的获取"><a href="#bean的获取" class="headerlink" title="bean的获取"></a>bean的获取</h3><p>获取bean的方式有三种：</p>
+<ol>
+<li>通过名称获取</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getBeanByName</span><span class="params">()</span> &#123;</span><br><span class="line">    applicationContext.getBean(<span class="string">&quot;beanName&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>通过类型获取</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getBeanByType</span><span class="params">()</span> &#123;</span><br><span class="line">    applicationContext.getBean(BeanType.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>通过名称和类型获取</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getBeanByNameAndType</span><span class="params">()</span> &#123;</span><br><span class="line">    applicationContext.getBean(<span class="string">&quot;beanName&quot;</span>, BeanType.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="bean的作用域"><a href="#bean的作用域" class="headerlink" title="bean的作用域"></a>bean的作用域</h3><p>bean的作用域有五种：</p>
+<ol>
+<li>singleton (默认)</li>
+</ol>
+<p>单例模式，一个容器只有一个实例。</p>
+<ol start="2">
+<li>prototype (非单例)</li>
+</ol>
+<p>原型模式，每次请求都会创建一个新的实例。</p>
+<ol start="3">
+<li>request (web环境)</li>
+</ol>
+<p>每次请求都会创建一个新的实例。</p>
+<ol start="4">
+<li>session (web环境)</li>
+</ol>
+<p>每次会话都会创建一个新的实例。</p>
+<ol start="5">
+<li>application (web环境)</li>
+</ol>
+<p>每次应用都会创建一个新的实例。</p>
+<h4 id="如何设置bean的作用域"><a href="#如何设置bean的作用域" class="headerlink" title="如何设置bean的作用域"></a>如何设置bean的作用域</h4><p>通过注解</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span>  </span><br><span class="line"><span class="meta">@Scope(&quot;prototype&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrototypeBean</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="延迟初始化"><a href="#延迟初始化" class="headerlink" title="延迟初始化"></a>延迟初始化</h4><p>懒汉模式</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Lazy</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazyBean</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动时不会创建bean，第一次使用时才会创建。</p>
+<h3 id="第三方bean"><a href="#第三方bean" class="headerlink" title="第三方bean"></a>第三方bean</h3><p>springboot支持第三方bean的注入，只需要在配置类中添加<code>@bean</code>注解即可。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThirdPartyBeanConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> ThirdPartyBean <span class="title function_">thirdPartyBean</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ThirdPartyBean</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如何获取第三方bean：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getThirdPartyBean</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">Object</span> <span class="variable">thirdPartyObject</span> <span class="operator">=</span> applicationContext.getBean(<span class="string">&quot;thirdPartyBean&quot;</span>); <span class="comment">// 可以通过方法名获取</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@Componet 和 @Bean 的使用场景：</p>
+<ol>
+<li>@Component</li>
+</ol>
+<p>项目中自定义的，使用@Component及其衍生注解，如@Service、@Repository、@Controller等。</p>
+<ol start="2">
+<li>@Bean</li>
+</ol>
+<p>项目中引入的第三方bean，使用@Bean注解。</p>
+<h2 id="springboot原理"><a href="#springboot原理" class="headerlink" title="springboot原理"></a>springboot原理</h2><p>springboot的核心是spring，springboot是对spring的封装，提供了一些便捷的功能。</p>
+<h3 id="起步依赖"><a href="#起步依赖" class="headerlink" title="起步依赖"></a>起步依赖</h3><p>通过<strong>maven的依赖传递</strong>实现的，可以通过<code>spring-boot-starter-parent</code>来管理版本。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="自动配置"><a href="#自动配置" class="headerlink" title="自动配置"></a>自动配置</h3>]]></content>
+  </entry>
 </search>
