@@ -873,7 +873,43 @@
 
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@EnableSchedulingConfig</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="自动配置原理"><a href="#自动配置原理" class="headerlink" title="自动配置原理"></a>自动配置原理</h3><p>…</p>
+<h3 id="自动配置原理"><a href="#自动配置原理" class="headerlink" title="自动配置原理"></a>自动配置原理</h3><p><code>@SpringBootApplication</code>注解由三个部分组成：</p>
+<ol>
+<li><p><code>@SpringBootConfiguration</code>：标注当前类是一个配置类，继承自@Configuration。</p>
+</li>
+<li><p><code>@ComponentScan</code>：扫描当前包及其子包下的所有组件。</p>
+</li>
+<li><p><strong><code>@EnableAutoConfiguration</code></strong>：开启自动配置功能。(<strong>核心</strong>)</p>
+</li>
+</ol>
+<p><code>@EnableAutoConfiguration</code>注解的原理：</p>
+<ol>
+<li><p><code>@Import(AutoConfigurationImportSelector.class)</code>：导入AutoConfigurationImportSelector类。</p>
+</li>
+<li><p>AutoConfigurationImportSelector类的selectImports方法：</p>
+</li>
+</ol>
+<ul>
+<li>获取所有的自动配置类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">protected</span> List&lt;String&gt; <span class="title function_">getCandidateConfigurations</span><span class="params">(AnnotationMetadata metadata, AnnotationAttributes attributes)</span> &#123;</span><br><span class="line">    List&lt;String&gt; configurations = SpringFactoriesLoader.loadFactoryNames(getSpringFactoriesLoaderFactoryClass(), getBeanClassLoader());</span><br><span class="line">    Assert.notEmpty(configurations, <span class="string">&quot;No auto configuration classes found in META-INF/spring.factories. If you are using a custom packaging, make sure that file is correct.&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> configurations;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过SpringFactoriesLoader.loadFactoryNames方法获取所有的自动配置类。</p>
+<h3 id="Conditional注解"><a href="#Conditional注解" class="headerlink" title="@Conditional注解"></a>@Conditional注解</h3><p><code>@Conditional</code>注解是springboot提供的一个条件注解，用于判断是否满足某个条件，满足条件才会加载bean到IOC容器中。</p>
+<ul>
+<li><p><code>@ConditionalOnMissingBean</code>：当容器中没有指定的bean时，才会加载当前bean。</p>
+</li>
+<li><p><code>@ConditionalOnClass</code>：当类路径下有指定的类时，才会加载当前bean。</p>
+</li>
+<li><p><code>@ConditionalOnProperty</code>：当配置文件中有指定的属性时，才会加载当前bean。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ConditionalOnClass(name = &quot;com.example.BeanObject2&quot;)</span></span><br><span class="line"><span class="keyword">public</span> BeanObject <span class="title function_">beanObject</span><span class="params">()</span> &#123; <span class="comment">// 当环境中存在BeanObject2类时，才会加载当前bean</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BeanObject</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ConditionalOnMissingBean(name = &quot;com.example.BeanObject2&quot;)</span> <span class="comment">// 指定类型(value属性)或名称(name属性)</span></span><br><span class="line"><span class="keyword">public</span> BeanObject <span class="title function_">beanObject</span><span class="params">()</span> &#123; <span class="comment">// 当环境中不存在BeanObject2类时，才会加载当前bean</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BeanObject</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ConditionalOnProperty(name = &quot;spring.datasource.url&quot;)</span> <span class="comment">// 当配置文件中存在spring.datasource.url属性时，才会加载当前bean</span></span><br><span class="line"><span class="keyword">public</span> BeanObject <span class="title function_">beanObject</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BeanObject</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
   </entry>
 </search>
