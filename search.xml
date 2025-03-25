@@ -912,4 +912,38 @@
 
 ]]></content>
   </entry>
+  <entry>
+    <title>springboot starter diy</title>
+    <url>/2025/03/25/springboot-starter-diy/</url>
+    <content><![CDATA[<h2 id="使用自定义的springboot-starter"><a href="#使用自定义的springboot-starter" class="headerlink" title="使用自定义的springboot starter"></a>使用自定义的springboot starter</h2><p>e.g. 以阿里云oss为例，自定义一个starter，方便在项目中使用</p>
+<h3 id="1-创建aliyun-oss-spring-boot-starter项目"><a href="#1-创建aliyun-oss-spring-boot-starter项目" class="headerlink" title="1. 创建aliyun-oss-spring-boot-starter项目"></a>1. 创建aliyun-oss-spring-boot-starter项目</h3><p>文件夹中只保留pom.xml和.iml(idea配置文件)</p>
+<p>如果没有.iml，可以运行mvn idea:module生成</p>
+<h3 id="2-创建aliyun-oss-spring-boot-starter-autoconfigure项目"><a href="#2-创建aliyun-oss-spring-boot-starter-autoconfigure项目" class="headerlink" title="2. 创建aliyun-oss-spring-boot-starter-autoconfigure项目"></a>2. 创建aliyun-oss-spring-boot-starter-autoconfigure项目</h3><p>在starter中的pom.xml中添加依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.aliyun.oss<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>aliyun-oss-spring-boot-autoconfigue<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/image22.png" alt="alt text"></p>
+<h3 id="3-将AliOSSUtils类放入autoconfigure项目中"><a href="#3-将AliOSSUtils类放入autoconfigure项目中" class="headerlink" title="3. 将AliOSSUtils类放入autoconfigure项目中"></a>3. 将AliOSSUtils类放入autoconfigure项目中</h3><p><img src="/images/image23.png" alt="alt text"></p>
+<p>发现MultipartFile报错，因为没有引入spring-boot-starter-web依赖</p>
+<p>在autoconfigure项目中的pom.xml中添加依赖即可</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-调整AliOSSUtils类"><a href="#4-调整AliOSSUtils类" class="headerlink" title="4. 调整AliOSSUtils类"></a>4. 调整AliOSSUtils类</h3><p><img src="/images/image24.png" alt="alt text"></p>
+<p>如果将AliOSSUtils类中的accessKeyId、accessKeySecret、bucketName、endpoint等参数配置到application.properties中，那么就需要使用<code>@EnableConfigurationProperties</code>注解来启用配置属性，同时也需要为new AliOSSUtils()添加一个构造方法，将配置属性传入。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;aliyun.oss&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AliOSSProperties</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String accessKeyId;</span><br><span class="line">    <span class="keyword">private</span> String accessKeySecret;</span><br><span class="line">    <span class="keyword">private</span> String bucketName;</span><br><span class="line">    <span class="keyword">private</span> String endpoint;</span><br><span class="line">    <span class="comment">// getter and setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样properties类中的属性值就可以从application.properties中读取</p>
+<h3 id="5-配置META-INF-spring-org-springframework-boot-autoconfigure-AutoConfiguration-imports"><a href="#5-配置META-INF-spring-org-springframework-boot-autoconfigure-AutoConfiguration-imports" class="headerlink" title="5. 配置META-INF&#x2F;spring&#x2F;org.springframework.boot.autoconfigure.AutoConfiguration.imports"></a>5. 配置META-INF&#x2F;spring&#x2F;org.springframework.boot.autoconfigure.AutoConfiguration.imports</h3><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">com.aliyun.oss.AliOSSAutoConfiguration</span> <span class="string"></span></span><br></pre></td></tr></table></figure>
+
+<p>填写自动配置类的全路径，实现自动配置</p>
+<p><img src="/images/image25.png" alt="alt text"></p>
+<h3 id="6-测试"><a href="#6-测试" class="headerlink" title="6. 测试"></a>6. 测试</h3><p>在starter项目中的pom.xml中添加依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.aliyun.oss<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>aliyun-oss-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后配置properties</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">aliyun.oss.access-key-id</span>=<span class="string">xxx</span></span><br><span class="line"><span class="attr">aliyun.oss.access-key-secret</span>=<span class="string">xxx</span></span><br><span class="line"><span class="attr">aliyun.oss.bucket-name</span>=<span class="string">xxx</span></span><br><span class="line"><span class="attr">aliyun.oss.endpoint</span>=<span class="string">xxx</span></span><br></pre></td></tr></table></figure>
+
+<p>然后就可以使用@Autowired注入AliOSSUtils类，调用方法上传文件了…</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>说实话，真的会在实际项目中用到这个东西吗？不过了解一下也是好的，毕竟springboot的自动配置机制是非常强大的，可以帮助我们简化很多工作…</p>
+]]></content>
+  </entry>
 </search>
