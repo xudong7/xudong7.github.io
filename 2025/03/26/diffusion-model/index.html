@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="diffusion modelzhihu ask to ai扩散模型如ddpm的前向过程好的，我将详细解释扩散模型（如DDPM）中的前向过程，并重点分析其数学公式和步骤。  扩散模型的前向过程（Forward Process）扩散模型的核心思想是通过一个马尔可夫链将真实数据 (x_0) 逐步添加噪声，最终转化为纯噪声 (x_T)。这一过程称为前向过程（Forward Process），其数学形式如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="diffusion model">
+<meta property="og:url" content="https://xudong7.github.io/2025/03/26/diffusion-model/index.html">
+<meta property="og:site_name" content="Dunjia&#39;s Blog">
+<meta property="og:description" content="diffusion modelzhihu ask to ai扩散模型如ddpm的前向过程好的，我将详细解释扩散模型（如DDPM）中的前向过程，并重点分析其数学公式和步骤。  扩散模型的前向过程（Forward Process）扩散模型的核心思想是通过一个马尔可夫链将真实数据 (x_0) 逐步添加噪声，最终转化为纯噪声 (x_T)。这一过程称为前向过程（Forward Process），其数学形式如">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-03-26T14:48:20.000Z">
+<meta property="article:modified_time" content="2025-03-26T14:52:40.803Z">
+<meta property="article:author" content="Dunjia">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>diffusion model</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/03/25/mail/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://xudong7.github.io/2025/03/26/diffusion-model/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://xudong7.github.io/2025/03/26/diffusion-model/&text=diffusion model"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://xudong7.github.io/2025/03/26/diffusion-model/&title=diffusion model"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://xudong7.github.io/2025/03/26/diffusion-model/&is_video=false&description=diffusion model"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=diffusion model&body=Check out this article: https://xudong7.github.io/2025/03/26/diffusion-model/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://xudong7.github.io/2025/03/26/diffusion-model/&title=diffusion model"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://xudong7.github.io/2025/03/26/diffusion-model/&title=diffusion model"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://xudong7.github.io/2025/03/26/diffusion-model/&title=diffusion model"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://xudong7.github.io/2025/03/26/diffusion-model/&title=diffusion model"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://xudong7.github.io/2025/03/26/diffusion-model/&name=diffusion model&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://xudong7.github.io/2025/03/26/diffusion-model/&t=diffusion model"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#diffusion-model"><span class="toc-number">1.</span> <span class="toc-text">diffusion model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ask-to-ai"><span class="toc-number">2.</span> <span class="toc-text">ask to ai</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E5%A6%82ddpm%E7%9A%84%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">扩散模型如ddpm的前向过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%EF%BC%88Forward-Process%EF%BC%89"><span class="toc-number">3.1.</span> <span class="toc-text">扩散模型的前向过程（Forward Process）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E6%95%B0%E5%AD%A6%E5%AE%9A%E4%B9%89"><span class="toc-number">3.1.1.</span> <span class="toc-text">1. 前向过程的数学定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%A0%B8%E5%BF%83%E5%8F%82%E6%95%B0%EF%BC%9A%E6%96%B9%E5%B7%AE%E8%A1%B0%E5%87%8F%E7%B3%BB%E6%95%B0-alpha-t"><span class="toc-number">3.1.2.</span> <span class="toc-text">2. 核心参数：方差衰减系数 (\alpha_t)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E5%88%86%E5%B8%83%E6%8E%A8%E5%AF%BC"><span class="toc-number">3.1.3.</span> <span class="toc-text">3. 前向过程的分布推导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.1.4.</span> <span class="toc-text">4. 前向过程的步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A41%EF%BC%9A%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%82%E6%95%B0"><span class="toc-number">3.1.4.1.</span> <span class="toc-text">步骤1：初始化参数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A42%EF%BC%9A%E5%89%8D%E5%90%91%E6%89%A9%E6%95%A3"><span class="toc-number">3.1.4.2.</span> <span class="toc-text">步骤2：前向扩散</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A43%EF%BC%9A%E7%BB%88%E6%AD%A2%E6%9D%A1%E4%BB%B6"><span class="toc-number">3.1.4.3.</span> <span class="toc-text">步骤3：终止条件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%85%B3%E9%94%AE%E6%80%A7%E8%B4%A8"><span class="toc-number">3.1.5.</span> <span class="toc-text">5. 关键性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E7%A4%BA%E4%BE%8B%EF%BC%9ADDPM%E4%B8%AD%E7%9A%84%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="toc-number">3.1.6.</span> <span class="toc-text">6. 示例：DDPM中的参数设置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.2.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%96%B9%E5%B7%AE%E4%B8%80%E8%88%AC%E6%98%AF%E5%9B%BA%E5%AE%9A%E8%AE%BE%E7%BD%AE%E7%9A%84"><span class="toc-number">4.</span> <span class="toc-text">为什么方差一般是固定设置的</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%A8%B3%E5%AE%9A%E6%80%A7%E4%B8%8E%E5%8F%AF%E9%80%86%E6%80%A7"><span class="toc-number">4.1.</span> <span class="toc-text">1. 稳定性与可逆性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC"><span class="toc-number">4.2.</span> <span class="toc-text">2. 理论基础与数学推导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AE%A1%E7%AE%97%E6%95%88%E7%8E%87%E4%B8%8E%E7%AE%80%E5%8C%96%E8%AE%AD%E7%BB%83"><span class="toc-number">4.3.</span> <span class="toc-text">3. 计算效率与简化训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%BB%8F%E9%AA%8C%E6%95%88%E6%9E%9C%E4%B8%8E%E5%AE%9E%E9%AA%8C%E9%AA%8C%E8%AF%81"><span class="toc-number">4.4.</span> <span class="toc-text">4. 经验效果与实验验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%9B%BA%E5%AE%9A%E6%96%B9%E5%B7%AE%E7%9A%84%E5%85%B7%E4%BD%93%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.5.</span> <span class="toc-text">5. 固定方差的具体设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E9%80%92%E5%A2%9E%E7%9A%84-beta-t-%EF%BC%88DDPM%E9%BB%98%E8%AE%A4%E8%AE%BE%E7%BD%AE%EF%BC%89"><span class="toc-number">4.5.1.</span> <span class="toc-text">线性递增的(\beta_t)（DDPM默认设置）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%99%E5%BC%A6%E8%A1%B0%E5%87%8F%E6%88%96%E5%85%B6%E4%BB%96%E9%A2%84%E8%AE%BE%E5%87%BD%E6%95%B0"><span class="toc-number">4.5.2.</span> <span class="toc-text">余弦衰减或其他预设函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%A4%96%E6%83%85%E5%86%B5%EF%BC%9A%E5%8A%A8%E6%80%81%E8%B0%83%E6%95%B4%E6%96%B9%E5%B7%AE%E7%9A%84%E5%B0%9D%E8%AF%95"><span class="toc-number">4.6.</span> <span class="toc-text">例外情况：动态调整方差的尝试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-number">4.7.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A2%E7%84%B6%E9%83%BD%E6%98%AF%E5%9B%BA%E5%AE%9A%E9%A2%84%E8%AE%BE%E7%9A%84%EF%BC%8C%E9%82%A3%E4%B9%88%E5%89%8D%E5%90%8E%E5%90%91%E4%BC%A0%E6%92%AD%E5%8F%88%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89%E5%91%A2"><span class="toc-number">5.</span> <span class="toc-text">既然都是固定预设的，那么前后向传播又有什么意义呢</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-number">5.1.</span> <span class="toc-text">1. 前向过程的意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%90%8E%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-number">5.2.</span> <span class="toc-text">2. 后向过程的意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%B8%A4%E8%80%85%E7%9A%84%E5%8D%8F%E5%90%8C%E4%BD%9C%E7%94%A8"><span class="toc-number">5.3.</span> <span class="toc-text">3. 两者的协同作用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%95%B0%E5%AD%A6%E5%8F%AF%E9%80%86%E6%80%A7"><span class="toc-number">5.3.1.</span> <span class="toc-text">(1) 数学可逆性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%AE%AD%E7%BB%83%E4%B8%8E%E7%94%9F%E6%88%90%E7%9A%84%E5%88%86%E7%A6%BB"><span class="toc-number">5.3.2.</span> <span class="toc-text">(2) 训练与生成的分离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%A8%B3%E5%AE%9A%E6%80%A7%E4%B8%8E%E6%95%88%E7%8E%87"><span class="toc-number">5.3.3.</span> <span class="toc-text">(3) 稳定性与效率</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%85%B7%E4%BD%93%E7%A4%BA%E4%BE%8B%EF%BC%9ADDPM%E7%9A%84%E8%AE%AD%E7%BB%83%E4%B8%8E%E7%94%9F%E6%88%90"><span class="toc-number">5.4.</span> <span class="toc-text">4. 具体示例：DDPM的训练与生成</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%AE%AD%E7%BB%83%E9%98%B6%E6%AE%B5"><span class="toc-number">5.4.1.</span> <span class="toc-text">(1) 训练阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%94%9F%E6%88%90%E9%98%B6%E6%AE%B5"><span class="toc-number">5.4.2.</span> <span class="toc-text">(2) 生成阶段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%A6%82%E6%9E%9C%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E5%8F%82%E6%95%B0%E4%B8%8D%E5%9B%BA%E5%AE%9A%E4%BC%9A%E6%80%8E%E6%A0%B7%EF%BC%9F"><span class="toc-number">5.5.</span> <span class="toc-text">5. 如果前向过程的参数不固定会怎样？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-2"><span class="toc-number">5.6.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E4%BB%A5%E7%90%86%E8%A7%A3%E4%B8%BA%E5%89%8D%E5%90%8E%E5%90%91%E7%9A%84%E5%8D%8F%E5%90%8C%E4%B8%BB%E8%A6%81%E6%98%AF%E4%B8%BA%E4%BA%86%E8%AE%AD%E7%BB%83%E5%87%BA%E4%B8%80%E4%B8%AA%E5%85%B7%E6%9C%89%E6%B3%9B%E5%8C%96%E8%83%BD%E5%8A%9B%E7%9A%84%E5%8E%BB%E5%99%AA%E6%A8%A1%E5%9E%8B-%E4%BB%A5%E8%BE%BE%E5%88%B0%E7%94%9F%E6%88%90%E6%9B%B4%E5%8A%A0%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E6%A0%B7%E6%9C%AC%E5%90%97"><span class="toc-number">6.</span> <span class="toc-text">可以理解为前后向的协同主要是为了训练出一个具有泛化能力的去噪模型 以达到生成更加高质量的样本吗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B3%9B%E5%8C%96%E8%83%BD%E5%8A%9B%E7%9A%84%E6%9D%A5%E6%BA%90"><span class="toc-number">6.1.</span> <span class="toc-text">1. 泛化能力的来源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%AB%98%E8%B4%A8%E9%87%8F%E7%94%9F%E6%88%90%E7%9A%84%E4%BF%9D%E9%9A%9C"><span class="toc-number">6.2.</span> <span class="toc-text">2. 高质量生成的保障</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8D%8F%E5%90%8C%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%86%E8%8A%82"><span class="toc-number">6.3.</span> <span class="toc-text">3. 协同设计的细节</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E2%80%9C%E5%99%AA%E5%A3%B0%E5%A4%9A%E6%A0%B7%E6%80%A7%E2%80%9D"><span class="toc-number">6.3.1.</span> <span class="toc-text">(1) 前向过程的“噪声多样性”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%90%8E%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E2%80%9C%E5%8E%BB%E5%99%AA%E6%B3%9B%E5%8C%96%E2%80%9D"><span class="toc-number">6.3.2.</span> <span class="toc-text">(2) 后向过程的“去噪泛化”</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AF%B9%E6%AF%94%E4%BC%A0%E7%BB%9F%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B"><span class="toc-number">6.4.</span> <span class="toc-text">4. 对比传统生成模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8EGAN%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">6.4.1.</span> <span class="toc-text">与GAN的对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8EVAE%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">6.4.2.</span> <span class="toc-text">与VAE的对比</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%AE%9E%E9%99%85%E6%95%88%E6%9E%9C%E9%AA%8C%E8%AF%81"><span class="toc-number">6.5.</span> <span class="toc-text">5. 实际效果验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-3"><span class="toc-number">6.6.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E5%AE%8C%E6%88%90%E5%90%8E%E8%BF%99%E4%B8%AA%E8%AE%AD%E7%BB%83%E5%90%8E%E7%9A%84%E6%A8%A1%E5%9E%8B%E6%98%AF%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E6%8B%BF%E6%9D%A5%E5%AF%B9%E6%9F%90%E4%BA%9B%E5%9B%BE%E7%89%87%E8%BF%9B%E8%A1%8C%E6%B8%85%E6%99%B0%E5%8C%96%E7%AD%89%E6%93%8D%E4%BD%9C%E5%90%97"><span class="toc-number">7.</span> <span class="toc-text">训练完成后这个训练后的模型是可以直接拿来对某些图片进行清晰化等操作吗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B"><span class="toc-number">7.1.</span> <span class="toc-text">1. 扩散模型的核心能力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8F%AF%E8%A1%8C%E6%80%A7"><span class="toc-number">7.2.</span> <span class="toc-text">2. 直接使用的可行性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%8F%AF%E8%A1%8C%E6%80%A7%E5%9F%BA%E7%A1%80"><span class="toc-number">7.2.1.</span> <span class="toc-text">(1) 可行性基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%99%90%E5%88%B6%E4%B8%8E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">7.2.2.</span> <span class="toc-text">(2) 限制与注意事项</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%85%B7%E4%BD%93%E5%BA%94%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">7.3.</span> <span class="toc-text">3. 具体应用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA"><span class="toc-number">7.3.1.</span> <span class="toc-text">(1) 图像去噪</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%9B%BE%E5%83%8F%E4%BF%AE%E5%A4%8D%EF%BC%88Inpainting%EF%BC%89"><span class="toc-number">7.3.2.</span> <span class="toc-text">(2) 图像修复（Inpainting）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%B6%85%E5%88%86%E8%BE%A8%E7%8E%87%EF%BC%88Super-Resolution%EF%BC%89"><span class="toc-number">7.3.3.</span> <span class="toc-text">(3) 超分辨率（Super-Resolution）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%85%B3%E9%94%AE%E6%8C%91%E6%88%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">7.4.</span> <span class="toc-text">4. 关键挑战与解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BB%BB%E5%8A%A1%E9%80%82%E9%85%8D%E6%80%A7%E4%B8%8D%E8%B6%B3"><span class="toc-number">7.4.1.</span> <span class="toc-text">(1) 任务适配性不足</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%AE%A1%E7%AE%97%E6%95%88%E7%8E%87"><span class="toc-number">7.4.2.</span> <span class="toc-text">(2) 计算效率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83%E5%81%8F%E5%B7%AE"><span class="toc-number">7.4.3.</span> <span class="toc-text">(3) 数据分布偏差</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-number">7.5.</span> <span class="toc-text">5. 实际应用案例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Stable-Diffusion%E7%9A%84%E5%9B%BE%E5%83%8F%E4%BF%AE%E5%A4%8D"><span class="toc-number">7.5.1.</span> <span class="toc-text">(1) Stable Diffusion的图像修复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%A3%8E%E6%A0%BC%E8%BF%81%E7%A7%BB"><span class="toc-number">7.5.2.</span> <span class="toc-text">(2) 风格迁移</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA"><span class="toc-number">7.5.3.</span> <span class="toc-text">(3) 医学图像去噪</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%80%BB%E7%BB%93"><span class="toc-number">7.6.</span> <span class="toc-text">6. 总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unet%E7%BD%91%E7%BB%9C%E9%A2%84%E6%B5%8B%E7%9A%84%E5%99%AA%E5%A3%B0%E6%98%AF%E8%A6%81%E9%80%BC%E8%BF%91%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E8%87%AA%E5%B7%B1%E4%BA%A7%E7%94%9F%E7%9A%84%E9%9A%8F%E6%9C%BA%E5%99%AA%E5%A3%B0%EF%BC%8C%E9%82%A3%E6%98%AF%E5%90%A6%E7%9B%B4%E6%8E%A5%E7%94%A8%E8%BF%99%E4%B8%AA%E5%89%8D%E5%90%91%E5%99%AA%E5%A3%B0%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5Sampling%EF%BC%8C%E5%80%98%E8%8B%A5%E5%8F%AF%E4%BB%A5%EF%BC%8C%E9%82%A3%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%84%8F%E4%B9%89%E6%98%AF%E5%95%A5%E5%98%9E"><span class="toc-number">8.</span> <span class="toc-text">unet网络预测的噪声是要逼近前向过程自己产生的随机噪声，那是否直接用这个前向噪声就可以直接Sampling，倘若可以，那扩散模型的意义是啥嘞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%89%8D%E5%90%91%E5%99%AA%E5%A3%B0%E4%B8%8EUNet%E9%A2%84%E6%B5%8B%E5%99%AA%E5%A3%B0%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">8.1.</span> <span class="toc-text">1. 前向噪声与UNet预测噪声的关系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E5%99%AA%E5%A3%B0%E6%98%AF%E9%9A%8F%E6%9C%BA%E7%9A%84"><span class="toc-number">8.1.1.</span> <span class="toc-text">(1) 前向过程的噪声是随机的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-UNet%E7%9A%84%E9%A2%84%E6%B5%8B%E7%9B%AE%E6%A0%87"><span class="toc-number">8.1.2.</span> <span class="toc-text">(2) UNet的预测目标</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%89%8D%E5%90%91%E5%99%AA%E5%A3%B0%E8%BF%9B%E8%A1%8C%E9%87%87%E6%A0%B7%EF%BC%9F"><span class="toc-number">8.2.</span> <span class="toc-text">2. 为什么不能直接使用前向噪声进行采样？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%89%8D%E5%90%91%E5%99%AA%E5%A3%B0%E6%98%AF%E9%9A%8F%E6%9C%BA%E4%B8%94%E4%B8%8D%E5%8F%AF%E9%80%86%E7%9A%84"><span class="toc-number">8.2.1.</span> <span class="toc-text">(1) 前向噪声是随机且不可逆的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%94%9F%E6%88%90%E9%98%B6%E6%AE%B5%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E4%BE%9D%E8%B5%96UNet%E7%9A%84%E9%A2%84%E6%B5%8B"><span class="toc-number">8.2.2.</span> <span class="toc-text">(2) 生成阶段的数学推导依赖UNet的预测</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-number">8.3.</span> <span class="toc-text">3. 扩散模型的意义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AD%A6%E4%B9%A0%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83%E7%9A%84%E9%9A%90%E5%BC%8F%E8%A1%A8%E8%BE%BE"><span class="toc-number">8.3.1.</span> <span class="toc-text">(1) 学习数据分布的隐式表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%A7%A3%E5%86%B3%E4%BC%A0%E7%BB%9F%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%B1%80%E9%99%90%E6%80%A7"><span class="toc-number">8.3.2.</span> <span class="toc-text">(2) 解决传统生成模型的局限性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%94%9F%E6%88%90%E9%AB%98%E8%B4%A8%E9%87%8F%E6%A0%B7%E6%9C%AC%E7%9A%84%E8%83%BD%E5%8A%9B"><span class="toc-number">8.3.3.</span> <span class="toc-text">(3) 生成高质量样本的能力</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%A6%82%E6%9E%9C%E6%B2%A1%E6%9C%89UNet%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">8.4.</span> <span class="toc-text">4. 如果没有UNet会发生什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%80%BB%E7%BB%93"><span class="toc-number">8.5.</span> <span class="toc-text">5. 总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-to-be-continued%E2%80%A6"><span class="toc-number">9.</span> <span class="toc-text">wait to be continued…</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        diffusion model
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Dunjia</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-03-26T14:48:20.000Z" class="dt-published" itemprop="datePublished">2025-03-26</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="diffusion-model"><a href="#diffusion-model" class="headerlink" title="diffusion model"></a>diffusion model</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/624221952">zhihu</a></p>
+<h2 id="ask-to-ai"><a href="#ask-to-ai" class="headerlink" title="ask to ai"></a>ask to ai</h2><h2 id="扩散模型如ddpm的前向过程"><a href="#扩散模型如ddpm的前向过程" class="headerlink" title="扩散模型如ddpm的前向过程"></a>扩散模型如ddpm的前向过程</h2><p>好的，我将详细解释<strong>扩散模型（如DDPM）中的前向过程</strong>，并重点分析其数学公式和步骤。</p>
+<hr>
+<h3 id="扩散模型的前向过程（Forward-Process）"><a href="#扩散模型的前向过程（Forward-Process）" class="headerlink" title="扩散模型的前向过程（Forward Process）"></a><strong>扩散模型的前向过程（Forward Process）</strong></h3><p>扩散模型的核心思想是通过一个马尔可夫链将真实数据 (x_0) 逐步添加噪声，最终转化为纯噪声 (x_T)。这一过程称为<strong>前向过程</strong>（Forward Process），其数学形式如下：</p>
+<hr>
+<h4 id="1-前向过程的数学定义"><a href="#1-前向过程的数学定义" class="headerlink" title="1. 前向过程的数学定义"></a><strong>1. 前向过程的数学定义</strong></h4><p>假设数据 (x_0) 是 (d)-维向量（如图像的像素值），前向过程通过 (T) 个时间步（如 (T&#x3D;1000)）逐步添加噪声。每个时间步 (t) 的状态 (x_t) 由前一个状态 (x_{t-1}) 生成，满足：<br>[<br>x_t &#x3D; \sqrt{\alpha_t} \cdot x_{t-1} + \sqrt{1 - \alpha_t} \cdot \epsilon_{t}<br>]<br>其中：</p>
+<ul>
+<li>(\alpha_t \in (0,1)) 是方差衰减系数（variance decay schedule），通常预先定义。</li>
+<li>(\epsilon_t \sim \mathcal{N}(0, I)) 是独立的高斯噪声。</li>
+<li>(\sqrt{\alpha_t}) 是缩放因子，控制保留原始数据的幅度。</li>
+<li>(\sqrt{1 - \alpha_t}) 是噪声的幅度。</li>
+</ul>
+<hr>
+<h4 id="2-核心参数：方差衰减系数-alpha-t"><a href="#2-核心参数：方差衰减系数-alpha-t" class="headerlink" title="2. 核心参数：方差衰减系数 (\alpha_t)"></a><strong>2. 核心参数：方差衰减系数 (\alpha_t)</strong></h4><p>参数 (\alpha_t) 的选择决定了噪声添加的速度。常见的设计包括：</p>
+<ul>
+<li><strong>线性衰减</strong>：(\alpha_t &#x3D; 1 - \beta_t)，其中 (\beta_t) 是一个随时间递增的小值（如从 (10^{-4}) 到 (0.02)）。</li>
+<li><strong>累积方差</strong>：定义 (\bar{\alpha}<em>t &#x3D; \prod</em>{s&#x3D;1}^t \alpha_s)，则：<br>[<br>x_t &#x3D; \sqrt{\bar{\alpha}_t} \cdot x_0 + \sqrt{1 - \bar{\alpha}_t} \cdot \epsilon_t^{(cum)}<br>]<br>其中 (\epsilon_t^{(cum)}) 是累积噪声。</li>
+</ul>
+<hr>
+<h4 id="3-前向过程的分布推导"><a href="#3-前向过程的分布推导" class="headerlink" title="3. 前向过程的分布推导"></a><strong>3. 前向过程的分布推导</strong></h4><p>前向过程是一个马尔可夫链，每一步的条件分布为：<br>[<br>p_\theta(x_t | x_{t-1}) &#x3D; \mathcal{N}\left(x_t; \sqrt{\alpha_t} x_{t-1}, (1 - \alpha_t) I\right)<br>]<br>通过链式法则，可以推导出 (x_t) 的边缘分布（即从 (x_0) 到 (x_t) 的累积分布）：<br>[<br>p_\theta(x_t | x_0) &#x3D; \mathcal{N}\left(x_t; \sqrt{\bar{\alpha}_t} x_0, (1 - \bar{\alpha}<em>t) I\right)<br>]<br>当 (t &#x3D; T) 时，(x_T) 接近纯噪声分布：<br>[<br>p</em>\theta(x_T | x_0) &#x3D; \mathcal{N}(x_T; 0, I)<br>]</p>
+<hr>
+<h4 id="4-前向过程的步骤"><a href="#4-前向过程的步骤" class="headerlink" title="4. 前向过程的步骤"></a><strong>4. 前向过程的步骤</strong></h4><p>以下是前向过程的具体步骤：</p>
+<h5 id="步骤1：初始化参数"><a href="#步骤1：初始化参数" class="headerlink" title="步骤1：初始化参数"></a><strong>步骤1：初始化参数</strong></h5><ul>
+<li>定义时间步数 (T)（如 (T&#x3D;1000)）。</li>
+<li>定义方差衰减系数 ({\alpha_t}_{t&#x3D;1}^T) 或其对应的噪声系数 ({\beta_t})。</li>
+<li>预计算累积系数 (\bar{\alpha}<em>t &#x3D; \prod</em>{s&#x3D;1}^t \alpha_s)。</li>
+</ul>
+<h5 id="步骤2：前向扩散"><a href="#步骤2：前向扩散" class="headerlink" title="步骤2：前向扩散"></a><strong>步骤2：前向扩散</strong></h5><p>从初始数据 (x_0) 开始，逐步添加噪声：</p>
+<ol>
+<li><strong>时间步 (t&#x3D;1)</strong>：<br>[<br>x_1 &#x3D; \sqrt{\alpha_1} x_0 + \sqrt{1 - \alpha_1} \cdot \epsilon_1<br>]</li>
+<li><strong>时间步 (t&#x3D;2)</strong>：<br>[<br>x_2 &#x3D; \sqrt{\alpha_2} x_1 + \sqrt{1 - \alpha_2} \cdot \epsilon_2<br>]</li>
+<li><strong>…</strong></li>
+<li><strong>时间步 (t&#x3D;T)</strong>：<br>[<br>x_T &#x3D; \sqrt{\alpha_T} x_{T-1} + \sqrt{1 - \alpha_T} \cdot \epsilon_T<br>]</li>
+</ol>
+<h5 id="步骤3：终止条件"><a href="#步骤3：终止条件" class="headerlink" title="步骤3：终止条件"></a><strong>步骤3：终止条件</strong></h5><p>当 (t&#x3D;T) 时，(x_T) 接近标准高斯分布 (\mathcal{N}(0, I))，此时数据已完全被噪声覆盖。</p>
+<hr>
+<h4 id="5-关键性质"><a href="#5-关键性质" class="headerlink" title="5. 关键性质"></a><strong>5. 关键性质</strong></h4><ol>
+<li><strong>马尔可夫性</strong>：每个 (x_t) 仅依赖于 (x_{t-1})，符合马尔可夫链的定义。</li>
+<li><strong>可逆性</strong>：前向过程是可逆的，反向过程（生成模型）通过学习从 (x_T) 逐步去噪恢复 (x_0)。</li>
+<li><strong>噪声累积</strong>：通过累积方差 (\bar{\alpha}_t)，最终 (x_T) 的分布与初始数据 (x_0) 无关。</li>
+</ol>
+<hr>
+<h4 id="6-示例：DDPM中的参数设置"><a href="#6-示例：DDPM中的参数设置" class="headerlink" title="6. 示例：DDPM中的参数设置"></a><strong>6. 示例：DDPM中的参数设置</strong></h4><p>在DDPM（Denoising Diffusion Probabilistic Models）中，常见的参数设置如下：</p>
+<ul>
+<li><strong>噪声系数 (\beta_t)</strong>：通常线性递增：<br>[<br>\beta_t &#x3D; \beta_{\text{min}} + \frac{t-1}{T-1} (\beta_{\text{max}} - \beta_{\text{min}})<br>]<br>其中 (\beta_{\text{min}} &#x3D; 0.0001), (\beta_{\text{max}} &#x3D; 0.02)。</li>
+<li><strong>(\alpha_t &#x3D; 1 - \beta_t)</strong>，(\bar{\alpha}<em>t &#x3D; \prod</em>{s&#x3D;1}^t \alpha_s)。</li>
+</ul>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>扩散模型的前向过程通过逐步添加噪声，将真实数据 (x_0) 转化为纯噪声 (x_T)，其核心是马尔可夫链的噪声扩散机制。关键公式包括：<br>[<br>x_t &#x3D; \sqrt{\alpha_t} x_{t-1} + \sqrt{1 - \alpha_t} \epsilon_t<br>]<br>[<br>p_\theta(x_t | x_{t-1}) &#x3D; \mathcal{N}\left(x_t; \sqrt{\alpha_t} x_{t-1}, (1-\alpha_t)I\right)<br>]<br>这一过程为反向生成模型提供了基础，通过学习反向去噪过程来生成数据。</p>
+<p>如果需要更深入的数学推导或具体实现细节，可以进一步探讨！</p>
+<h2 id="为什么方差一般是固定设置的"><a href="#为什么方差一般是固定设置的" class="headerlink" title="为什么方差一般是固定设置的"></a>为什么方差一般是固定设置的</h2><p>在扩散模型（如DDPM）中，前向过程的方差参数（如(\beta_t)或(\alpha_t)）通常采用<strong>固定预设的衰减路径</strong>，而非通过模型学习动态调整。这种设计有以下关键原因：</p>
+<hr>
+<h3 id="1-稳定性与可逆性"><a href="#1-稳定性与可逆性" class="headerlink" title="1. 稳定性与可逆性"></a><strong>1. 稳定性与可逆性</strong></h3><p>扩散模型的生成过程需要<strong>可逆性</strong>：从噪声(x_T)逐步恢复到真实数据(x_0)。前向过程的方差路径必须<strong>严格确定</strong>，才能保证反向过程（生成模型）能够准确推断每一步的噪声(\epsilon_t)。如果方差动态变化，可能导致以下问题：</p>
+<ul>
+<li><strong>反向过程难以建模</strong>：反向过程需要根据固定路径的噪声分布来设计去噪步骤，若方差动态调整，反向过程的数学推导和训练会变得复杂。</li>
+<li><strong>噪声分布不一致</strong>：动态方差可能导致每一步的噪声分布不可预测，破坏反向过程的稳定性。</li>
+</ul>
+<hr>
+<h3 id="2-理论基础与数学推导"><a href="#2-理论基础与数学推导" class="headerlink" title="2. 理论基础与数学推导"></a><strong>2. 理论基础与数学推导</strong></h3><p>扩散模型的数学推导依赖于<strong>固定方差路径</strong>，例如：</p>
+<ul>
+<li><strong>累积方差的闭合形式</strong>：通过固定(\beta_t)，可以推导出(x_t)的边缘分布：<br>[<br>p_\theta(x_t|x_0) &#x3D; \mathcal{N}\left(x_t; \sqrt{\bar{\alpha}_t}x_0, (1-\bar{\alpha}_t)I\right)<br>]<br>其中(\bar{\alpha}<em>t &#x3D; \prod</em>{s&#x3D;1}^t \alpha_s)，只有在固定(\alpha_t)时才能保证这一分布的确定性。</li>
+<li><strong>反向过程的解析解</strong>：生成模型（如DDPM的去噪网络）需要根据固定路径的噪声分布设计反向步骤，例如：<br>[<br>p_\theta(x_{t-1}|x_t,x_0) &#x3D; \mathcal{N}\left(x_{t-1}; \frac{\sqrt{\alpha_t}}{\sqrt{1-\bar{\alpha}_t}}(x_t - \sqrt{1 - \alpha_t}\epsilon_t), I\right)<br>]<br>若方差动态变化，这一公式将难以推导。</li>
+</ul>
+<hr>
+<h3 id="3-计算效率与简化训练"><a href="#3-计算效率与简化训练" class="headerlink" title="3. 计算效率与简化训练"></a><strong>3. 计算效率与简化训练</strong></h3><ul>
+<li><strong>无需学习额外参数</strong>：固定方差路径减少了模型需要学习的参数量，避免了引入复杂的学习机制（如可学习的(\beta_t)），从而降低了训练难度和计算成本。</li>
+<li><strong>标准化训练流程</strong>：固定路径使得不同实验和模型之间的对比更加公平，因为方差路径是统一的基准。</li>
+</ul>
+<hr>
+<h3 id="4-经验效果与实验验证"><a href="#4-经验效果与实验验证" class="headerlink" title="4. 经验效果与实验验证"></a><strong>4. 经验效果与实验验证</strong></h3><ul>
+<li><strong>经典模型的实践选择</strong>：DDPM、Score-Based Models等经典扩散模型均采用固定方差路径（如线性递增的(\beta_t)），实验表明这种设计在图像生成、文本生成等任务中表现优异。</li>
+<li><strong>动态调整的挑战</strong>：尝试动态调整方差（如通过网络预测(\beta_t)）可能引入额外的不稳定性，且未显著提升性能，反而增加计算复杂度。</li>
+</ul>
+<hr>
+<h3 id="5-固定方差的具体设计"><a href="#5-固定方差的具体设计" class="headerlink" title="5. 固定方差的具体设计"></a><strong>5. 固定方差的具体设计</strong></h3><p>常见的固定方差路径设计包括：</p>
+<h4 id="线性递增的-beta-t-（DDPM默认设置）"><a href="#线性递增的-beta-t-（DDPM默认设置）" class="headerlink" title="线性递增的(\beta_t)（DDPM默认设置）"></a><strong>线性递增的(\beta_t)</strong>（DDPM默认设置）</h4><p>[<br>\beta_t &#x3D; \beta_{\text{min}} + \frac{t-1}{T-1} (\beta_{\text{max}} - \beta_{\text{min}})<br>]</p>
+<ul>
+<li><strong>参数示例</strong>：(\beta_{\text{min}} &#x3D; 10^{-4})，(\beta_{\text{max}} &#x3D; 0.02)，(T&#x3D;1000)。</li>
+<li><strong>优势</strong>：简单且有效，逐步增加噪声的方差，确保在(T)步后(x_T \approx \mathcal{N}(0,I))。</li>
+</ul>
+<h4 id="余弦衰减或其他预设函数"><a href="#余弦衰减或其他预设函数" class="headerlink" title="余弦衰减或其他预设函数"></a><strong>余弦衰减或其他预设函数</strong></h4><p>某些变体（如Improved DDPM）采用更复杂的函数设计(\beta_t)，但仍属于<strong>预设路径</strong>，而非动态学习。</p>
+<hr>
+<h3 id="例外情况：动态调整方差的尝试"><a href="#例外情况：动态调整方差的尝试" class="headerlink" title="例外情况：动态调整方差的尝试"></a><strong>例外情况：动态调整方差的尝试</strong></h3><p>尽管主流模型采用固定路径，但一些研究尝试动态调整方差以优化性能：</p>
+<ol>
+<li><strong>自适应方差</strong>：通过网络预测每一步的噪声方差（如VDM模型）。</li>
+<li><strong>动态时间步选择</strong>：在推理阶段动态选择时间步（如DDIM）。<br>但这些方法通常需要额外的计算开销或复杂的设计，且固定路径的简单性仍被广泛采用。</li>
+</ol>
+<hr>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>固定方差路径的设计是扩散模型的核心基础，其优势在于：</p>
+<ul>
+<li><strong>数学上的可逆性</strong>：确保反向过程的理论推导和实现。</li>
+<li><strong>训练稳定性</strong>：避免动态调整带来的复杂性和不稳定性。</li>
+<li><strong>计算效率</strong>：简化模型结构，减少训练成本。</li>
+</ul>
+<p>因此，尽管存在动态调整方差的探索，但固定路径仍是扩散模型的<strong>默认选择</strong>，尤其在需要高可靠性和可解释性的场景中。</p>
+<h2 id="既然都是固定预设的，那么前后向传播又有什么意义呢"><a href="#既然都是固定预设的，那么前后向传播又有什么意义呢" class="headerlink" title="既然都是固定预设的，那么前后向传播又有什么意义呢"></a>既然都是固定预设的，那么前后向传播又有什么意义呢</h2><p>在扩散模型（如DDPM）中，<strong>前向过程的方差参数是固定预设的</strong>，而<strong>后向过程（生成模型）需要通过学习来逆向这一过程</strong>。虽然前向过程的参数是固定的，但前后向过程的协同作用是扩散模型的核心，其意义在于：</p>
+<hr>
+<h3 id="1-前向过程的意义"><a href="#1-前向过程的意义" class="headerlink" title="1. 前向过程的意义"></a><strong>1. 前向过程的意义</strong></h3><p>前向过程通过<strong>固定预设的噪声添加路径</strong>，为生成模型提供了一个<strong>确定的噪声扩散框架</strong>。其关键作用包括：</p>
+<ul>
+<li><strong>定义噪声扩散的数学结构</strong>：通过固定的方差参数（如(\beta_t)），前向过程确保了从(x_0)到(x_T)的噪声添加路径是可逆的，为反向过程提供了数学基础。</li>
+<li><strong>简化反向过程的建模</strong>：由于前向过程的参数是固定的，反向过程（生成模型）可以基于这些已知的噪声分布设计去噪步骤，无需动态调整噪声参数。</li>
+<li><strong>统一训练和生成流程</strong>：固定路径使得训练和推理阶段的噪声添加过程一致，避免了动态调整参数带来的不确定性。</li>
+</ul>
+<hr>
+<h3 id="2-后向过程的意义"><a href="#2-后向过程的意义" class="headerlink" title="2. 后向过程的意义"></a><strong>2. 后向过程的意义</strong></h3><p>后向过程（生成模型）通过<strong>学习去噪函数</strong>，实现从噪声(x_T)逐步恢复到真实数据(x_0)。其关键作用包括：</p>
+<ul>
+<li><strong>学习数据分布</strong>：通过最大化似然或最小化噪声损失，模型学习到如何根据当前噪声数据(x_t)和时间步(t)，预测原始数据(x_{t-1})或噪声(\epsilon_t)。</li>
+<li><strong>逆向前向过程</strong>：虽然前向过程的参数是固定的，但后向过程需要根据这些参数设计逆向步骤。例如，在DDPM中，生成模型需要根据固定路径的(\beta_t)计算去噪权重：<br>[<br>\mathbb{E}[x_{t-1}|x_t] &#x3D; \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}<em>t}} \cdot \epsilon</em>\theta(x_t, t) \right)<br>]<br>其中，(\epsilon_\theta)是模型预测的噪声，而(\alpha_t, \beta_t)是前向过程的固定参数。</li>
+<li><strong>适应数据分布</strong>：虽然前向过程的参数固定，但生成模型通过可学习的参数（如神经网络权重）来捕捉数据分布的复杂性，从而生成高质量样本。</li>
+</ul>
+<hr>
+<h3 id="3-两者的协同作用"><a href="#3-两者的协同作用" class="headerlink" title="3. 两者的协同作用"></a><strong>3. 两者的协同作用</strong></h3><p>前向和后向过程的结合实现了以下核心目标：</p>
+<h4 id="1-数学可逆性"><a href="#1-数学可逆性" class="headerlink" title="(1) 数学可逆性"></a><strong>(1) 数学可逆性</strong></h4><ul>
+<li><strong>前向过程的固定性</strong>确保了从(x_0)到(x_T)的噪声扩散路径是已知的，从而可以推导出反向过程的数学公式。</li>
+<li><strong>反向过程的可学习性</strong>允许模型根据数据分布调整去噪策略，例如通过神经网络学习不同时间步的去噪权重。</li>
+</ul>
+<h4 id="2-训练与生成的分离"><a href="#2-训练与生成的分离" class="headerlink" title="(2) 训练与生成的分离"></a><strong>(2) 训练与生成的分离</strong></h4><ul>
+<li><strong>前向过程作为训练框架</strong>：在训练阶段，模型通过前向过程生成不同时间步的噪声样本(x_t)，并学习如何从(x_t)预测噪声(\epsilon_t)（或(x_{t-1})）。</li>
+<li><strong>后向过程作为生成框架</strong>：在推理阶段，模型利用训练好的参数，沿着固定的前向路径反向逐步去噪，最终生成样本。</li>
+</ul>
+<h4 id="3-稳定性与效率"><a href="#3-稳定性与效率" class="headerlink" title="(3) 稳定性与效率"></a><strong>(3) 稳定性与效率</strong></h4><ul>
+<li><strong>固定前向路径避免了动态调整的不稳定性</strong>：如果前向过程的参数动态变化，反向过程可能因噪声分布的不确定性而难以收敛。</li>
+<li><strong>后向模型的灵活性</strong>：通过学习，模型可以适应不同数据集的特性，例如图像、音频或文本的分布差异。</li>
+</ul>
+<hr>
+<h3 id="4-具体示例：DDPM的训练与生成"><a href="#4-具体示例：DDPM的训练与生成" class="headerlink" title="4. 具体示例：DDPM的训练与生成"></a><strong>4. 具体示例：DDPM的训练与生成</strong></h3><h4 id="1-训练阶段"><a href="#1-训练阶段" class="headerlink" title="(1) 训练阶段"></a><strong>(1) 训练阶段</strong></h4><ul>
+<li><strong>前向过程</strong>：对于每个真实数据(x_0)，随机选择时间步(t)，生成噪声样本(x_t)：<br>[<br>x_t &#x3D; \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \cdot \epsilon<br>]<br>其中(\epsilon \sim \mathcal{N}(0, I))，(\bar{\alpha}_t)是固定参数。</li>
+<li><strong>后向模型（去噪网络）</strong>：模型( \epsilon_\theta(x_t, t) )被训练以预测噪声(\epsilon)，损失函数为：<br>[<br>\mathbb{E}<em>{t,x_0,\epsilon} \left[ || \epsilon - \epsilon</em>\theta(x_t, t) ||^2 \right]<br>]</li>
+</ul>
+<h4 id="2-生成阶段"><a href="#2-生成阶段" class="headerlink" title="(2) 生成阶段"></a><strong>(2) 生成阶段</strong></h4><ul>
+<li><strong>反向过程</strong>：从纯噪声(x_T \sim \mathcal{N}(0, I))开始，逐步去噪：<br>[<br>x_{t-1} &#x3D; \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}<em>t}} \cdot \epsilon</em>\theta(x_t, t) \right) + \sqrt{\beta_t} \cdot \epsilon<br>]<br>其中，(\alpha_t, \beta_t)是固定的前向参数，而(\epsilon_\theta)是训练好的模型。</li>
+</ul>
+<hr>
+<h3 id="5-如果前向过程的参数不固定会怎样？"><a href="#5-如果前向过程的参数不固定会怎样？" class="headerlink" title="5. 如果前向过程的参数不固定会怎样？"></a><strong>5. 如果前向过程的参数不固定会怎样？</strong></h3><p>如果前向过程的方差参数(\beta_t)是动态可学习的，可能会导致以下问题：</p>
+<ul>
+<li><strong>反向过程的不可逆性</strong>：动态参数会破坏噪声扩散的确定性路径，使得反向过程无法推导出闭合解。</li>
+<li><strong>训练不稳定</strong>：模型需要同时学习前向和后向参数，增加了优化难度。</li>
+<li><strong>计算复杂度上升</strong>：动态参数需要额外的网络结构和训练资源。</li>
+</ul>
+<p>因此，<strong>固定前向参数的设计是扩散模型高效训练和稳定生成的关键</strong>。</p>
+<hr>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a><strong>总结</strong></h3><ul>
+<li><strong>前向过程的意义</strong>：提供一个确定的噪声扩散路径，确保反向过程的数学可逆性。</li>
+<li><strong>后向过程的意义</strong>：通过学习去噪函数，适应数据分布并逆向前向过程，最终生成高质量样本。</li>
+<li><strong>两者的协同</strong>：固定前向参数与可学习的后向模型结合，既保证了理论上的可逆性，又实现了数据分布的灵活建模。</li>
+</ul>
+<p>这种设计使得扩散模型在图像生成、文本生成等任务中表现出色，同时保持了数学上的简洁性和训练效率。</p>
+<h2 id="可以理解为前后向的协同主要是为了训练出一个具有泛化能力的去噪模型-以达到生成更加高质量的样本吗"><a href="#可以理解为前后向的协同主要是为了训练出一个具有泛化能力的去噪模型-以达到生成更加高质量的样本吗" class="headerlink" title="可以理解为前后向的协同主要是为了训练出一个具有泛化能力的去噪模型 以达到生成更加高质量的样本吗"></a>可以理解为前后向的协同主要是为了训练出一个具有泛化能力的去噪模型 以达到生成更加高质量的样本吗</h2><p>是的，你的理解是正确的！<strong>前向过程与后向过程的协同作用本质上是为了训练一个具有泛化能力的去噪模型，从而生成高质量的样本</strong>。以下是更详细的解释：</p>
+<hr>
+<h3 id="1-泛化能力的来源"><a href="#1-泛化能力的来源" class="headerlink" title="1. 泛化能力的来源"></a><strong>1. 泛化能力的来源</strong></h3><p>前向过程通过<strong>固定噪声添加路径</strong>，为模型提供了<strong>多样化的噪声样本</strong>，迫使模型在训练时学习如何在<strong>不同噪声水平下</strong>去噪，从而具备泛化能力：</p>
+<ul>
+<li><strong>多噪声级别的学习</strong>：在训练阶段，模型会接触到从完全干净数据（(x_0)）到纯噪声（(x_T)）的<strong>所有中间噪声状态</strong>（(x_1, x_2, \dots, x_{T-1})）。这使得模型能够学习在不同噪声强度下的去噪策略，而不仅仅是处理某一特定噪声水平。</li>
+<li><strong>鲁棒性提升</strong>：模型需要适应从轻微噪声到极端噪声的去噪任务，从而具备更强的鲁棒性，避免在生成过程中因噪声分布变化而失效。</li>
+</ul>
+<hr>
+<h3 id="2-高质量生成的保障"><a href="#2-高质量生成的保障" class="headerlink" title="2. 高质量生成的保障"></a><strong>2. 高质量生成的保障</strong></h3><p>后向过程（生成模型）通过学习去噪函数，逐步将噪声数据恢复为真实数据，其核心优势包括：</p>
+<ul>
+<li><strong>渐进式细化</strong>：生成过程从纯噪声(x_T)开始，通过(T)个步骤逐步去噪，每一步都细化生成结果。这种<strong>渐进式生成</strong>避免了直接从噪声一步生成高质量样本的困难，类似于“逐步解谜”。</li>
+<li><strong>数学可逆性</strong>：前向过程的固定参数确保了反向步骤的数学公式（如去噪权重）的正确性，使得生成过程能够<strong>精确控制每一步的去噪幅度</strong>，避免过冲或欠修正。</li>
+<li><strong>数据分布的精确建模</strong>：模型通过最小化噪声预测误差（如(L_2)损失），学习到数据分布的统计特性。例如，在图像生成中，模型会学习如何在噪声中保留边缘、纹理等关键特征。</li>
+</ul>
+<hr>
+<h3 id="3-协同设计的细节"><a href="#3-协同设计的细节" class="headerlink" title="3. 协同设计的细节"></a><strong>3. 协同设计的细节</strong></h3><h4 id="1-前向过程的“噪声多样性”"><a href="#1-前向过程的“噪声多样性”" class="headerlink" title="(1) 前向过程的“噪声多样性”"></a><strong>(1) 前向过程的“噪声多样性”</strong></h4><ul>
+<li><strong>训练数据增强</strong>：前向过程通过固定路径生成不同噪声水平的样本（如(x_1, x_2, \dots, x_T)），相当于为模型提供了<strong>增强数据</strong>，帮助模型学习噪声与真实数据之间的映射关系。</li>
+<li><strong>覆盖边缘案例</strong>：即使真实数据分布中某些区域样本稀少，模型也能通过噪声样本（如高噪声状态）学习到这些区域的潜在结构。</li>
+</ul>
+<h4 id="2-后向过程的“去噪泛化”"><a href="#2-后向过程的“去噪泛化”" class="headerlink" title="(2) 后向过程的“去噪泛化”"></a><strong>(2) 后向过程的“去噪泛化”</strong></h4><ul>
+<li><strong>时间步的条件依赖</strong>：模型被训练为根据当前时间步(t)和噪声数据(x_t)预测噪声(\epsilon_t)，从而<strong>显式地建模时间步的影响</strong>。例如，在早期步骤（如(t&#x3D;1000)），模型可能专注于去除高斯噪声；在后期步骤（如(t&#x3D;1)），则需要微调细节（如边缘锐度）。</li>
+<li><strong>噪声分布的适应性</strong>：通过固定前向路径，模型可以<strong>统一建模所有噪声分布</strong>，而无需为每个噪声级别单独设计模型。</li>
+</ul>
+<hr>
+<h3 id="4-对比传统生成模型"><a href="#4-对比传统生成模型" class="headerlink" title="4. 对比传统生成模型"></a><strong>4. 对比传统生成模型</strong></h3><h4 id="与GAN的对比"><a href="#与GAN的对比" class="headerlink" title="与GAN的对比"></a><strong>与GAN的对比</strong></h4><ul>
+<li><strong>GAN的挑战</strong>：GAN通过对抗训练生成样本，但容易出现模式崩溃（mode collapse）或训练不稳定。</li>
+<li><strong>扩散模型的优势</strong>：通过前向过程的固定噪声路径和后向过程的渐进式去噪，扩散模型能够<strong>稳定地建模数据分布的复杂性</strong>，减少生成样本的多样性损失。</li>
+</ul>
+<h4 id="与VAE的对比"><a href="#与VAE的对比" class="headerlink" title="与VAE的对比"></a><strong>与VAE的对比</strong></h4><ul>
+<li><strong>VAE的瓶颈</strong>：VAE通过编码器-解码器结构压缩数据，但可能因瓶颈层的信息丢失导致生成质量下降。</li>
+<li><strong>扩散模型的改进</strong>：扩散模型通过多步骤去噪，逐步恢复数据细节，避免了一次性解码的局限性，从而生成更高质量的样本。</li>
+</ul>
+<hr>
+<h3 id="5-实际效果验证"><a href="#5-实际效果验证" class="headerlink" title="5. 实际效果验证"></a><strong>5. 实际效果验证</strong></h3><p>在图像生成任务中，扩散模型（如DDPM、Stable Diffusion）的生成质量已达到或超过GAN和VAE：</p>
+<ul>
+<li><strong>细节保留</strong>：模型在后期时间步（如(t&#x3D;1)）能精细调整颜色、纹理等细节。</li>
+<li><strong>多样性</strong>：通过噪声(x_T)的随机性，生成样本具有多样性，同时避免模式重复。</li>
+</ul>
+<hr>
+<h3 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>前向与后向过程的协同设计，通过以下方式实现了泛化能力与高质量生成：</p>
+<ol>
+<li><strong>前向过程</strong>：提供固定但多样化的噪声样本，为模型学习不同噪声水平下的去噪策略奠定基础。</li>
+<li><strong>后向过程</strong>：通过学习去噪函数，逐步恢复数据，结合数学可逆性确保生成的稳定性。</li>
+<li><strong>协同结果</strong>：模型在训练中学习到泛化能力，生成时通过渐进式去噪，逐步细化结果，最终输出高质量样本。</li>
+</ol>
+<p>这种设计不仅解决了传统生成模型的局限性，还通过数学上的可逆性和工程上的高效性，成为当前生成任务的主流方法之一。</p>
+<h2 id="训练完成后这个训练后的模型是可以直接拿来对某些图片进行清晰化等操作吗"><a href="#训练完成后这个训练后的模型是可以直接拿来对某些图片进行清晰化等操作吗" class="headerlink" title="训练完成后这个训练后的模型是可以直接拿来对某些图片进行清晰化等操作吗"></a>训练完成后这个训练后的模型是可以直接拿来对某些图片进行清晰化等操作吗</h2><p>是的，训练后的扩散模型（如DDPM、Stable Diffusion等）<strong>可以用于图像修复、去噪、超分辨率等任务</strong>，但需要根据具体任务调整模型的使用方式。以下是详细分析：</p>
+<hr>
+<h3 id="1-扩散模型的核心能力"><a href="#1-扩散模型的核心能力" class="headerlink" title="1. 扩散模型的核心能力"></a><strong>1. 扩散模型的核心能力</strong></h3><p>扩散模型的核心是<strong>学习数据分布的渐进式去噪过程</strong>。其训练目标是让模型能够从噪声中恢复符合训练数据分布的样本。这种能力使其在以下任务中具有潜力：</p>
+<ul>
+<li><strong>图像修复</strong>：修复损坏或缺失的图像区域。</li>
+<li><strong>去噪</strong>：从噪声图像中恢复清晰图像。</li>
+<li><strong>超分辨率</strong>：将低分辨率图像提升为高分辨率。</li>
+<li><strong>风格迁移</strong>：将图像转换为特定风格。</li>
+</ul>
+<hr>
+<h3 id="2-直接使用的可行性"><a href="#2-直接使用的可行性" class="headerlink" title="2. 直接使用的可行性"></a><strong>2. 直接使用的可行性</strong></h3><h4 id="1-可行性基础"><a href="#1-可行性基础" class="headerlink" title="(1) 可行性基础"></a><strong>(1) 可行性基础</strong></h4><p>扩散模型的<strong>去噪能力</strong>使其能够对输入图像进行优化。例如：</p>
+<ul>
+<li><strong>去噪任务</strong>：将模糊或含噪的图像作为输入，通过扩散模型的反向过程逐步去噪。</li>
+<li><strong>修复任务</strong>：将损坏的图像作为输入，通过扩散模型生成修复后的结果。</li>
+</ul>
+<h4 id="2-限制与注意事项"><a href="#2-限制与注意事项" class="headerlink" title="(2) 限制与注意事项"></a><strong>(2) 限制与注意事项</strong></h4><ul>
+<li><strong>数据分布匹配</strong>：模型的训练数据决定了其能力范围。例如：<ul>
+<li>如果模型在自然图像上训练，可能无法有效处理医学影像或艺术风格图像。</li>
+<li>如果训练数据中没有包含特定类型的损坏（如镜头模糊），模型可能无法有效修复该类型。</li>
+</ul>
+</li>
+<li><strong>任务适配性</strong>：扩散模型的原始设计是<strong>生成新样本</strong>，而非直接处理现有图像。因此，直接应用可能需要以下调整：<ul>
+<li><strong>引导采样（Guided Sampling）</strong>：将输入图像作为条件，引导扩散过程向目标方向优化。</li>
+<li><strong>微调（Fine-tuning）</strong>：针对特定任务（如去噪）调整模型参数。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="3-具体应用方法"><a href="#3-具体应用方法" class="headerlink" title="3. 具体应用方法"></a><strong>3. 具体应用方法</strong></h3><p>以下是扩散模型在图像处理任务中的典型用法：</p>
+<h4 id="1-图像去噪"><a href="#1-图像去噪" class="headerlink" title="(1) 图像去噪"></a><strong>(1) 图像去噪</strong></h4><p>假设输入一张含噪图像 (x_{\text{noisy}})，目标是恢复清晰图像：</p>
+<ol>
+<li><strong>初始化</strong>：将 (x_{\text{noisy}}) 作为初始状态 (x_T)（跳过前向过程）。</li>
+<li><strong>反向去噪</strong>：通过扩散模型的去噪步骤逐步优化：<br>[<br>x_{t-1} &#x3D; \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}<em>t}} \cdot \epsilon</em>\theta(x_t, t) \right) + \sqrt{\beta_t} \cdot \epsilon<br>]<br>其中，(\epsilon_\theta) 是模型预测的噪声，(\epsilon) 是额外添加的噪声（可选）。</li>
+<li><strong>结果</strong>：最终得到去噪后的图像 (x_0)。</li>
+</ol>
+<h4 id="2-图像修复（Inpainting）"><a href="#2-图像修复（Inpainting）" class="headerlink" title="(2) 图像修复（Inpainting）"></a><strong>(2) 图像修复（Inpainting）</strong></h4><p>修复图像中缺失或损坏的区域：</p>
+<ol>
+<li><strong>掩码输入</strong>：将损坏区域标记为掩码（mask），输入模型时仅保留可见区域。</li>
+<li><strong>条件扩散</strong>：在每一步去噪时，仅更新掩码区域，固定可见区域：<br>[<br>x_{t-1}^{\text{masked}} &#x3D; \frac{1}{\sqrt{\alpha_t}} \left( x_t^{\text{masked}} - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}<em>t}} \cdot \epsilon</em>\theta(x_t^{\text{masked}}, t) \right)<br>]<br>其中，(x_t^{\text{masked}}) 是掩码区域的当前状态。</li>
+</ol>
+<h4 id="3-超分辨率（Super-Resolution）"><a href="#3-超分辨率（Super-Resolution）" class="headerlink" title="(3) 超分辨率（Super-Resolution）"></a><strong>(3) 超分辨率（Super-Resolution）</strong></h4><p>将低分辨率图像 (x_{\text{LR}}) 转换为高分辨率 (x_{\text{HR}})：</p>
+<ol>
+<li><strong>上采样</strong>：将 (x_{\text{LR}}) 上采样到目标分辨率（如双线性插值）。</li>
+<li><strong>扩散优化</strong>：将上采样后的图像作为初始输入，通过扩散模型细化细节：<br>[<br>x_{t-1} &#x3D; \text{Diffusion}(x_t, t) \quad \text{with} \quad x_T &#x3D; \text{Upsampled}(x_{\text{LR}})<br>]</li>
+</ol>
+<hr>
+<h3 id="4-关键挑战与解决方案"><a href="#4-关键挑战与解决方案" class="headerlink" title="4. 关键挑战与解决方案"></a><strong>4. 关键挑战与解决方案</strong></h3><h4 id="1-任务适配性不足"><a href="#1-任务适配性不足" class="headerlink" title="(1) 任务适配性不足"></a><strong>(1) 任务适配性不足</strong></h4><ul>
+<li><strong>问题</strong>：模型未针对特定任务（如去噪）优化，可能导致结果不理想。</li>
+<li><strong>解决方案</strong>：<ul>
+<li><strong>引导扩散（Guided Diffusion）</strong>：通过条件输入（如文本描述、掩码）引导生成方向。</li>
+<li><strong>微调模型</strong>：在特定任务数据上微调模型参数。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-计算效率"><a href="#2-计算效率" class="headerlink" title="(2) 计算效率"></a><strong>(2) 计算效率</strong></h4><ul>
+<li><strong>问题</strong>：扩散模型的生成过程需要 (T) 步迭代（如 (T&#x3D;1000)），计算成本高。</li>
+<li><strong>解决方案</strong>：<ul>
+<li><strong>快速采样技术</strong>：如DDIM（去除了部分噪声项，加速生成）。</li>
+<li><strong>中间步骤截断</strong>：仅运行部分步骤（如 (T&#x3D;50)）以平衡速度与质量。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-数据分布偏差"><a href="#3-数据分布偏差" class="headerlink" title="(3) 数据分布偏差"></a><strong>(3) 数据分布偏差</strong></h4><ul>
+<li><strong>问题</strong>：模型可能对训练数据外的输入（如极端噪声、特殊风格）表现不佳。</li>
+<li><strong>解决方案</strong>：<ul>
+<li><strong>数据增强</strong>：在训练时加入更多噪声类型或风格的数据。</li>
+<li><strong>领域适应（Domain Adaptation）</strong>：针对特定领域微调模型。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="5-实际应用案例"><a href="#5-实际应用案例" class="headerlink" title="5. 实际应用案例"></a><strong>5. 实际应用案例</strong></h3><h4 id="1-Stable-Diffusion的图像修复"><a href="#1-Stable-Diffusion的图像修复" class="headerlink" title="(1) Stable Diffusion的图像修复"></a><strong>(1) Stable Diffusion的图像修复</strong></h4><p>Stable Diffusion支持通过<strong>掩码和提示文本</strong>进行图像修复：</p>
+<ul>
+<li>输入：损坏的图像 + 掩码（标记损坏区域） + 文本描述（如“修复天空”）。</li>
+<li>输出：根据文本提示修复后的图像。</li>
+</ul>
+<h4 id="2-风格迁移"><a href="#2-风格迁移" class="headerlink" title="(2) 风格迁移"></a><strong>(2) 风格迁移</strong></h4><p>通过调整扩散过程的条件输入（如风格图像或文本描述），将输入图像转换为特定风格。</p>
+<h4 id="3-医学图像去噪"><a href="#3-医学图像去噪" class="headerlink" title="(3) 医学图像去噪"></a><strong>(3) 医学图像去噪</strong></h4><p>在医疗领域，研究者已尝试使用扩散模型去噪MRI或CT图像，但需在医疗数据上微调模型。</p>
+<hr>
+<h3 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a><strong>6. 总结</strong></h3><ul>
+<li><strong>直接使用可行性</strong>：是的，扩散模型可以通过调整推理流程（如引导采样、掩码条件）对现有图像进行修复、去噪等操作。</li>
+<li><strong>效果与限制</strong>：效果取决于模型训练数据与任务的匹配度，以及是否进行针对性调整（如微调、引导）。</li>
+<li><strong>替代方案</strong>：对于特定任务（如去噪），传统方法（如DnCNN、Wavelet去噪）可能更高效，但扩散模型在复杂场景（如风格化修复）中更具优势。</li>
+</ul>
+<p>因此，扩散模型在图像处理中的应用需要结合任务需求和模型特性，通过灵活调整推理流程或微调参数来实现目标。</p>
+<h2 id="unet网络预测的噪声是要逼近前向过程自己产生的随机噪声，那是否直接用这个前向噪声就可以直接Sampling，倘若可以，那扩散模型的意义是啥嘞"><a href="#unet网络预测的噪声是要逼近前向过程自己产生的随机噪声，那是否直接用这个前向噪声就可以直接Sampling，倘若可以，那扩散模型的意义是啥嘞" class="headerlink" title="unet网络预测的噪声是要逼近前向过程自己产生的随机噪声，那是否直接用这个前向噪声就可以直接Sampling，倘若可以，那扩散模型的意义是啥嘞"></a>unet网络预测的噪声是要逼近前向过程自己产生的随机噪声，那是否直接用这个前向噪声就可以直接Sampling，倘若可以，那扩散模型的意义是啥嘞</h2><p>你的问题触及扩散模型的核心机制，需要从<strong>数学推导</strong>和<strong>模型目标</strong>两个层面澄清。以下是详细解释：</p>
+<hr>
+<h3 id="1-前向噪声与UNet预测噪声的关系"><a href="#1-前向噪声与UNet预测噪声的关系" class="headerlink" title="1. 前向噪声与UNet预测噪声的关系"></a><strong>1. 前向噪声与UNet预测噪声的关系</strong></h3><h4 id="1-前向过程的噪声是随机的"><a href="#1-前向过程的噪声是随机的" class="headerlink" title="(1) 前向过程的噪声是随机的"></a><strong>(1) 前向过程的噪声是随机的</strong></h4><p>在前向过程中，每个时间步 (t) 添加的噪声 (\epsilon_t) 是<strong>独立的随机变量</strong>，满足：<br>[<br>\epsilon_t \sim \mathcal{N}(0, I)<br>]<br>这些噪声是随机生成的，且<strong>无法在生成阶段（反向过程）中直接访问</strong>。例如，当你在生成阶段从噪声 (x_T) 开始时，你并不知道 (x_T) 是由哪些随机噪声 (\epsilon_1, \epsilon_2, \dots, \epsilon_T) 生成的。</p>
+<h4 id="2-UNet的预测目标"><a href="#2-UNet的预测目标" class="headerlink" title="(2) UNet的预测目标"></a><strong>(2) UNet的预测目标</strong></h4><p>UNet的训练目标是<strong>学习如何根据当前噪声样本 (x_t) 和时间步 (t)，预测出前向过程中添加的噪声 (\epsilon_t)</strong>。具体来说：</p>
+<ul>
+<li><strong>训练阶段</strong>：对于真实数据 (x_0)，通过前向过程生成 (x_t)，并记录对应的噪声 (\epsilon)（因为训练时可以访问所有中间步骤）。</li>
+<li><strong>损失函数</strong>：模型通过最小化预测噪声 (\epsilon_\theta(x_t, t)) 与真实噪声 (\epsilon) 的差异来训练：<br>[<br>\mathbb{E}<em>{x_0, \epsilon, t} \left[ || \epsilon - \epsilon</em>\theta(x_t, t) ||^2 \right]<br>]</li>
+<li><strong>生成阶段</strong>：模型无法直接访问前向过程的噪声 (\epsilon_t)，但可以通过预测的噪声 (\epsilon_\theta(x_t, t)) 来<strong>逆向计算去噪步骤</strong>。</li>
+</ul>
+<hr>
+<h3 id="2-为什么不能直接使用前向噪声进行采样？"><a href="#2-为什么不能直接使用前向噪声进行采样？" class="headerlink" title="2. 为什么不能直接使用前向噪声进行采样？"></a><strong>2. 为什么不能直接使用前向噪声进行采样？</strong></h3><h4 id="1-前向噪声是随机且不可逆的"><a href="#1-前向噪声是随机且不可逆的" class="headerlink" title="(1) 前向噪声是随机且不可逆的"></a><strong>(1) 前向噪声是随机且不可逆的</strong></h4><ul>
+<li><strong>不可逆性</strong>：前向过程是一个马尔可夫链，每一步的噪声 (\epsilon_t) 是随机且独立的。例如，从 (x_0) 到 (x_T) 的路径是<strong>无数可能的噪声序列</strong>中的一种，而生成阶段无法知道具体用了哪一条路径。</li>
+<li><strong>逆向过程需要噪声的估计</strong>：在反向过程中，计算 (x_{t-1}) 时需要知道当前噪声 (x_t) 和<strong>前向过程中添加的噪声 (\epsilon_t)</strong>。如果不知道 (\epsilon_t)，就无法逆向计算 (x_{t-1})。</li>
+</ul>
+<h4 id="2-生成阶段的数学推导依赖UNet的预测"><a href="#2-生成阶段的数学推导依赖UNet的预测" class="headerlink" title="(2) 生成阶段的数学推导依赖UNet的预测"></a><strong>(2) 生成阶段的数学推导依赖UNet的预测</strong></h4><p>反向过程的核心公式为：<br>[<br>x_{t-1} &#x3D; \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}<em>t}} \cdot \epsilon</em>\theta(x_t, t) \right) + \sqrt{\beta_t} \cdot \epsilon<br>]<br>其中：</p>
+<ul>
+<li>(\epsilon_\theta(x_t, t)) 是UNet预测的噪声（对前向噪声 (\epsilon_t) 的估计）。</li>
+<li>(\epsilon) 是在反向过程中新添加的噪声（用于探索可能性）。</li>
+</ul>
+<p><strong>关键点</strong>：</p>
+<ul>
+<li>如果没有UNet，我们无法知道 (\epsilon_t)，因此无法计算 (x_{t-1}) 的值。</li>
+<li><strong>直接使用前向噪声</strong>需要知道所有 (\epsilon_t)，但生成阶段无法获取这些噪声，因此无法实现。</li>
+</ul>
+<hr>
+<h3 id="3-扩散模型的意义"><a href="#3-扩散模型的意义" class="headerlink" title="3. 扩散模型的意义"></a><strong>3. 扩散模型的意义</strong></h3><h4 id="1-学习数据分布的隐式表达"><a href="#1-学习数据分布的隐式表达" class="headerlink" title="(1) 学习数据分布的隐式表达"></a><strong>(1) 学习数据分布的隐式表达</strong></h4><p>扩散模型的核心意义在于：</p>
+<ul>
+<li><strong>通过UNet学习数据分布的统计特性</strong>：模型通过预测噪声 (\epsilon_t)，间接学习了如何从噪声中恢复数据分布。例如，在图像生成中，模型学会了如何从模糊的噪声中逐步恢复出清晰的图像结构。</li>
+<li><strong>渐进式去噪的数学框架</strong>：扩散模型通过固定前向过程的噪声路径，将生成任务分解为<strong>多个小步骤的去噪问题</strong>，避免了直接从噪声到数据的一步跳跃（这在高维空间中几乎不可能）。</li>
+</ul>
+<h4 id="2-解决传统生成模型的局限性"><a href="#2-解决传统生成模型的局限性" class="headerlink" title="(2) 解决传统生成模型的局限性"></a><strong>(2) 解决传统生成模型的局限性</strong></h4><ul>
+<li><strong>与GAN的对比</strong>：GAN通过对抗训练生成样本，但容易出现模式崩溃或训练不稳定。扩散模型通过<strong>明确的数学公式</strong>（如反向过程的去噪步骤）确保生成过程的稳定性。</li>
+<li><strong>与VAE的对比</strong>：VAE受限于编码器-解码器结构，可能丢失信息。扩散模型通过多步去噪逐步恢复细节，生成质量更高。</li>
+</ul>
+<h4 id="3-生成高质量样本的能力"><a href="#3-生成高质量样本的能力" class="headerlink" title="(3) 生成高质量样本的能力"></a><strong>(3) 生成高质量样本的能力</strong></h4><p>扩散模型的生成质量依赖于UNet的预测能力：</p>
+<ul>
+<li><strong>每一步的微调</strong>：UNet在每个时间步 (t) 都能根据当前噪声样本 (x_t) 的局部信息，预测出正确的去噪方向。</li>
+<li><strong>噪声的可控性</strong>：通过调整反向过程中的新噪声 (\epsilon)，可以在生成过程中平衡确定性（如固定种子）和多样性（如随机噪声）。</li>
+</ul>
+<hr>
+<h3 id="4-如果没有UNet会发生什么？"><a href="#4-如果没有UNet会发生什么？" class="headerlink" title="4. 如果没有UNet会发生什么？"></a><strong>4. 如果没有UNet会发生什么？</strong></h3><p>假设直接使用前向噪声进行生成（即没有UNet），则：</p>
+<ul>
+<li><strong>无法逆向计算</strong>：因为前向噪声 (\epsilon_t) 是未知的，反向过程无法执行去噪步骤。</li>
+<li><strong>生成结果退化</strong>：只能通过随机猜测噪声，导致生成的样本完全随机，无法形成有意义的结构。</li>
+</ul>
+<hr>
+<h3 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a><strong>5. 总结</strong></h3><ul>
+<li><strong>UNet的不可替代性</strong>：扩散模型的反向过程<strong>必须依赖UNet的预测噪声</strong>，因为前向噪声在生成阶段是未知的。</li>
+<li><strong>扩散模型的意义</strong>：通过UNet学习噪声与数据的映射关系，将生成任务分解为可控制的渐进式去噪步骤，从而生成高质量样本。</li>
+<li><strong>数学与工程的结合</strong>：固定前向路径提供数学可逆性，而UNet通过学习噪声分布实现数据分布的建模，两者共同构成扩散模型的核心。</li>
+</ul>
+<p>因此，扩散模型的意义在于<strong>通过UNet的预测能力，将随机噪声逐步转化为符合数据分布的样本</strong>，而这一过程无法通过直接使用前向噪声实现。</p>
+<h2 id="wait-to-be-continued…"><a href="#wait-to-be-continued…" class="headerlink" title="wait to be continued…"></a>wait to be continued…</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#diffusion-model"><span class="toc-number">1.</span> <span class="toc-text">diffusion model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ask-to-ai"><span class="toc-number">2.</span> <span class="toc-text">ask to ai</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E5%A6%82ddpm%E7%9A%84%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">扩散模型如ddpm的前向过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%EF%BC%88Forward-Process%EF%BC%89"><span class="toc-number">3.1.</span> <span class="toc-text">扩散模型的前向过程（Forward Process）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E6%95%B0%E5%AD%A6%E5%AE%9A%E4%B9%89"><span class="toc-number">3.1.1.</span> <span class="toc-text">1. 前向过程的数学定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%A0%B8%E5%BF%83%E5%8F%82%E6%95%B0%EF%BC%9A%E6%96%B9%E5%B7%AE%E8%A1%B0%E5%87%8F%E7%B3%BB%E6%95%B0-alpha-t"><span class="toc-number">3.1.2.</span> <span class="toc-text">2. 核心参数：方差衰减系数 (\alpha_t)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E5%88%86%E5%B8%83%E6%8E%A8%E5%AF%BC"><span class="toc-number">3.1.3.</span> <span class="toc-text">3. 前向过程的分布推导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.1.4.</span> <span class="toc-text">4. 前向过程的步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A41%EF%BC%9A%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%82%E6%95%B0"><span class="toc-number">3.1.4.1.</span> <span class="toc-text">步骤1：初始化参数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A42%EF%BC%9A%E5%89%8D%E5%90%91%E6%89%A9%E6%95%A3"><span class="toc-number">3.1.4.2.</span> <span class="toc-text">步骤2：前向扩散</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A43%EF%BC%9A%E7%BB%88%E6%AD%A2%E6%9D%A1%E4%BB%B6"><span class="toc-number">3.1.4.3.</span> <span class="toc-text">步骤3：终止条件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%85%B3%E9%94%AE%E6%80%A7%E8%B4%A8"><span class="toc-number">3.1.5.</span> <span class="toc-text">5. 关键性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E7%A4%BA%E4%BE%8B%EF%BC%9ADDPM%E4%B8%AD%E7%9A%84%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="toc-number">3.1.6.</span> <span class="toc-text">6. 示例：DDPM中的参数设置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.2.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%96%B9%E5%B7%AE%E4%B8%80%E8%88%AC%E6%98%AF%E5%9B%BA%E5%AE%9A%E8%AE%BE%E7%BD%AE%E7%9A%84"><span class="toc-number">4.</span> <span class="toc-text">为什么方差一般是固定设置的</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%A8%B3%E5%AE%9A%E6%80%A7%E4%B8%8E%E5%8F%AF%E9%80%86%E6%80%A7"><span class="toc-number">4.1.</span> <span class="toc-text">1. 稳定性与可逆性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC"><span class="toc-number">4.2.</span> <span class="toc-text">2. 理论基础与数学推导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AE%A1%E7%AE%97%E6%95%88%E7%8E%87%E4%B8%8E%E7%AE%80%E5%8C%96%E8%AE%AD%E7%BB%83"><span class="toc-number">4.3.</span> <span class="toc-text">3. 计算效率与简化训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%BB%8F%E9%AA%8C%E6%95%88%E6%9E%9C%E4%B8%8E%E5%AE%9E%E9%AA%8C%E9%AA%8C%E8%AF%81"><span class="toc-number">4.4.</span> <span class="toc-text">4. 经验效果与实验验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%9B%BA%E5%AE%9A%E6%96%B9%E5%B7%AE%E7%9A%84%E5%85%B7%E4%BD%93%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.5.</span> <span class="toc-text">5. 固定方差的具体设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E9%80%92%E5%A2%9E%E7%9A%84-beta-t-%EF%BC%88DDPM%E9%BB%98%E8%AE%A4%E8%AE%BE%E7%BD%AE%EF%BC%89"><span class="toc-number">4.5.1.</span> <span class="toc-text">线性递增的(\beta_t)（DDPM默认设置）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%99%E5%BC%A6%E8%A1%B0%E5%87%8F%E6%88%96%E5%85%B6%E4%BB%96%E9%A2%84%E8%AE%BE%E5%87%BD%E6%95%B0"><span class="toc-number">4.5.2.</span> <span class="toc-text">余弦衰减或其他预设函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%A4%96%E6%83%85%E5%86%B5%EF%BC%9A%E5%8A%A8%E6%80%81%E8%B0%83%E6%95%B4%E6%96%B9%E5%B7%AE%E7%9A%84%E5%B0%9D%E8%AF%95"><span class="toc-number">4.6.</span> <span class="toc-text">例外情况：动态调整方差的尝试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-number">4.7.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A2%E7%84%B6%E9%83%BD%E6%98%AF%E5%9B%BA%E5%AE%9A%E9%A2%84%E8%AE%BE%E7%9A%84%EF%BC%8C%E9%82%A3%E4%B9%88%E5%89%8D%E5%90%8E%E5%90%91%E4%BC%A0%E6%92%AD%E5%8F%88%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89%E5%91%A2"><span class="toc-number">5.</span> <span class="toc-text">既然都是固定预设的，那么前后向传播又有什么意义呢</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-number">5.1.</span> <span class="toc-text">1. 前向过程的意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%90%8E%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-number">5.2.</span> <span class="toc-text">2. 后向过程的意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%B8%A4%E8%80%85%E7%9A%84%E5%8D%8F%E5%90%8C%E4%BD%9C%E7%94%A8"><span class="toc-number">5.3.</span> <span class="toc-text">3. 两者的协同作用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%95%B0%E5%AD%A6%E5%8F%AF%E9%80%86%E6%80%A7"><span class="toc-number">5.3.1.</span> <span class="toc-text">(1) 数学可逆性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%AE%AD%E7%BB%83%E4%B8%8E%E7%94%9F%E6%88%90%E7%9A%84%E5%88%86%E7%A6%BB"><span class="toc-number">5.3.2.</span> <span class="toc-text">(2) 训练与生成的分离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%A8%B3%E5%AE%9A%E6%80%A7%E4%B8%8E%E6%95%88%E7%8E%87"><span class="toc-number">5.3.3.</span> <span class="toc-text">(3) 稳定性与效率</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%85%B7%E4%BD%93%E7%A4%BA%E4%BE%8B%EF%BC%9ADDPM%E7%9A%84%E8%AE%AD%E7%BB%83%E4%B8%8E%E7%94%9F%E6%88%90"><span class="toc-number">5.4.</span> <span class="toc-text">4. 具体示例：DDPM的训练与生成</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%AE%AD%E7%BB%83%E9%98%B6%E6%AE%B5"><span class="toc-number">5.4.1.</span> <span class="toc-text">(1) 训练阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%94%9F%E6%88%90%E9%98%B6%E6%AE%B5"><span class="toc-number">5.4.2.</span> <span class="toc-text">(2) 生成阶段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%A6%82%E6%9E%9C%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E5%8F%82%E6%95%B0%E4%B8%8D%E5%9B%BA%E5%AE%9A%E4%BC%9A%E6%80%8E%E6%A0%B7%EF%BC%9F"><span class="toc-number">5.5.</span> <span class="toc-text">5. 如果前向过程的参数不固定会怎样？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-2"><span class="toc-number">5.6.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E4%BB%A5%E7%90%86%E8%A7%A3%E4%B8%BA%E5%89%8D%E5%90%8E%E5%90%91%E7%9A%84%E5%8D%8F%E5%90%8C%E4%B8%BB%E8%A6%81%E6%98%AF%E4%B8%BA%E4%BA%86%E8%AE%AD%E7%BB%83%E5%87%BA%E4%B8%80%E4%B8%AA%E5%85%B7%E6%9C%89%E6%B3%9B%E5%8C%96%E8%83%BD%E5%8A%9B%E7%9A%84%E5%8E%BB%E5%99%AA%E6%A8%A1%E5%9E%8B-%E4%BB%A5%E8%BE%BE%E5%88%B0%E7%94%9F%E6%88%90%E6%9B%B4%E5%8A%A0%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E6%A0%B7%E6%9C%AC%E5%90%97"><span class="toc-number">6.</span> <span class="toc-text">可以理解为前后向的协同主要是为了训练出一个具有泛化能力的去噪模型 以达到生成更加高质量的样本吗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B3%9B%E5%8C%96%E8%83%BD%E5%8A%9B%E7%9A%84%E6%9D%A5%E6%BA%90"><span class="toc-number">6.1.</span> <span class="toc-text">1. 泛化能力的来源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%AB%98%E8%B4%A8%E9%87%8F%E7%94%9F%E6%88%90%E7%9A%84%E4%BF%9D%E9%9A%9C"><span class="toc-number">6.2.</span> <span class="toc-text">2. 高质量生成的保障</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8D%8F%E5%90%8C%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%86%E8%8A%82"><span class="toc-number">6.3.</span> <span class="toc-text">3. 协同设计的细节</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E2%80%9C%E5%99%AA%E5%A3%B0%E5%A4%9A%E6%A0%B7%E6%80%A7%E2%80%9D"><span class="toc-number">6.3.1.</span> <span class="toc-text">(1) 前向过程的“噪声多样性”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%90%8E%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E2%80%9C%E5%8E%BB%E5%99%AA%E6%B3%9B%E5%8C%96%E2%80%9D"><span class="toc-number">6.3.2.</span> <span class="toc-text">(2) 后向过程的“去噪泛化”</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AF%B9%E6%AF%94%E4%BC%A0%E7%BB%9F%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B"><span class="toc-number">6.4.</span> <span class="toc-text">4. 对比传统生成模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8EGAN%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">6.4.1.</span> <span class="toc-text">与GAN的对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8EVAE%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">6.4.2.</span> <span class="toc-text">与VAE的对比</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%AE%9E%E9%99%85%E6%95%88%E6%9E%9C%E9%AA%8C%E8%AF%81"><span class="toc-number">6.5.</span> <span class="toc-text">5. 实际效果验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-3"><span class="toc-number">6.6.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E5%AE%8C%E6%88%90%E5%90%8E%E8%BF%99%E4%B8%AA%E8%AE%AD%E7%BB%83%E5%90%8E%E7%9A%84%E6%A8%A1%E5%9E%8B%E6%98%AF%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E6%8B%BF%E6%9D%A5%E5%AF%B9%E6%9F%90%E4%BA%9B%E5%9B%BE%E7%89%87%E8%BF%9B%E8%A1%8C%E6%B8%85%E6%99%B0%E5%8C%96%E7%AD%89%E6%93%8D%E4%BD%9C%E5%90%97"><span class="toc-number">7.</span> <span class="toc-text">训练完成后这个训练后的模型是可以直接拿来对某些图片进行清晰化等操作吗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B"><span class="toc-number">7.1.</span> <span class="toc-text">1. 扩散模型的核心能力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8F%AF%E8%A1%8C%E6%80%A7"><span class="toc-number">7.2.</span> <span class="toc-text">2. 直接使用的可行性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%8F%AF%E8%A1%8C%E6%80%A7%E5%9F%BA%E7%A1%80"><span class="toc-number">7.2.1.</span> <span class="toc-text">(1) 可行性基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%99%90%E5%88%B6%E4%B8%8E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">7.2.2.</span> <span class="toc-text">(2) 限制与注意事项</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%85%B7%E4%BD%93%E5%BA%94%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">7.3.</span> <span class="toc-text">3. 具体应用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA"><span class="toc-number">7.3.1.</span> <span class="toc-text">(1) 图像去噪</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%9B%BE%E5%83%8F%E4%BF%AE%E5%A4%8D%EF%BC%88Inpainting%EF%BC%89"><span class="toc-number">7.3.2.</span> <span class="toc-text">(2) 图像修复（Inpainting）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%B6%85%E5%88%86%E8%BE%A8%E7%8E%87%EF%BC%88Super-Resolution%EF%BC%89"><span class="toc-number">7.3.3.</span> <span class="toc-text">(3) 超分辨率（Super-Resolution）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%85%B3%E9%94%AE%E6%8C%91%E6%88%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">7.4.</span> <span class="toc-text">4. 关键挑战与解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BB%BB%E5%8A%A1%E9%80%82%E9%85%8D%E6%80%A7%E4%B8%8D%E8%B6%B3"><span class="toc-number">7.4.1.</span> <span class="toc-text">(1) 任务适配性不足</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%AE%A1%E7%AE%97%E6%95%88%E7%8E%87"><span class="toc-number">7.4.2.</span> <span class="toc-text">(2) 计算效率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83%E5%81%8F%E5%B7%AE"><span class="toc-number">7.4.3.</span> <span class="toc-text">(3) 数据分布偏差</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-number">7.5.</span> <span class="toc-text">5. 实际应用案例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Stable-Diffusion%E7%9A%84%E5%9B%BE%E5%83%8F%E4%BF%AE%E5%A4%8D"><span class="toc-number">7.5.1.</span> <span class="toc-text">(1) Stable Diffusion的图像修复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%A3%8E%E6%A0%BC%E8%BF%81%E7%A7%BB"><span class="toc-number">7.5.2.</span> <span class="toc-text">(2) 风格迁移</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA"><span class="toc-number">7.5.3.</span> <span class="toc-text">(3) 医学图像去噪</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%80%BB%E7%BB%93"><span class="toc-number">7.6.</span> <span class="toc-text">6. 总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unet%E7%BD%91%E7%BB%9C%E9%A2%84%E6%B5%8B%E7%9A%84%E5%99%AA%E5%A3%B0%E6%98%AF%E8%A6%81%E9%80%BC%E8%BF%91%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E8%87%AA%E5%B7%B1%E4%BA%A7%E7%94%9F%E7%9A%84%E9%9A%8F%E6%9C%BA%E5%99%AA%E5%A3%B0%EF%BC%8C%E9%82%A3%E6%98%AF%E5%90%A6%E7%9B%B4%E6%8E%A5%E7%94%A8%E8%BF%99%E4%B8%AA%E5%89%8D%E5%90%91%E5%99%AA%E5%A3%B0%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5Sampling%EF%BC%8C%E5%80%98%E8%8B%A5%E5%8F%AF%E4%BB%A5%EF%BC%8C%E9%82%A3%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%84%8F%E4%B9%89%E6%98%AF%E5%95%A5%E5%98%9E"><span class="toc-number">8.</span> <span class="toc-text">unet网络预测的噪声是要逼近前向过程自己产生的随机噪声，那是否直接用这个前向噪声就可以直接Sampling，倘若可以，那扩散模型的意义是啥嘞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%89%8D%E5%90%91%E5%99%AA%E5%A3%B0%E4%B8%8EUNet%E9%A2%84%E6%B5%8B%E5%99%AA%E5%A3%B0%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">8.1.</span> <span class="toc-text">1. 前向噪声与UNet预测噪声的关系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B%E7%9A%84%E5%99%AA%E5%A3%B0%E6%98%AF%E9%9A%8F%E6%9C%BA%E7%9A%84"><span class="toc-number">8.1.1.</span> <span class="toc-text">(1) 前向过程的噪声是随机的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-UNet%E7%9A%84%E9%A2%84%E6%B5%8B%E7%9B%AE%E6%A0%87"><span class="toc-number">8.1.2.</span> <span class="toc-text">(2) UNet的预测目标</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%89%8D%E5%90%91%E5%99%AA%E5%A3%B0%E8%BF%9B%E8%A1%8C%E9%87%87%E6%A0%B7%EF%BC%9F"><span class="toc-number">8.2.</span> <span class="toc-text">2. 为什么不能直接使用前向噪声进行采样？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%89%8D%E5%90%91%E5%99%AA%E5%A3%B0%E6%98%AF%E9%9A%8F%E6%9C%BA%E4%B8%94%E4%B8%8D%E5%8F%AF%E9%80%86%E7%9A%84"><span class="toc-number">8.2.1.</span> <span class="toc-text">(1) 前向噪声是随机且不可逆的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%94%9F%E6%88%90%E9%98%B6%E6%AE%B5%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E4%BE%9D%E8%B5%96UNet%E7%9A%84%E9%A2%84%E6%B5%8B"><span class="toc-number">8.2.2.</span> <span class="toc-text">(2) 生成阶段的数学推导依赖UNet的预测</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-number">8.3.</span> <span class="toc-text">3. 扩散模型的意义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AD%A6%E4%B9%A0%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83%E7%9A%84%E9%9A%90%E5%BC%8F%E8%A1%A8%E8%BE%BE"><span class="toc-number">8.3.1.</span> <span class="toc-text">(1) 学习数据分布的隐式表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%A7%A3%E5%86%B3%E4%BC%A0%E7%BB%9F%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%B1%80%E9%99%90%E6%80%A7"><span class="toc-number">8.3.2.</span> <span class="toc-text">(2) 解决传统生成模型的局限性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%94%9F%E6%88%90%E9%AB%98%E8%B4%A8%E9%87%8F%E6%A0%B7%E6%9C%AC%E7%9A%84%E8%83%BD%E5%8A%9B"><span class="toc-number">8.3.3.</span> <span class="toc-text">(3) 生成高质量样本的能力</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%A6%82%E6%9E%9C%E6%B2%A1%E6%9C%89UNet%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">8.4.</span> <span class="toc-text">4. 如果没有UNet会发生什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%80%BB%E7%BB%93"><span class="toc-number">8.5.</span> <span class="toc-text">5. 总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-to-be-continued%E2%80%A6"><span class="toc-number">9.</span> <span class="toc-text">wait to be continued…</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://xudong7.github.io/2025/03/26/diffusion-model/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://xudong7.github.io/2025/03/26/diffusion-model/&text=diffusion model"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://xudong7.github.io/2025/03/26/diffusion-model/&title=diffusion model"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://xudong7.github.io/2025/03/26/diffusion-model/&is_video=false&description=diffusion model"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=diffusion model&body=Check out this article: https://xudong7.github.io/2025/03/26/diffusion-model/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://xudong7.github.io/2025/03/26/diffusion-model/&title=diffusion model"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://xudong7.github.io/2025/03/26/diffusion-model/&title=diffusion model"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://xudong7.github.io/2025/03/26/diffusion-model/&title=diffusion model"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://xudong7.github.io/2025/03/26/diffusion-model/&title=diffusion model"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://xudong7.github.io/2025/03/26/diffusion-model/&name=diffusion model&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://xudong7.github.io/2025/03/26/diffusion-model/&t=diffusion model"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    Dunjia
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
