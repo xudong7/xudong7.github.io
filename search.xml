@@ -1369,4 +1369,24 @@
 <h3 id="2-Rust-WebAssembly"><a href="#2-Rust-WebAssembly" class="headerlink" title="2. Rust WebAssembly"></a>2. Rust WebAssembly</h3><p>learning…</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>wasm-app 踩坑</title>
+    <url>/2025/03/31/wasm-app-%E8%B8%A9%E5%9D%91/</url>
+    <content><![CDATA[<h1 id="wasm-app-踩坑"><a href="#wasm-app-踩坑" class="headerlink" title="wasm-app 踩坑"></a>wasm-app 踩坑</h1><p>最近使用 Rust 开发 Web 应用程序，尝试使用 <code>wasm-app</code> 模板创建一个简单的 Web 应用程序。</p>
+<p>初始化时使用<code>npm init wasm-app www</code>命令创建了一个新的 Web 应用程序。</p>
+<p>结果报错</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm init wasm-app www</span><br><span class="line">npm error could not determine executable to run</span><br><span class="line">npm error A complete <span class="built_in">log</span> of this run can be found <span class="keyword">in</span>: C:\Users\XU Dong\AppData\Local\npm-cache\_logs\2025-03-31T13_22_00_540Z-debug-0.log</span><br></pre></td></tr></table></figure>
+
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>在官方仓库的issue发现这是个共性问题，可能是npm版本的问题。</p>
+<p>我的npm版本是<code>10.8.2</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm -v</span><br><span class="line">10.8.2</span><br></pre></td></tr></table></figure>
+
+<p>于是我尝试将npm降级到<code>10.7.0</code>版本，使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g npm@10.7.0</span><br></pre></td></tr></table></figure>
+
+<p>然后重新运行<code>npm init wasm-app www</code>命令，成功创建了新的 Web 应用程序。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm init wasm-app www</span><br><span class="line">Need to install the following packages:</span><br><span class="line">create-wasm-app@0.1.0</span><br><span class="line">Ok to proceed? (y) y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt; npx</span><br><span class="line">&gt; create-wasm-app www</span><br><span class="line"></span><br><span class="line">🦀 Rust + 🕸 Wasm = ❤</span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
 </search>
