@@ -550,6 +550,9 @@
 <p><img src="/images/image21.png" alt="alt text"></p>
 <p>显示成功，用户只能购买一次商品。</p>
 ]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
   </entry>
   <entry>
     <title>超卖问题</title>
@@ -1504,5 +1507,8 @@
 <p><img src="/images/image29.png" alt="alt text"></p>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>使用唯一锁监视器来监控全部的<code>jvm</code>中的线程<br>在分布式系统中，使用<code>redis</code>的分布式锁来保证线程安全…</p>
 ]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
   </entry>
 </search>
