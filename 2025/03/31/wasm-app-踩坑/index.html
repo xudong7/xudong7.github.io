@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="wasm-app 踩坑最近使用 Rust 开发 Web 应用程序，尝试使用 wasm-app 模板创建一个简单的 Web 应用程序。 初始化时使用npm init wasm-app www命令创建了一个新的 Web 应用程序。 结果报错 123$ npm init wasm-app wwwnpm error could not determine executable to runnpm erro">
+    <meta name="description" content="wasm-app 踩坑最近使用 Rust 开发 Web 应用程序，尝试使用 wasm-app 模板创建一个简单的 Web 应用程序。 先使用wasm-pack创建一个新的 Rust 项目 1wasm-pack new wasm-test  然后进入项目目录 1cd wasm-test  接着使用wasm-pack build命令构建项目 1wasm-pack build  然后进入wasm-tes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="wasm-app 踩坑">
 <meta property="og:url" content="https://xudong7.github.io/2025/03/31/wasm-app-%E8%B8%A9%E5%9D%91/index.html">
 <meta property="og:site_name" content="Dunjia&#39;s Blog">
-<meta property="og:description" content="wasm-app 踩坑最近使用 Rust 开发 Web 应用程序，尝试使用 wasm-app 模板创建一个简单的 Web 应用程序。 初始化时使用npm init wasm-app www命令创建了一个新的 Web 应用程序。 结果报错 123$ npm init wasm-app wwwnpm error could not determine executable to runnpm erro">
+<meta property="og:description" content="wasm-app 踩坑最近使用 Rust 开发 Web 应用程序，尝试使用 wasm-app 模板创建一个简单的 Web 应用程序。 先使用wasm-pack创建一个新的 Rust 项目 1wasm-pack new wasm-test  然后进入项目目录 1cd wasm-test  接着使用wasm-pack build命令构建项目 1wasm-pack build  然后进入wasm-tes">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xudong7.github.io/images/image26.png">
 <meta property="article:published_time" content="2025-03-31T13:44:59.000Z">
-<meta property="article:modified_time" content="2025-04-01T06:27:05.933Z">
+<meta property="article:modified_time" content="2025-04-01T08:48:36.759Z">
 <meta property="article:author" content="Dunjia">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://xudong7.github.io/images/image26.png">
@@ -155,7 +155,20 @@
 
   <div class="content e-content" itemprop="articleBody">
     <h1 id="wasm-app-踩坑"><a href="#wasm-app-踩坑" class="headerlink" title="wasm-app 踩坑"></a>wasm-app 踩坑</h1><p>最近使用 Rust 开发 Web 应用程序，尝试使用 <code>wasm-app</code> 模板创建一个简单的 Web 应用程序。</p>
-<p>初始化时使用<code>npm init wasm-app www</code>命令创建了一个新的 Web 应用程序。</p>
+<p>先使用<code>wasm-pack</code>创建一个新的 Rust 项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wasm-pack new wasm-test</span><br></pre></td></tr></table></figure>
+
+<p>然后进入项目目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> wasm-test</span><br></pre></td></tr></table></figure>
+
+<p>接着使用<code>wasm-pack build</code>命令构建项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wasm-pack build</span><br></pre></td></tr></table></figure>
+
+<p>然后进入<code>wasm-test</code>目录下的<code>www</code>目录，使用以下命令创建一个新的 Web 应用程序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> www</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init wasm-app www</span><br></pre></td></tr></table></figure>
+
 <p>结果报错</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm init wasm-app www</span><br><span class="line">npm error could not determine executable to run</span><br><span class="line">npm error A complete <span class="built_in">log</span> of this run can be found <span class="keyword">in</span>: C:\Users\XU Dong\AppData\Local\npm-cache\_logs\2025-03-31T13_22_00_540Z-debug-0.log</span><br></pre></td></tr></table></figure>
 
