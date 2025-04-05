@@ -1677,9 +1677,58 @@
 <p>注意，因为已经进行了判断标识操作，所以之后会直接释放其他线程的锁</p>
 <p><img src="/images/image30.png" alt="alt text"></p>
 <p>解决方案：</p>
+<p>使用Lua脚本来实现原子操作</p>
+<h3 id="Redis-Lua脚本"><a href="#Redis-Lua脚本" class="headerlink" title="Redis Lua脚本"></a>Redis Lua脚本</h3><p>Redis 提供了 Lua 脚本的支持，在一个脚本中编写多条 Redis 命令，确保多条命令执行时的原子性。</p>
 ]]></content>
       <tags>
         <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nginx</title>
+    <url>/2025/04/05/nginx/</url>
+    <content><![CDATA[<h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><p>Nginx 是一个高性能的 HTTP 和反向代理服务器，同时也是一个 IMAP&#x2F;POP3&#x2F;SMTP 代理服务器。</p>
+<p>Nginx 的主要特点包括：</p>
+<ul>
+<li>高性能：Nginx 可以处理大量的并发连接，适合高负载的场景。</li>
+<li>反向代理：Nginx 可以作为反向代理服务器，将请求转发到后端服务器。</li>
+<li>负载均衡：Nginx 可以将请求分发到多个后端服务器，实现负载均衡。</li>
+<li>静态文件服务：Nginx 可以高效地提供静态文件服务，支持 gzip 压缩和缓存。<br>…</li>
+</ul>
+<h2 id="Nginx-反向代理"><a href="#Nginx-反向代理" class="headerlink" title="Nginx 反向代理"></a>Nginx 反向代理</h2><p>Nginx 反向代理的基本配置如下：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost; // 监听80端口，server_name为<span class="attribute">localhost</span></span><br><span class="line"></span><br><span class="line">    location /api/ &#123; // 前端localhost:80/api/ 转发到 后端localhost:8080/admin/</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://localhost:8080/admin/; </span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Nginx 反向代理的工作原理是，当客户端请求 Nginx 时，Nginx 会将请求转发到后端服务器（如 Apache Tomcat），然后将后端服务器的响应返回给客户端。</p>
+<div style="display: flex; align-items: center; gap: 10px;">
+  <img height="50" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
+  <span>→</span>
+  <img height="50" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
+  <span>→</span>
+  <img height="50" src="https://cdn.simpleicons.org/apachetomcat?viewbox=auto" />
+</div>
+
+
+<h2 id="反向代理的好处"><a href="#反向代理的好处" class="headerlink" title="反向代理的好处"></a>反向代理的好处</h2><ul>
+<li>提高访问速度：Nginx 可以缓存静态文件，提高访问速度。</li>
+<li>可以实现负载均衡，将请求分发到多个后端服务器，提高性能。</li>
+<li>可以隐藏后端服务器的真实地址，提高安全性。</li>
+</ul>
+<div style="display: flex; align-items: center; gap: 10px;">
+  <img height="50" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
+  <span>→</span>
+  <img height="50" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
+  <span>→</span>
+  <div style="display: flex; flex-direction: column; gap: 5px;">
+    <img height="50" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
+    <img height="50" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
+    <img height="50" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
+  </div>
+</div>
+
+<p>负载均衡：把大量的请求按照指定方式均衡的分发到多个后端服务器上，避免单台服务器过载。</p>
+]]></content>
+      <tags>
+        <tag>nginx</tag>
       </tags>
   </entry>
 </search>
