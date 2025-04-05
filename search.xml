@@ -1699,15 +1699,13 @@
 <figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost; // 监听80端口，server_name为<span class="attribute">localhost</span></span><br><span class="line"></span><br><span class="line">    location /api/ &#123; // 前端localhost:80/api/ 转发到 后端localhost:8080/admin/</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://localhost:8080/admin/; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>Nginx 反向代理的工作原理是，当客户端请求 Nginx 时，Nginx 会将请求转发到后端服务器（如 Apache Tomcat），然后将后端服务器的响应返回给客户端。</p>
-<p><img src="https://cdn.simpleicons.org/googlechrome?viewbox=auto&width=20&height=20"></p>
-<div style="display: flex; align-items: center; gap: 10px side: 10px;">
-  <img height="20px" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
+<div style="display: flex; align-items: center; gap: 10px;">
+  <img height="50px" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
   <span>→</span>
-  <img height="20px" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
+  <img height="50px" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
   <span>→</span>
-  <img height="20px" src="https://cdn.simpleicons.org/apachetomcat?viewbox=auto" />
+  <img height="50px" src="https://cdn.simpleicons.org/apachetomcat?viewbox=auto" />
 </div>
-
 
 <h2 id="反向代理的好处"><a href="#反向代理的好处" class="headerlink" title="反向代理的好处"></a>反向代理的好处</h2><ul>
 <li>提高访问速度：Nginx 可以缓存静态文件，提高访问速度。</li>
@@ -1715,22 +1713,53 @@
 <li>可以隐藏后端服务器的真实地址，提高安全性。</li>
 </ul>
 <div style="display: flex; align-items: center; gap: 10px;">
-  <img height="20px" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
+  <img height="50px" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
   <span>→</span>
-  <img height="20px" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
+  <img height="50px" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
   <span>→</span>
   <div style="display: flex; flex-direction: column; gap: 5px;">
-    <img height="20px" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
-    <img height="20px" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
-    <img height="20px" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
+    <img height="50px" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
+    <img height="50px" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
+    <img height="50px" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
   </div>
 </div>
 
 <p>负载均衡：把大量的请求按照指定方式均衡的分发到多个后端服务器上，避免单台服务器过载。</p>
 <figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers &#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://webservers/admin; <span class="comment"># 负载均衡</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
+<p>负载均衡策略：</p>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>轮询</td>
+<td>默认策略，按顺序将请求分发到后端服务器</td>
+</tr>
+<tr>
+<td>weight</td>
+<td>按照权重分发请求，权重越高，分配的请求越多</td>
+</tr>
+<tr>
+<td>ip_hash</td>
+<td>根据客户端 IP 地址进行负载均衡，同一 IP 地址的请求会被分发到同一台后端服务器</td>
+</tr>
+<tr>
+<td>least_conn</td>
+<td>将请求分发到连接数最少的后端服务器</td>
+</tr>
+<tr>
+<td>url_hash</td>
+<td>根据请求 URL 进行负载均衡，同一 URL 的请求会被分发到同一台后端服务器</td>
+</tr>
+<tr>
+<td>fair</td>
+<td>根据请求的响应时间进行负载均衡，响应时间越短的服务器会被优先选择</td>
+</tr>
+</tbody></table>
 ]]></content>
       <tags>
         <tag>nginx</tag>
