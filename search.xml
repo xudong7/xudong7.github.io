@@ -1760,6 +1760,10 @@
 <td>根据请求的响应时间进行负载均衡，响应时间越短的服务器会被优先选择</td>
 </tr>
 </tbody></table>
+<p>比如使用 <code>weight</code> 策略：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers &#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span> weight=<span class="number">90</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span> weight=<span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://webservers/admin; <span class="comment"># 负载均衡</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>…</p>
 ]]></content>
       <tags>
         <tag>nginx</tag>
