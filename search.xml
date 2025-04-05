@@ -1699,7 +1699,7 @@
 <figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost; // 监听80端口，server_name为<span class="attribute">localhost</span></span><br><span class="line"></span><br><span class="line">    location /api/ &#123; // 前端localhost:80/api/ 转发到 后端localhost:8080/admin/</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://localhost:8080/admin/; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>Nginx 反向代理的工作原理是，当客户端请求 Nginx 时，Nginx 会将请求转发到后端服务器（如 Apache Tomcat），然后将后端服务器的响应返回给客户端。</p>
-<div style="display: flex; align-items: center; gap: 10px;">
+<div style="display: flex; align-items: center; gap: 10px side: 10px;">
   <img height="20px" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
   <span>→</span>
   <img height="20px" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
@@ -1726,6 +1726,10 @@
 </div>
 
 <p>负载均衡：把大量的请求按照指定方式均衡的分发到多个后端服务器上，避免单台服务器过载。</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers &#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://webservers/admin; <span class="comment"># 负载均衡</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 ]]></content>
       <tags>
         <tag>nginx</tag>
