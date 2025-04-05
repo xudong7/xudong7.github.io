@@ -1700,15 +1700,11 @@
 
 <p>Nginx 反向代理的工作原理是，当客户端请求 Nginx 时，Nginx 会将请求转发到后端服务器（如 Apache Tomcat），然后将后端服务器的响应返回给客户端。</p>
 <div style="display: flex; align-items: center; gap: 10px;">
-  <img style="height: 20px; width: auto;" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
+  <img style="height: 50px; width: auto;" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
   <span>→</span>
-  <img style="height: 20px; width: auto;" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
+  <img style="height: 50px; width: auto;" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
   <span>→</span>
-  <div style="display: flex; flex-direction: column; gap: 5px;">
-    <img style="height: 20px; width: auto;" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
-    <img style="height: 20px; width: auto;" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
-    <img style="height: 20px; width: auto;" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
-  </div>
+  <img style="height: 50px; width: auto;" src="https://cdn.simpleicons.org/apachetomcat?viewbox=auto" />
 </div>
 
 <h2 id="反向代理的好处"><a href="#反向代理的好处" class="headerlink" title="反向代理的好处"></a>反向代理的好处</h2><ul>
@@ -1717,14 +1713,14 @@
 <li>可以隐藏后端服务器的真实地址，提高安全性。</li>
 </ul>
 <div style="display: flex; align-items: center; gap: 10px;">
-  <img height="50px" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
+  <img style="height: 50px; width: auto;" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
   <span>→</span>
-  <img height="50px" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
+  <img style="height: 50px; width: auto;" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
   <span>→</span>
   <div style="display: flex; flex-direction: column; gap: 5px;">
-    <img height="50px" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
-    <img height="50px" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
-    <img height="50px" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
+    <img style="height: 50px; width: auto;" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
+    <img style="height: 50px; width: auto;" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
+    <img style="height: 50px; width: auto;" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
   </div>
 </div>
 
