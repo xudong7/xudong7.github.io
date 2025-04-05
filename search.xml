@@ -1696,15 +1696,15 @@
 <li>静态文件服务：Nginx 可以高效地提供静态文件服务，支持 gzip 压缩和缓存。<br>…</li>
 </ul>
 <h2 id="Nginx-反向代理"><a href="#Nginx-反向代理" class="headerlink" title="Nginx 反向代理"></a>Nginx 反向代理</h2><p>Nginx 反向代理的基本配置如下：</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost; // 监听80端口，server_name为<span class="attribute">localhost</span></span><br><span class="line"></span><br><span class="line">    location /api/ &#123; // 前端localhost:80/api/ 转发到 后端localhost:8080/admin/</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://localhost:8080/admin/; </span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost; // 监听80端口，server_name为<span class="attribute">localhost</span></span><br><span class="line"></span><br><span class="line">    location /api/ &#123; // 前端localhost:80/api/ 转发到 后端localhost:8080/admin/</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://localhost:8080/admin/; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>Nginx 反向代理的工作原理是，当客户端请求 Nginx 时，Nginx 会将请求转发到后端服务器（如 Apache Tomcat），然后将后端服务器的响应返回给客户端。</p>
 <div style="display: flex; align-items: center; gap: 10px;">
-  <img height="50" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
+  <img height="20px" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
   <span>→</span>
-  <img height="50" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
+  <img height="20px" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
   <span>→</span>
-  <img height="50" src="https://cdn.simpleicons.org/apachetomcat?viewbox=auto" />
+  <img height="20px" src="https://cdn.simpleicons.org/apachetomcat?viewbox=auto" />
 </div>
 
 
@@ -1714,14 +1714,14 @@
 <li>可以隐藏后端服务器的真实地址，提高安全性。</li>
 </ul>
 <div style="display: flex; align-items: center; gap: 10px;">
-  <img height="50" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
+  <img height="20px" src="https://cdn.simpleicons.org/googlechrome?viewbox=auto" />
   <span>→</span>
-  <img height="50" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
+  <img height="20px" src="https://cdn.simpleicons.org/nginx?viewbox=auto" />
   <span>→</span>
   <div style="display: flex; flex-direction: column; gap: 5px;">
-    <img height="50" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
-    <img height="50" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
-    <img height="50" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
+    <img height="20px" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
+    <img height="20px" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
+    <img height="20px" src="https://cdn.simpleicons.org/cloudflare?viewbox=auto" />
   </div>
 </div>
 
