@@ -1783,15 +1783,46 @@
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>在浏览器中访问 <code>http://localhost:8080/doc.html</code> 即可查看生成的 API 文档。<br>在 API 文档中，可以查看到所有的 API 接口，包括接口的请求方式、请求参数、响应结果等信息。同时，Swagger 还提供了在线测试接口的功能，可以直接在文档中测试接口的调用。<br>Swagger 还支持多种格式的 API 文档导出，包括 JSON、YAML 等格式，可以方便地与其他工具进行集成。</p>
 <h2 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h2><p>Swagger 提供了一些常用的注解，可以帮助开发者更好地描述 API 接口。以下是一些常用的注解：</p>
 <ul>
-<li><code>@Api</code>: 用于描述整个 API 接口的基本信息，包括标题、版本、描述等。</li>
-<li><code>@ApiModel</code>: 用于描述请求和响应的模型类，包括类的名称、描述等。</li>
-<li><code>@ApiModelProperty</code>: 用于描述模型类的属性，包括属性的名称、类型、是否必填等。</li>
-<li><code>@ApiOperation</code>: 用于描述单个 API 接口的基本信息，包括接口的名称、描述、请求方式等。</li>
+<li><code>@Api</code>: 用在类上，例如 Controller 类，用于描述整个 API 的基本信息，包括 API 的名称、描述、版本等。</li>
+<li><code>@ApiModel</code>: 用在类上，例如 entity、DTO 类，用于描述模型类的基本信息，包括模型类的名称、描述等。</li>
+<li><code>@ApiModelProperty</code>: 用在属性上，用于描述模型类的属性信息，包括属性的名称、描述、是否必填等。</li>
+<li><code>@ApiOperation</code>: 用在方法上，例如 Controller 方法，用于描述 API 接口的基本信息，包括接口的名称、描述、请求方式等。</li>
 </ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Api(tags = &quot;用户相关接口&quot;)</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation(value = &quot;获取用户信息&quot;, notes = &quot;根据用户ID获取用户信息&quot;)</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> User <span class="title function_">getUserById</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Long id)</span> &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation(value = &quot;创建用户&quot;, notes = &quot;创建一个新的用户&quot;)</span></span><br><span class="line">    <span class="meta">@PostMapping</span></span><br><span class="line">    <span class="keyword">public</span> User <span class="title function_">createUser</span><span class="params">(<span class="meta">@RequestBody</span> User user)</span> &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>…</p>
 ]]></content>
       <tags>
         <tag>toy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ThreadLocal</title>
+    <url>/2025/04/06/ThreadLocal/</url>
+    <content><![CDATA[<h1 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h1><p>ThreadLocal 并不是一个 Thread，而是 Thread 的局部变量</p>
+<p>ThreadLocal 为每一个线程提供单独一份存储空间，具有线程隔离的效果，只有在线程内才能获取到相应的值，线程外则不能访问</p>
+<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><ul>
+<li><code>public void set(T value)</code> 设置当前线程的局部变量</li>
+<li><code>public T get()</code> 获取当前线程的局部变量</li>
+<li><code>public void remove()</code> 删除当前线程的局部变量</li>
+</ul>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>获取某个线程的上下文信息，比如用户信息、请求信息等</p>
+<p>定义一个 BaseContext 类，提供静态方法来设置、获取和删除当前线程的上下文信息</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// context/BaseContext.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BaseContext</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ThreadLocal&lt;Long&gt; threadLocal = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">setCurrentId</span><span class="params">(Long id)</span> &#123;</span><br><span class="line">        threadLocal.set(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title function_">getCurrentId</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> threadLocal.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">removeCurrentId</span><span class="params">()</span> &#123;</span><br><span class="line">        threadLocal.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在需要使用的地方调用 <code>BaseContext.setCurrentId(id)</code> 来设置当前线程的上下文信息，在需要获取的地方调用 <code>BaseContext.getCurrentId()</code> 来获取当前线程的上下文信息</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// controller/UserController.java</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/login&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Result&lt;User&gt; <span class="title function_">login</span><span class="params">(<span class="meta">@RequestBody</span> User user)</span> &#123;</span><br><span class="line">        <span class="comment">// 设置当前线程的用户 ID</span></span><br><span class="line">        BaseContext.setCurrentId(user.getId());</span><br><span class="line">        <span class="keyword">return</span> Result.success(userService.login(user));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/info&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Result&lt;User&gt; <span class="title function_">info</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 获取当前线程的用户 ID</span></span><br><span class="line">        <span class="type">Long</span> <span class="variable">id</span> <span class="operator">=</span> BaseContext.getCurrentId();</span><br><span class="line">        <span class="keyword">return</span> Result.success(userService.getById(id));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>ThreadLocal 变量的生命周期与线程相同，当线程结束时，ThreadLocal 变量也会被销毁</li>
+<li>ThreadLocal 变量的值是线程隔离的，不同线程之间无法访问</li>
+<li>ThreadLocal 变量的值是线程安全的，不同线程之间不会相互影响</li>
+<li>使用 ThreadLocal 变量时，注意及时清理，避免内存泄漏</li>
+</ul>
+<p>…</p>
+]]></content>
+      <tags>
+        <tag>java</tag>
       </tags>
   </entry>
 </search>
