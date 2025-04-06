@@ -15,7 +15,7 @@
 </ul>
 ]]></content>
       <tags>
-        <tag>toy</tag>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -82,7 +82,7 @@
 <h2 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h2><p>至此，hexo框架搭建个人博客的过程已经介绍完毕，希望对你有所帮助。</p>
 ]]></content>
       <tags>
-        <tag>toy</tag>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -143,6 +143,9 @@
 <li><a href="https://blog.csdn.net/qq_64734490/article/details/144910584">前后端分离项目部署到云服务器</a></li>
 </ul>
 ]]></content>
+      <tags>
+        <tag>tool</tag>
+      </tags>
   </entry>
   <entry>
     <title>前端构建工具 Vite vs Webpack</title>
@@ -558,7 +561,7 @@
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果windows默认shell是zsh该多好啊…</p>
 ]]></content>
       <tags>
-        <tag>toy</tag>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -715,7 +718,7 @@
 
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyAspect</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut(&quot;execution(* com.example.demo.service.*.*(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pointCut</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Around(&quot;pointCut()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">around</span><span class="params">(ProceedingJoinPoint joinPoint)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="comment">// 获取类名</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> joinPoint.getTarget().getClass().getName();</span><br><span class="line">        log.info(<span class="string">&quot;类名：&#123;&#125;&quot;</span>, className);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取方法名</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">methodName</span> <span class="operator">=</span> joinPoint.getSignature().getName();</span><br><span class="line">        log.info(<span class="string">&quot;方法名：&#123;&#125;&quot;</span>, methodName);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取参数</span></span><br><span class="line">        Object[] args = joinPoint.getArgs();</span><br><span class="line">        log.info(<span class="string">&quot;参数：&#123;&#125;&quot;</span>, args);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 运行 获取返回值</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> joinPoint.proceed();</span><br><span class="line">        log.info(<span class="string">&quot;返回值：&#123;&#125;&quot;</span>, result);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>spring boot</tag>
+        <tag>springboot</tag>
       </tags>
   </entry>
   <entry>
@@ -804,178 +807,6 @@
       </tags>
   </entry>
   <entry>
-    <title>springboot</title>
-    <url>/2025/03/24/springboot/</url>
-    <content><![CDATA[<h2 id="springboot"><a href="#springboot" class="headerlink" title="springboot"></a>springboot</h2><p>最近在学习springboot，记录一些学习笔记。</p>
-<h3 id="配置优先级"><a href="#配置优先级" class="headerlink" title="配置优先级"></a>配置优先级</h3><p>springboot的配置优先级如下(从高到低)：</p>
-<ol>
-<li>命令行参数</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">java -jar app.jar --server.port=8080</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>java系统属性</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">java -Dserver.port=8080 -jar app.jar</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>properties文件</li>
-</ol>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">server.port</span>=<span class="string">8080</span></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>yml文件</li>
-</ol>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>yaml文件</li>
-</ol>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="bean的获取"><a href="#bean的获取" class="headerlink" title="bean的获取"></a>bean的获取</h3><p>获取bean的方式有三种：</p>
-<ol>
-<li>通过名称获取</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getBeanByName</span><span class="params">()</span> &#123;</span><br><span class="line">    applicationContext.getBean(<span class="string">&quot;beanName&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>通过类型获取</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getBeanByType</span><span class="params">()</span> &#123;</span><br><span class="line">    applicationContext.getBean(BeanType.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>通过名称和类型获取</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getBeanByNameAndType</span><span class="params">()</span> &#123;</span><br><span class="line">    applicationContext.getBean(<span class="string">&quot;beanName&quot;</span>, BeanType.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="bean的作用域"><a href="#bean的作用域" class="headerlink" title="bean的作用域"></a>bean的作用域</h3><p>bean的作用域有五种：</p>
-<ol>
-<li>singleton (默认)</li>
-</ol>
-<p>单例模式，一个容器只有一个实例。</p>
-<ol start="2">
-<li>prototype (非单例)</li>
-</ol>
-<p>原型模式，每次请求都会创建一个新的实例。</p>
-<ol start="3">
-<li>request (web环境)</li>
-</ol>
-<p>每次请求都会创建一个新的实例。</p>
-<ol start="4">
-<li>session (web环境)</li>
-</ol>
-<p>每次会话都会创建一个新的实例。</p>
-<ol start="5">
-<li>application (web环境)</li>
-</ol>
-<p>每次应用都会创建一个新的实例。</p>
-<h4 id="如何设置bean的作用域"><a href="#如何设置bean的作用域" class="headerlink" title="如何设置bean的作用域"></a>如何设置bean的作用域</h4><p>通过注解</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span>  </span><br><span class="line"><span class="meta">@Scope(&quot;prototype&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrototypeBean</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="延迟初始化"><a href="#延迟初始化" class="headerlink" title="延迟初始化"></a>延迟初始化</h4><p>懒汉模式</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Lazy</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazyBean</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>启动时不会创建bean，第一次使用时才会创建。</p>
-<h3 id="第三方bean"><a href="#第三方bean" class="headerlink" title="第三方bean"></a>第三方bean</h3><p>springboot支持第三方bean的注入，只需要在配置类中添加<code>@bean</code>注解即可。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThirdPartyBeanConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> ThirdPartyBean <span class="title function_">thirdPartyBean</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ThirdPartyBean</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如何获取第三方bean：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getThirdPartyBean</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">Object</span> <span class="variable">thirdPartyObject</span> <span class="operator">=</span> applicationContext.getBean(<span class="string">&quot;thirdPartyBean&quot;</span>); <span class="comment">// 可以通过方法名获取</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>@Componet 和 @Bean 的使用场景：</p>
-<ol>
-<li>@Component</li>
-</ol>
-<p>项目中自定义的，使用@Component及其衍生注解，如@Service、@Repository、@Controller等。</p>
-<ol start="2">
-<li>@Bean</li>
-</ol>
-<p>项目中引入的第三方bean，使用@Bean注解。</p>
-<h2 id="springboot原理"><a href="#springboot原理" class="headerlink" title="springboot原理"></a>springboot原理</h2><p>springboot的核心是spring，springboot是对spring的封装，提供了一些便捷的功能。</p>
-<h3 id="起步依赖"><a href="#起步依赖" class="headerlink" title="起步依赖"></a>起步依赖</h3><p>通过<strong>maven的依赖传递</strong>实现的，可以通过<code>spring-boot-starter-parent</code>来管理版本。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="自动配置"><a href="#自动配置" class="headerlink" title="自动配置"></a>自动配置</h3><p>springboot的自动配置就是当spring容器启动后，一些配置类、bean对象就自动存入到了IOC容器中，不需要我们手动配置，简化了开发。</p>
-<h4 id="自动配置方案"><a href="#自动配置方案" class="headerlink" title="自动配置方案"></a>自动配置方案</h4><ol>
-<li>@ComponentScan</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ComponentScan(&quot;com.example1&quot;, &quot;com.example2&quot;)</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>@SpringBootApplication</code>注解只能扫描当前包及其子包，如果需要扫描其他包，可以通过<code>@ComponentScan</code>注解，指定扫描其他包。</p>
-<ol start="2">
-<li>@Import</li>
-</ol>
-<ul>
-<li>导入普通类</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Import(BeanObject.class)</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>导入配置类</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Import(BeanConfig.class)</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>导入ImportSelector接口实现类</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Import(BeanImportSelector.class)</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BeanImportSelector</span> <span class="keyword">implements</span> <span class="title class_">ImportSelector</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String[] selectImports(AnnotationMetadata importingClassMetadata) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>[] &#123;BeanObject.class.getName()&#125;; <span class="comment">// or &#123;&quot;com.example.BeanObject&quot;&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>@EnableXxxx注解，封装了@Import注解 (更加方便)</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// com.example.EnableSchedulingConfig</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Import(BeanImportSelector.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableScheduling &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BeanImportSelector</span> <span class="keyword">implements</span> <span class="title class_">ImportSelector</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String[] selectImports(AnnotationMetadata importingClassMetadata) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>[] &#123;BeanObject.class.getName()&#125;; <span class="comment">// or &#123;&quot;com.example.BeanObject&quot;&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@EnableSchedulingConfig</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="自动配置原理"><a href="#自动配置原理" class="headerlink" title="自动配置原理"></a>自动配置原理</h3><p><code>@SpringBootApplication</code>注解由三个部分组成：</p>
-<ol>
-<li><p><code>@SpringBootConfiguration</code>：标注当前类是一个配置类，继承自@Configuration。</p>
-</li>
-<li><p><code>@ComponentScan</code>：扫描当前包及其子包下的所有组件。</p>
-</li>
-<li><p><strong><code>@EnableAutoConfiguration</code></strong>：开启自动配置功能。(<strong>核心</strong>)</p>
-</li>
-</ol>
-<p><code>@EnableAutoConfiguration</code>注解的原理：</p>
-<ol>
-<li><p><code>@Import(AutoConfigurationImportSelector.class)</code>：导入AutoConfigurationImportSelector类。</p>
-</li>
-<li><p>AutoConfigurationImportSelector类的selectImports方法：</p>
-</li>
-</ol>
-<ul>
-<li>获取所有的自动配置类</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">protected</span> List&lt;String&gt; <span class="title function_">getCandidateConfigurations</span><span class="params">(AnnotationMetadata metadata, AnnotationAttributes attributes)</span> &#123;</span><br><span class="line">    List&lt;String&gt; configurations = SpringFactoriesLoader.loadFactoryNames(getSpringFactoriesLoaderFactoryClass(), getBeanClassLoader());</span><br><span class="line">    Assert.notEmpty(configurations, <span class="string">&quot;No auto configuration classes found in META-INF/spring.factories. If you are using a custom packaging, make sure that file is correct.&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> configurations;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过SpringFactoriesLoader.loadFactoryNames方法获取所有的自动配置类。</p>
-<h3 id="Conditional注解"><a href="#Conditional注解" class="headerlink" title="@Conditional注解"></a>@Conditional注解</h3><p><code>@Conditional</code>注解是springboot提供的一个条件注解，用于判断是否满足某个条件，满足条件才会加载bean到IOC容器中。</p>
-<ul>
-<li><p><code>@ConditionalOnMissingBean</code>：当容器中没有指定的bean时，才会加载当前bean。</p>
-</li>
-<li><p><code>@ConditionalOnClass</code>：当类路径下有指定的类时，才会加载当前bean。</p>
-</li>
-<li><p><code>@ConditionalOnProperty</code>：当配置文件中有指定的属性时，才会加载当前bean。</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ConditionalOnClass(name = &quot;com.example.BeanObject2&quot;)</span></span><br><span class="line"><span class="keyword">public</span> BeanObject <span class="title function_">beanObject</span><span class="params">()</span> &#123; <span class="comment">// 当环境中存在BeanObject2类时，才会加载当前bean</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BeanObject</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ConditionalOnMissingBean(name = &quot;com.example.BeanObject2&quot;)</span> <span class="comment">// 指定类型(value属性)或名称(name属性)</span></span><br><span class="line"><span class="keyword">public</span> BeanObject <span class="title function_">beanObject</span><span class="params">()</span> &#123; <span class="comment">// 当环境中不存在BeanObject2类时，才会加载当前bean</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BeanObject</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ConditionalOnProperty(name = &quot;spring.datasource.url&quot;)</span> <span class="comment">// 当配置文件中存在spring.datasource.url属性时，才会加载当前bean</span></span><br><span class="line"><span class="keyword">public</span> BeanObject <span class="title function_">beanObject</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BeanObject</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>spring boot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>springboot starter diy</title>
     <url>/2025/03/25/springboot-starter-diy/</url>
     <content><![CDATA[<h2 id="使用自定义的springboot-starter"><a href="#使用自定义的springboot-starter" class="headerlink" title="使用自定义的springboot starter"></a>使用自定义的springboot starter</h2><p>e.g. 以阿里云oss为例，自定义一个starter，方便在项目中使用</p>
@@ -1009,7 +840,7 @@
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>说实话，真的会在实际项目中用到这个东西吗？不过了解一下也是好的，毕竟springboot的自动配置机制是非常强大的，可以帮助我们简化很多工作…</p>
 ]]></content>
       <tags>
-        <tag>spring boot</tag>
+        <tag>springboot</tag>
       </tags>
   </entry>
   <entry>
@@ -1050,7 +881,7 @@
 
 ]]></content>
       <tags>
-        <tag>spring boot</tag>
+        <tag>springboot</tag>
       </tags>
   </entry>
   <entry>
@@ -1074,7 +905,7 @@
 <p>…</p>
 ]]></content>
       <tags>
-        <tag>spring boot</tag>
+        <tag>springboot</tag>
       </tags>
   </entry>
   <entry>
@@ -1766,7 +1597,7 @@
 <p>…</p>
 ]]></content>
       <tags>
-        <tag>nginx</tag>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -1793,7 +1624,7 @@
 <p>…</p>
 ]]></content>
       <tags>
-        <tag>toy</tag>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -1823,6 +1654,176 @@
 ]]></content>
       <tags>
         <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>springboot引入</title>
+    <url>/2025/03/24/springboot%E5%BC%95%E5%85%A5/</url>
+    <content><![CDATA[<h2 id="springboot"><a href="#springboot" class="headerlink" title="springboot"></a>springboot</h2><p>最近在学习springboot，记录一些学习笔记。</p>
+<h3 id="配置优先级"><a href="#配置优先级" class="headerlink" title="配置优先级"></a>配置优先级</h3><p>springboot的配置优先级如下(从高到低)：</p>
+<ol>
+<li>命令行参数</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">java -jar app.jar --server.port=8080</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>java系统属性</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">java -Dserver.port=8080 -jar app.jar</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>properties文件</li>
+</ol>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">server.port</span>=<span class="string">8080</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>yml文件</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>yaml文件</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="bean的获取"><a href="#bean的获取" class="headerlink" title="bean的获取"></a>bean的获取</h3><p>获取bean的方式有三种：</p>
+<ol>
+<li>通过名称获取</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getBeanByName</span><span class="params">()</span> &#123;</span><br><span class="line">    applicationContext.getBean(<span class="string">&quot;beanName&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>通过类型获取</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getBeanByType</span><span class="params">()</span> &#123;</span><br><span class="line">    applicationContext.getBean(BeanType.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>通过名称和类型获取</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getBeanByNameAndType</span><span class="params">()</span> &#123;</span><br><span class="line">    applicationContext.getBean(<span class="string">&quot;beanName&quot;</span>, BeanType.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="bean的作用域"><a href="#bean的作用域" class="headerlink" title="bean的作用域"></a>bean的作用域</h3><p>bean的作用域有五种：</p>
+<ol>
+<li>singleton (默认)</li>
+</ol>
+<p>单例模式，一个容器只有一个实例。</p>
+<ol start="2">
+<li>prototype (非单例)</li>
+</ol>
+<p>原型模式，每次请求都会创建一个新的实例。</p>
+<ol start="3">
+<li>request (web环境)</li>
+</ol>
+<p>每次请求都会创建一个新的实例。</p>
+<ol start="4">
+<li>session (web环境)</li>
+</ol>
+<p>每次会话都会创建一个新的实例。</p>
+<ol start="5">
+<li>application (web环境)</li>
+</ol>
+<p>每次应用都会创建一个新的实例。</p>
+<h4 id="如何设置bean的作用域"><a href="#如何设置bean的作用域" class="headerlink" title="如何设置bean的作用域"></a>如何设置bean的作用域</h4><p>通过注解</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span>  </span><br><span class="line"><span class="meta">@Scope(&quot;prototype&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrototypeBean</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="延迟初始化"><a href="#延迟初始化" class="headerlink" title="延迟初始化"></a>延迟初始化</h4><p>懒汉模式</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Lazy</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazyBean</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动时不会创建bean，第一次使用时才会创建。</p>
+<h3 id="第三方bean"><a href="#第三方bean" class="headerlink" title="第三方bean"></a>第三方bean</h3><p>springboot支持第三方bean的注入，只需要在配置类中添加<code>@bean</code>注解即可。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThirdPartyBeanConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> ThirdPartyBean <span class="title function_">thirdPartyBean</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ThirdPartyBean</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如何获取第三方bean：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getThirdPartyBean</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">Object</span> <span class="variable">thirdPartyObject</span> <span class="operator">=</span> applicationContext.getBean(<span class="string">&quot;thirdPartyBean&quot;</span>); <span class="comment">// 可以通过方法名获取</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@Componet 和 @Bean 的使用场景：</p>
+<ol>
+<li>@Component</li>
+</ol>
+<p>项目中自定义的，使用@Component及其衍生注解，如@Service、@Repository、@Controller等。</p>
+<ol start="2">
+<li>@Bean</li>
+</ol>
+<p>项目中引入的第三方bean，使用@Bean注解。</p>
+<h2 id="springboot原理"><a href="#springboot原理" class="headerlink" title="springboot原理"></a>springboot原理</h2><p>springboot的核心是spring，springboot是对spring的封装，提供了一些便捷的功能。</p>
+<h3 id="起步依赖"><a href="#起步依赖" class="headerlink" title="起步依赖"></a>起步依赖</h3><p>通过<strong>maven的依赖传递</strong>实现的，可以通过<code>spring-boot-starter-parent</code>来管理版本。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="自动配置"><a href="#自动配置" class="headerlink" title="自动配置"></a>自动配置</h3><p>springboot的自动配置就是当spring容器启动后，一些配置类、bean对象就自动存入到了IOC容器中，不需要我们手动配置，简化了开发。</p>
+<h4 id="自动配置方案"><a href="#自动配置方案" class="headerlink" title="自动配置方案"></a>自动配置方案</h4><ol>
+<li>@ComponentScan</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ComponentScan(&quot;com.example1&quot;, &quot;com.example2&quot;)</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@SpringBootApplication</code>注解只能扫描当前包及其子包，如果需要扫描其他包，可以通过<code>@ComponentScan</code>注解，指定扫描其他包。</p>
+<ol start="2">
+<li>@Import</li>
+</ol>
+<ul>
+<li>导入普通类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Import(BeanObject.class)</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>导入配置类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Import(BeanConfig.class)</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>导入ImportSelector接口实现类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Import(BeanImportSelector.class)</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BeanImportSelector</span> <span class="keyword">implements</span> <span class="title class_">ImportSelector</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String[] selectImports(AnnotationMetadata importingClassMetadata) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>[] &#123;BeanObject.class.getName()&#125;; <span class="comment">// or &#123;&quot;com.example.BeanObject&quot;&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>@EnableXxxx注解，封装了@Import注解 (更加方便)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// com.example.EnableSchedulingConfig</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Import(BeanImportSelector.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableScheduling &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BeanImportSelector</span> <span class="keyword">implements</span> <span class="title class_">ImportSelector</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String[] selectImports(AnnotationMetadata importingClassMetadata) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>[] &#123;BeanObject.class.getName()&#125;; <span class="comment">// or &#123;&quot;com.example.BeanObject&quot;&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@EnableSchedulingConfig</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自动配置原理"><a href="#自动配置原理" class="headerlink" title="自动配置原理"></a>自动配置原理</h3><p><code>@SpringBootApplication</code>注解由三个部分组成：</p>
+<ol>
+<li><p><code>@SpringBootConfiguration</code>：标注当前类是一个配置类，继承自@Configuration。</p>
+</li>
+<li><p><code>@ComponentScan</code>：扫描当前包及其子包下的所有组件。</p>
+</li>
+<li><p><strong><code>@EnableAutoConfiguration</code></strong>：开启自动配置功能。(<strong>核心</strong>)</p>
+</li>
+</ol>
+<p><code>@EnableAutoConfiguration</code>注解的原理：</p>
+<ol>
+<li><p><code>@Import(AutoConfigurationImportSelector.class)</code>：导入AutoConfigurationImportSelector类。</p>
+</li>
+<li><p>AutoConfigurationImportSelector类的selectImports方法：</p>
+</li>
+</ol>
+<ul>
+<li>获取所有的自动配置类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">protected</span> List&lt;String&gt; <span class="title function_">getCandidateConfigurations</span><span class="params">(AnnotationMetadata metadata, AnnotationAttributes attributes)</span> &#123;</span><br><span class="line">    List&lt;String&gt; configurations = SpringFactoriesLoader.loadFactoryNames(getSpringFactoriesLoaderFactoryClass(), getBeanClassLoader());</span><br><span class="line">    Assert.notEmpty(configurations, <span class="string">&quot;No auto configuration classes found in META-INF/spring.factories. If you are using a custom packaging, make sure that file is correct.&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> configurations;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过SpringFactoriesLoader.loadFactoryNames方法获取所有的自动配置类。</p>
+<h3 id="Conditional注解"><a href="#Conditional注解" class="headerlink" title="@Conditional注解"></a>@Conditional注解</h3><p><code>@Conditional</code>注解是springboot提供的一个条件注解，用于判断是否满足某个条件，满足条件才会加载bean到IOC容器中。</p>
+<ul>
+<li><p><code>@ConditionalOnMissingBean</code>：当容器中没有指定的bean时，才会加载当前bean。</p>
+</li>
+<li><p><code>@ConditionalOnClass</code>：当类路径下有指定的类时，才会加载当前bean。</p>
+</li>
+<li><p><code>@ConditionalOnProperty</code>：当配置文件中有指定的属性时，才会加载当前bean。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ConditionalOnClass(name = &quot;com.example.BeanObject2&quot;)</span></span><br><span class="line"><span class="keyword">public</span> BeanObject <span class="title function_">beanObject</span><span class="params">()</span> &#123; <span class="comment">// 当环境中存在BeanObject2类时，才会加载当前bean</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BeanObject</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ConditionalOnMissingBean(name = &quot;com.example.BeanObject2&quot;)</span> <span class="comment">// 指定类型(value属性)或名称(name属性)</span></span><br><span class="line"><span class="keyword">public</span> BeanObject <span class="title function_">beanObject</span><span class="params">()</span> &#123; <span class="comment">// 当环境中不存在BeanObject2类时，才会加载当前bean</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BeanObject</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ConditionalOnProperty(name = &quot;spring.datasource.url&quot;)</span> <span class="comment">// 当配置文件中存在spring.datasource.url属性时，才会加载当前bean</span></span><br><span class="line"><span class="keyword">public</span> BeanObject <span class="title function_">beanObject</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BeanObject</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>springboot</tag>
       </tags>
   </entry>
 </search>
