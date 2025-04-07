@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="LuaLua 是一种轻量级的脚本语言，广泛应用于游戏开发、嵌入式系统和Web开发等领域。它的设计目标是简单、高效和可扩展。 Redis 中的 Lua在 Redis 中，Lua 脚本可以用来执行原子操作，避免多次网络往返。Redis 提供了 EVAL 命令来执行 Lua 脚本。Lua 脚本可以访问 Redis 数据库中的键值对，并且可以在脚本中使用 Redis 的命令。 Lua 脚本的基本语法1EV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua">
+<meta property="og:url" content="https://xudong7.github.io/2025/04/07/Lua/index.html">
+<meta property="og:site_name" content="Dunjia&#39;s Blog">
+<meta property="og:description" content="LuaLua 是一种轻量级的脚本语言，广泛应用于游戏开发、嵌入式系统和Web开发等领域。它的设计目标是简单、高效和可扩展。 Redis 中的 Lua在 Redis 中，Lua 脚本可以用来执行原子操作，避免多次网络往返。Redis 提供了 EVAL 命令来执行 Lua 脚本。Lua 脚本可以访问 Redis 数据库中的键值对，并且可以在脚本中使用 Redis 的命令。 Lua 脚本的基本语法1EV">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-04-07T01:21:00.000Z">
+<meta property="article:modified_time" content="2025-04-07T02:18:18.706Z">
+<meta property="article:author" content="Dunjia">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Lua</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/04/06/PageHelper/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://xudong7.github.io/2025/04/07/Lua/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://xudong7.github.io/2025/04/07/Lua/&text=Lua"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://xudong7.github.io/2025/04/07/Lua/&title=Lua"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://xudong7.github.io/2025/04/07/Lua/&is_video=false&description=Lua"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Lua&body=Check out this article: https://xudong7.github.io/2025/04/07/Lua/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://xudong7.github.io/2025/04/07/Lua/&title=Lua"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://xudong7.github.io/2025/04/07/Lua/&title=Lua"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://xudong7.github.io/2025/04/07/Lua/&title=Lua"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://xudong7.github.io/2025/04/07/Lua/&title=Lua"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://xudong7.github.io/2025/04/07/Lua/&name=Lua&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://xudong7.github.io/2025/04/07/Lua/&t=Lua"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lua"><span class="toc-number">1.</span> <span class="toc-text">Lua</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-%E4%B8%AD%E7%9A%84-Lua"><span class="toc-number">1.1.</span> <span class="toc-text">Redis 中的 Lua</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lua-%E8%84%9A%E6%9C%AC%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">Lua 脚本的基本语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lua-%E8%84%9A%E6%9C%AC%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.3.</span> <span class="toc-text">Lua 脚本示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lua-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.4.</span> <span class="toc-text">Lua 使用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RedisTemplate-%E4%B8%AD%E4%BD%BF%E7%94%A8-Lua"><span class="toc-number">1.5.</span> <span class="toc-text">RedisTemplate 中使用 Lua</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Lua
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Dunjia</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-04-07T01:21:00.000Z" class="dt-published" itemprop="datePublished">2025-04-07</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/redis/" rel="tag">redis</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="Lua"><a href="#Lua" class="headerlink" title="Lua"></a>Lua</h1><p>Lua 是一种轻量级的脚本语言，广泛应用于游戏开发、嵌入式系统和Web开发等领域。它的设计目标是简单、高效和可扩展。</p>
+<h2 id="Redis-中的-Lua"><a href="#Redis-中的-Lua" class="headerlink" title="Redis 中的 Lua"></a>Redis 中的 Lua</h2><p>在 Redis 中，Lua 脚本可以用来执行原子操作，避免多次网络往返。Redis 提供了 <code>EVAL</code> 命令来执行 Lua 脚本。<br>Lua 脚本可以访问 Redis 数据库中的键值对，并且可以在脚本中使用 Redis 的命令。</p>
+<h2 id="Lua-脚本的基本语法"><a href="#Lua-脚本的基本语法" class="headerlink" title="Lua 脚本的基本语法"></a>Lua 脚本的基本语法</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EVAL script numkeys key1 key2 ... arg1 arg2 ...</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>script</code>：要执行的 Lua 脚本。</li>
+<li><code>numkeys</code>：键的数量。</li>
+<li><code>key1 key2 ...</code>：要操作的键。</li>
+<li><code>arg1 arg2 ...</code>：传递给脚本的参数。</li>
+</ul>
+<h2 id="Lua-脚本示例"><a href="#Lua-脚本示例" class="headerlink" title="Lua 脚本示例"></a>Lua 脚本示例</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EVAL <span class="string">&quot;return redis.call(&#x27;SET&#x27;, KEYS[1], ARGV[1])&quot;</span> <span class="number">1</span> mykey <span class="string">&quot;Hello, Lua&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Lua-使用场景"><a href="#Lua-使用场景" class="headerlink" title="Lua 使用场景"></a>Lua 使用场景</h2><p>对于释放分布式锁的场景，可以使用 Lua 脚本来确保操作的原子性。以下是一个示例：</p>
+<p>释放锁的业务流程：</p>
+<ol>
+<li>获取锁的线程标识</li>
+<li>判断是否与指定的标识（当前线程标识）一致</li>
+<li>一致则释放锁</li>
+<li>如果不一致，则不释放锁</li>
+</ol>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 锁的key</span></span><br><span class="line"><span class="keyword">local</span> key = <span class="string">&quot;lock:order:5&quot;</span></span><br><span class="line"><span class="comment">-- 当前线程标识</span></span><br><span class="line"><span class="keyword">local</span> threadId = <span class="string">&quot;dsadasfsadasdfa-33&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取锁中的线程标识</span></span><br><span class="line"><span class="keyword">local</span> id = redis.call(<span class="string">&#x27;GET&#x27;</span>, key)</span><br><span class="line"><span class="comment">-- 比较线程标识与锁中的标识是否一致</span></span><br><span class="line"><span class="keyword">if</span> (id == threadId) <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- 释放锁 del key</span></span><br><span class="line">    <span class="keyword">return</span> redis.call(<span class="string">&#x27;DEL&#x27;</span>, key)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>进行简化：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> key = KEYS[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">local</span> threadId = ARGV[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> id = redis.call(<span class="string">&#x27;GET&#x27;</span>, key)</span><br><span class="line"><span class="keyword">if</span> (id == threadId) <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">return</span> redis.call(<span class="string">&#x27;DEL&#x27;</span>, key)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>再次简化：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 这里的 KEYS[1] 是锁的 key</span></span><br><span class="line"><span class="comment">-- ARGV[1] 是当前线程标识</span></span><br><span class="line"><span class="comment">-- 这里的 KEYS[1] 和 ARGV[1] 是传入的参数</span></span><br><span class="line"><span class="keyword">if</span> (redis.call(<span class="string">&#x27;GET&#x27;</span>, KEYS[<span class="number">1</span>]) == ARGV[<span class="number">1</span>]) <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">return</span> redis.call(<span class="string">&#x27;DEL&#x27;</span>, KEYS[<span class="number">1</span>])</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="RedisTemplate-中使用-Lua"><a href="#RedisTemplate-中使用-Lua" class="headerlink" title="RedisTemplate 中使用 Lua"></a>RedisTemplate 中使用 Lua</h2><p>在 Spring 中使用 RedisTemplate 执行 Lua 脚本，可以使用 <code>execute</code> 方法。以下是一个示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> DefaultRedisScript&lt;Long&gt; UNLOCK_SCRIPT;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    UNLOCK_SCRIPT = <span class="keyword">new</span> <span class="title class_">DefaultRedisScript</span>&lt;&gt;();</span><br><span class="line">    UNLOCK_SCRIPT.setLocation(<span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;unlock.lua&quot;</span>));</span><br><span class="line">    UNLOCK_SCRIPT.setResultType(Long.class);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">unLock</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 原子性释放锁</span></span><br><span class="line">        stringRedisTemplate.execute(</span><br><span class="line">                UNLOCK_SCRIPT,</span><br><span class="line">                Collections.singletonList(KEY_PREFIX + name),</span><br><span class="line">                ID_PREFIX + Thread.currentThread().getId()</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//    @Override</span></span><br><span class="line"><span class="comment">//    public void unLock() &#123;</span></span><br><span class="line"><span class="comment">//        // 获取线程标识</span></span><br><span class="line"><span class="comment">//        String threadId = ID_PREFIX + Thread.currentThread().getId();</span></span><br><span class="line"><span class="comment">//        // 获取锁中的线程标识</span></span><br><span class="line"><span class="comment">//        String id = stringRedisTemplate.opsForValue().get(KEY_PREFIX + name);</span></span><br><span class="line"><span class="comment">//        // 判断是否一致</span></span><br><span class="line"><span class="comment">//        if (threadId.equals(id)) &#123;</span></span><br><span class="line"><span class="comment">//            // 释放锁</span></span><br><span class="line"><span class="comment">//            stringRedisTemplate.delete(KEY_PREFIX + name);</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，我们使用 <code>DefaultRedisScript</code> 来加载 Lua 脚本，并设置脚本的返回值类型为 <code>Long</code>。然后，我们使用 <code>execute</code> 方法来执行脚本，传入锁的 key 和当前线程标识作为参数。<br>在 <code>unlock.lua</code> 文件中，我们可以编写 Lua 脚本来释放锁：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- /resources/unlock.lua</span></span><br><span class="line"><span class="comment">-- 这里的 KEYS[1] 是锁的 key</span></span><br><span class="line"><span class="comment">-- ARGV[1] 是当前线程标识</span></span><br><span class="line"><span class="comment">-- 这里的 KEYS[1] 和 ARGV[1] 是传入的参数</span></span><br><span class="line"><span class="keyword">if</span> (redis.call(<span class="string">&#x27;GET&#x27;</span>, KEYS[<span class="number">1</span>]) == ARGV[<span class="number">1</span>]) <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">return</span> redis.call(<span class="string">&#x27;DEL&#x27;</span>, KEYS[<span class="number">1</span>])</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>由此，Lua 脚本可以在 Redis 中执行原子操作，避免多次网络往返，提高性能，同时由于判断与释放锁的一致性操作可以防止误删锁的情况。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lua"><span class="toc-number">1.</span> <span class="toc-text">Lua</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-%E4%B8%AD%E7%9A%84-Lua"><span class="toc-number">1.1.</span> <span class="toc-text">Redis 中的 Lua</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lua-%E8%84%9A%E6%9C%AC%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">Lua 脚本的基本语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lua-%E8%84%9A%E6%9C%AC%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.3.</span> <span class="toc-text">Lua 脚本示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lua-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.4.</span> <span class="toc-text">Lua 使用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RedisTemplate-%E4%B8%AD%E4%BD%BF%E7%94%A8-Lua"><span class="toc-number">1.5.</span> <span class="toc-text">RedisTemplate 中使用 Lua</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://xudong7.github.io/2025/04/07/Lua/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://xudong7.github.io/2025/04/07/Lua/&text=Lua"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://xudong7.github.io/2025/04/07/Lua/&title=Lua"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://xudong7.github.io/2025/04/07/Lua/&is_video=false&description=Lua"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Lua&body=Check out this article: https://xudong7.github.io/2025/04/07/Lua/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://xudong7.github.io/2025/04/07/Lua/&title=Lua"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://xudong7.github.io/2025/04/07/Lua/&title=Lua"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://xudong7.github.io/2025/04/07/Lua/&title=Lua"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://xudong7.github.io/2025/04/07/Lua/&title=Lua"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://xudong7.github.io/2025/04/07/Lua/&name=Lua&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://xudong7.github.io/2025/04/07/Lua/&t=Lua"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    Dunjia
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
