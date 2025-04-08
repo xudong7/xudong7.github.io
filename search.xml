@@ -1906,4 +1906,21 @@
         <tag>redis</tag>
       </tags>
   </entry>
+  <entry>
+    <title>iced-editor</title>
+    <url>/2025/04/08/iced-editor/</url>
+    <content><![CDATA[<h2 id="iced-editor"><a href="#iced-editor" class="headerlink" title="iced-editor"></a>iced-editor</h2><p>最近在学 Rust 的 GUI 框架，发现了 iced 这个跨平台的 GUI for Rust 框架，为了学习，写了一个简单的 editor</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ul>
+<li>项目地址：<a href="https://github.com/xudong7/iced-editor">iced-editor</a></li>
+<li>语言：Rust</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>请先确认已经具备 Rust 环境，如果已经具备，则可以运行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cargo build</span><br><span class="line">cargo run</span><br></pre></td></tr></table></figure>
+
+<h2 id="iced-介绍"><a href="#iced-介绍" class="headerlink" title="iced 介绍"></a>iced 介绍</h2><p>…</p>
+]]></content>
+      <tags>
+        <tag>project</tag>
+      </tags>
+  </entry>
 </search>
