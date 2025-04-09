@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="公共字段自动填充什么是公共字段自动填充？就是在插入和更新数据时，自动填充一些公共字段，比如创建时间、修改时间、创建人、修改人等。 实现方法 自定义注解 @AutoFill 用于标记需要自动填充公共字段的方法 自定义切面类 AutoFillAspect 用于拦截标记了 @AutoFill 注解的方法 通过反射为公共字段赋值 在 Mapper 的方法上添加 @AutoFill 注解  技术点：枚举，反">
+<meta property="og:type" content="article">
+<meta property="og:title" content="公共字段自动填充">
+<meta property="og:url" content="https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/index.html">
+<meta property="og:site_name" content="Dunjia&#39;s Blog">
+<meta property="og:description" content="公共字段自动填充什么是公共字段自动填充？就是在插入和更新数据时，自动填充一些公共字段，比如创建时间、修改时间、创建人、修改人等。 实现方法 自定义注解 @AutoFill 用于标记需要自动填充公共字段的方法 自定义切面类 AutoFillAspect 用于拦截标记了 @AutoFill 注解的方法 通过反射为公共字段赋值 在 Mapper 的方法上添加 @AutoFill 注解  技术点：枚举，反">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-04-09T15:01:37.000Z">
+<meta property="article:modified_time" content="2025-04-09T15:31:30.087Z">
+<meta property="article:author" content="Dunjia">
+<meta property="article:tag" content="springboot">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>公共字段自动填充</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/04/09/extendMessageConverters/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&text=公共字段自动填充"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&title=公共字段自动填充"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&is_video=false&description=公共字段自动填充"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=公共字段自动填充&body=Check out this article: https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&title=公共字段自动填充"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&title=公共字段自动填充"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&title=公共字段自动填充"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&title=公共字段自动填充"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&name=公共字段自动填充&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&t=公共字段自动填充"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85"><span class="toc-number">1.</span> <span class="toc-text">公共字段自动填充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">实现方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">示例代码</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        公共字段自动填充
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Dunjia</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-04-09T15:01:37.000Z" class="dt-published" itemprop="datePublished">2025-04-09</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/springboot/" rel="tag">springboot</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="公共字段自动填充"><a href="#公共字段自动填充" class="headerlink" title="公共字段自动填充"></a>公共字段自动填充</h2><p>什么是公共字段自动填充？就是在插入和更新数据时，自动填充一些公共字段，比如创建时间、修改时间、创建人、修改人等。</p>
+<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><ol>
+<li>自定义注解 <code>@AutoFill</code> 用于标记需要自动填充公共字段的方法</li>
+<li>自定义切面类 <code>AutoFillAspect</code> 用于拦截标记了 <code>@AutoFill</code> 注解的方法 通过反射为公共字段赋值</li>
+<li>在 <code>Mapper</code> 的方法上添加 <code>@AutoFill</code> 注解</li>
+</ol>
+<p>技术点：枚举，反射，AOP，注解</p>
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><p>定义枚举 <code>OperationType</code> 用于标识操作类型（插入或更新）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// enumeration/OperationType.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">OperationType</span> &#123;</span><br><span class="line">    UPDATE,</span><br><span class="line">    INSERT</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义注解 <code>@AutoFill</code> 用于标记需要自动填充公共字段的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// annotation/AutoFill.java</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.METHOD&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AutoFill &#123;</span><br><span class="line">    <span class="comment">// 数据库操作类型 UPDATE/INSERT</span></span><br><span class="line">    OperationType <span class="title function_">value</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义切面类 <code>AutoFillAspect</code> 用于拦截标记了 <code>@AutoFill</code> 注解的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// aspect/AutoFillAspect.java</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AutoFillAspect</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 拦截区域内被 @AutoFill 注解的方法</span></span><br><span class="line">    <span class="meta">@Pointcut(&quot;execution(* com.example.mapper.*.*(..)) &amp;&amp; @annotation(com.example.annotation.AutoFill)&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">autoFillPointcut</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在方法执行前执行</span></span><br><span class="line">    <span class="meta">@Before(&quot;autoFillPointcut()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">autoFill</span><span class="params">(JoinPoint joinPoint)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;开始自动填充公共字段...&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取操作类型 INSERT/UPDATE</span></span><br><span class="line">        <span class="type">MethodSignature</span> <span class="variable">signature</span> <span class="operator">=</span> (MethodSignature) joinPoint.getSignature(); <span class="comment">// 方法签名对象</span></span><br><span class="line">        <span class="type">AutoFill</span> <span class="variable">autoFill</span> <span class="operator">=</span> signature.getMethod().getAnnotation(AutoFill.class); <span class="comment">// 获取方法上的 @AutoFill 注解对象</span></span><br><span class="line">        <span class="type">OperationType</span> <span class="variable">operationType</span> <span class="operator">=</span> autoFill.value(); <span class="comment">// 获取操作类型</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取方法参数</span></span><br><span class="line">        Object[] args = joinPoint.getArgs(); <span class="comment">// 获取方法参数</span></span><br><span class="line">        <span class="keyword">if</span> (args == <span class="literal">null</span> | args.length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="type">Object</span> <span class="variable">entity</span> <span class="operator">=</span> args[<span class="number">0</span>]; <span class="comment">// 获取实体对象</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 准备赋值数据</span></span><br><span class="line">        <span class="type">LocalDateTime</span> <span class="variable">now</span> <span class="operator">=</span> LocalDateTime.now(); <span class="comment">// 当前时间</span></span><br><span class="line">        <span class="type">Long</span> <span class="variable">currentId</span> <span class="operator">=</span> BaseContext.getCurrentId(); <span class="comment">// 当前用户ID(从ThreadLocal中获取)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 反射赋值</span></span><br><span class="line">        <span class="keyword">if</span> (operationType == OperationType.INSERT) &#123;</span><br><span class="line">            <span class="type">Method</span> <span class="variable">setCreateTime</span> <span class="operator">=</span> entity.getClass().getMethod(<span class="string">&quot;setCreateTime&quot;</span>, LocalDateTime.class);</span><br><span class="line">            <span class="type">Method</span> <span class="variable">setCreateUser</span> <span class="operator">=</span> entity.getClass().getMethod(<span class="string">&quot;setCreateUser&quot;</span>, Long.class);</span><br><span class="line">            <span class="type">Method</span> <span class="variable">setUpdateTime</span> <span class="operator">=</span> entity.getClass().getMethod(<span class="string">&quot;setUpdateTime&quot;</span>, LocalDateTime.class);</span><br><span class="line">            <span class="type">Method</span> <span class="variable">setUpdateUser</span> <span class="operator">=</span> entity.getClass().getMethod(<span class="string">&quot;setUpdateUser&quot;</span>, Long.class);</span><br><span class="line"></span><br><span class="line">            setCreateTime.invoke(entity, now);</span><br><span class="line">            setCreateUser.invoke(entity, currentId);</span><br><span class="line">            setUpdateTime.invoke(entity, now);</span><br><span class="line">            setUpdateUser.invoke(entity, currentId);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (operationType == OperationType.UPDATE) &#123;</span><br><span class="line">            <span class="type">Method</span> <span class="variable">setUpdateTime</span> <span class="operator">=</span> entity.getClass().getMethod(<span class="string">&quot;setUpdateTime&quot;</span>, LocalDateTime.class);</span><br><span class="line">            <span class="type">Method</span> <span class="variable">setUpdateUser</span> <span class="operator">=</span> entity.getClass().getMethod(<span class="string">&quot;setUpdateUser&quot;</span>, Long.class);</span><br><span class="line"></span><br><span class="line">            setUpdateTime.invoke(entity, now);</span><br><span class="line">            setUpdateUser.invoke(entity, currentId);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>(可选) 定义 <code>AutoFillConstant</code> 用于存放公共字段的常量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// constant/AutoFillConstant.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AutoFillConstant</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">SET_CREATE_TIME</span> <span class="operator">=</span> <span class="string">&quot;setCreateTime&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">SET_CREATE_USER</span> <span class="operator">=</span> <span class="string">&quot;setCreateUser&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">SET_UPDATE_TIME</span> <span class="operator">=</span> <span class="string">&quot;setUpdateTime&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">SET_UPDATE_USER</span> <span class="operator">=</span> <span class="string">&quot;setUpdateUser&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试后发现成功实现了公共字段的自动填充…</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85"><span class="toc-number">1.</span> <span class="toc-text">公共字段自动填充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">实现方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">示例代码</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&text=公共字段自动填充"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&title=公共字段自动填充"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&is_video=false&description=公共字段自动填充"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=公共字段自动填充&body=Check out this article: https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&title=公共字段自动填充"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&title=公共字段自动填充"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&title=公共字段自动填充"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&title=公共字段自动填充"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&name=公共字段自动填充&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://xudong7.github.io/2025/04/09/%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85/&t=公共字段自动填充"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    Dunjia
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
