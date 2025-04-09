@@ -1941,7 +1941,20 @@
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>请先确认已经具备 Rust 环境，如果已经具备，则可以运行以下命令：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cargo build</span><br><span class="line">cargo run</span><br></pre></td></tr></table></figure>
 
-<h2 id="iced-介绍"><a href="#iced-介绍" class="headerlink" title="iced 介绍"></a>iced 介绍</h2><p>…</p>
+<h2 id="iced-介绍"><a href="#iced-介绍" class="headerlink" title="iced 介绍"></a>iced 介绍</h2><p>iced 是一个跨平台的 GUI for Rust 框架，支持 Windows、Linux 和 MacOS。它的设计理念是简单易用，使用 Rust 的所有权和类型系统来确保安全性和性能。iced 提供了一个响应式的编程模型，可以轻松地创建复杂的用户界面。</p>
+<p>iced 中的 Application 主要由以下几个部分组成：</p>
+<ul>
+<li>Message：表示应用程序的消息类型，用于处理用户输入和事件。</li>
+<li>Model：表示应用程序的状态，用于存储应用程序的数据。</li>
+<li>View：表示应用程序的视图，用于渲染用户界面。</li>
+<li>Update：表示应用程序的更新函数，用于处理消息并更新模型。</li>
+<li>Subscription：表示应用程序的订阅，用于处理异步事件。</li>
+</ul>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>本次项目中使用 iced 中的 text_editor 组件来实现一个简单的文本编辑器。该组件支持基本的文本编辑功能，如输入、删除、复制、粘贴等。</p>
+<p>主要 Application 由以下几个部分组成：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Editor</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Debug, Clone)]</span></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">Message</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">Editor</span> &#123;</span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">new</span>() <span class="punctuation">-&gt;</span> (<span class="keyword">Self</span>, Task&lt;Message&gt;) &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">update</span>(&amp;<span class="keyword">mut</span> <span class="keyword">self</span>, message: Message) <span class="punctuation">-&gt;</span> Task&lt;Message&gt; &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">view</span>(&amp;<span class="keyword">self</span>) <span class="punctuation">-&gt;</span> Element&lt;Message&gt; &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">fn</span> <span class="title function_">theme</span>(&amp;<span class="keyword">self</span>) <span class="punctuation">-&gt;</span> Theme &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://github.com/iced-rs/iced">iced</a></p>
 ]]></content>
       <tags>
         <tag>project</tag>
