@@ -1942,7 +1942,24 @@
 <p>第一次获取锁时，重入次数为 1<br><img src="/images/image32.png" alt="alt text"></p>
 <p>第二次获取锁时，重入次数加 1<br><img src="/images/image33.png" alt="alt text"></p>
 <p>当重入次数为 0 时，释放锁</p>
-<p>…</p>
+<h2 id="Redisson-分布式锁的原理"><a href="#Redisson-分布式锁的原理" class="headerlink" title="Redisson 分布式锁的原理"></a>Redisson 分布式锁的原理</h2><p><img src="/images/image37.png" alt="alt text"></p>
+<ul>
+<li><p>可重入</p>
+<ul>
+<li>使用 Hash 来存储锁的线程 ID 和重入次数。</li>
+</ul>
+</li>
+<li><p>可重试</p>
+<ul>
+<li>利用信号量和PubSub功能实现等待、唤醒，获取锁失败的重试机制</li>
+</ul>
+</li>
+<li><p>超时续约</p>
+<ul>
+<li>利用 watchDog，每隔一段时间(releaseTime &#x2F; 3)自动续约锁的过期时间，避免锁的自动释放。</li>
+</ul>
+</li>
+</ul>
 ]]></content>
       <tags>
         <tag>redis</tag>
