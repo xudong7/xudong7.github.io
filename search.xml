@@ -2397,4 +2397,30 @@
         <tag>leetcode</tag>
       </tags>
   </entry>
+  <entry>
+    <title>change default docker image path</title>
+    <url>/2025/04/27/change-default-docker-image-path/</url>
+    <content><![CDATA[<h2 id="Change-default-docker-image-path"><a href="#Change-default-docker-image-path" class="headerlink" title="Change default docker image path"></a>Change default docker image path</h2><p>Recently, My C disk is full, and I found that this is because the default docker image path is in C disk and it takes up almost 60GB.<br>I want to change the default docker image path to D disk.</p>
+<p>I found this <a href="https://docs.docker.com/desktop/install/windows-install/">docs</a></p>
+<h2 id="Install-docker-with-Command-Line"><a href="#Install-docker-with-Command-Line" class="headerlink" title="Install docker with Command Line"></a>Install docker with Command Line</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;Docker Desktop Installer.exe&quot;</span>  install --installation-dir=<span class="string">&quot;PATH&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>replace <code>PATH</code> with the path you want to install docker.</p>
+<p>e.g.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;D:\Download\Docker Desktop Installer.exe&quot;</span>  install --installation-dir=<span class="string">&quot;D:\Program\Docker&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>Run the command above in the command line, and it will install docker to D disk.</p>
+<h2 id="Change-docker-image-path"><a href="#Change-docker-image-path" class="headerlink" title="Change docker image path"></a>Change docker image path</h2><p>After installing docker, you can change the default docker image path in the settings.</p>
+<ol>
+<li>Right click the docker icon in the taskbar and select “Settings”</li>
+<li>Click “Resources” in the left menu</li>
+<li>Click “Advanced” in the top menu</li>
+<li>Change the “Disk image location” to the path you want</li>
+<li>Click “Apply &amp; Restart” to save the changes</li>
+</ol>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.cnblogs.com/luzhuangzhi/p/17869210.html">Windows10 docker安装D盘，更改docker镜像默认保存路径</a></p>
+]]></content>
+      <tags>
+        <tag>tool</tag>
+      </tags>
+  </entry>
 </search>
