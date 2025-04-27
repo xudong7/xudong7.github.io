@@ -2315,6 +2315,27 @@
 <p>现在所有的Redis节点都是master节点。<br>我们应该获取所有节点的锁，然后我们可以使用这些锁，如果没有，我们就不能使用这些锁。<br>这个解决方案保证了所有的锁都有相同的数据，并且锁在同一个集群中，这保持了<strong>数据一致性</strong>。</p>
 <p><img src="/images/image40.png" alt="alt text"></p>
 <p>如果我们想要高可用性，我们可以为master节点设置slave节点。<br>这样，如果master节点宕机，slave节点将接管master节点并保持数据一致性。<br>虽然其他线程想要锁定slave节点，但它们将无法获得锁，因为它们需要获取所有节点的锁。（multiLock）</p>
+<h2 id="Redis-分布式锁的几个种类"><a href="#Redis-分布式锁的几个种类" class="headerlink" title="Redis 分布式锁的几个种类"></a>Redis 分布式锁的几个种类</h2><ol>
+<li>不可重入的 Redis 分布式锁</li>
+</ol>
+<ul>
+<li>原理： 利用 setnx 的互斥性；利用 ex 避免死锁； 释放锁时判断线程标识</li>
+<li>缺陷： 不可重入、无法重试、锁超时失效</li>
+</ul>
+<ol start="2">
+<li>可重入的 Redis 分布式锁</li>
+</ol>
+<ul>
+<li>原理： 利用 hash 结构，记录线程标识和重入次数；利用 watchDog 延续锁时间； 利用信号量控制锁重试等待</li>
+<li>缺陷： redis 宕机引起的锁失效</li>
+</ul>
+<ol start="3">
+<li>Redisson 的 multiLock</li>
+</ol>
+<ul>
+<li>原理： 多个独立的 Redis 节点， 必须在所有节点都获取重入锁，才算获取成功</li>
+<li>缺陷： 运维成本高，实现复杂</li>
+</ul>
 ]]></content>
       <tags>
         <tag>redis</tag>
