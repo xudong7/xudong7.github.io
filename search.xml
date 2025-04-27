@@ -2305,4 +2305,59 @@
         <tag>leetcode</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Redisson-multiLock</title>
+    <url>/2025/04/26/Redisson-multiLock/</url>
+    <content><![CDATA[<h2 id="Redisson-master-slave-issue"><a href="#Redisson-master-slave-issue" class="headerlink" title="Redisson master-slave issue"></a>Redisson master-slave issue</h2><p><img src="/images/image38.png" alt="alt text"></p>
+<p>我们在使用Redisson的分布式锁时，可能会遇到master-slave的问题。<br>在Redis中，master-slave是一个主从关系。其中master进行写操作，slave进行读操作。<br>在master节点宕机时，slave节点无法跟上master的速度，这会导致数据不一致的问题。</p>
+<p>为了解决这个问题，我们可以将全部的Redis节点都设置为master节点。</p>
+<h2 id="Redisson-multiLock"><a href="#Redisson-multiLock" class="headerlink" title="Redisson multiLock"></a>Redisson multiLock</h2><p><img src="/images/image39.png" alt="alt text"></p>
+<p>现在所有的Redis节点都是master节点。<br>我们应该获取所有节点的锁，然后我们可以使用这些锁，如果没有，我们就不能使用这些锁。<br>这个解决方案保证了所有的锁都有相同的数据，并且锁在同一个集群中，这保持了<strong>数据一致性</strong>。</p>
+<p><img src="/images/image40.png" alt="alt text"></p>
+<p>如果我们想要高可用性，我们可以为master节点设置slave节点。<br>这样，如果master节点宕机，slave节点将接管master节点并保持数据一致性。<br>虽然其他线程想要锁定slave节点，但它们将无法获得锁，因为它们需要获取所有节点的锁。（multiLock）</p>
+]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode-15</title>
+    <url>/2025/04/27/leetcode-15/</url>
+    <content><![CDATA[<h2 id="15-3Sum"><a href="#15-3Sum" class="headerlink" title="15. 3Sum"></a>15. 3Sum</h2><p><a href="https://leetcode.com/problems/3sum/">Leetcode 15</a></p>
+<p>I solved this problem using C++.<br>My idea: use two pointers to find the sum of three numbers.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">threeSum</span>(vector&lt;<span class="type">int</span>&gt; &amp;nums)</span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; result;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// Skip duplicate elements</span></span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>])</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// set two pointers</span></span><br><span class="line">            <span class="type">int</span> lt = i + <span class="number">1</span>, rt = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">            <span class="type">int</span> target = -nums[i];</span><br><span class="line"></span><br><span class="line">            <span class="comment">// set -nums[i] as target</span></span><br><span class="line">            <span class="comment">// find the sum of two numbers</span></span><br><span class="line">            <span class="keyword">while</span> (lt &lt; rt)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="type">int</span> sum = nums[lt] + nums[rt];</span><br><span class="line">                <span class="keyword">if</span> (sum == target)</span><br><span class="line">                &#123;</span><br><span class="line">                    result.<span class="built_in">push_back</span>(&#123;nums[i], nums[lt], nums[rt]&#125;);</span><br><span class="line">                    lt++;</span><br><span class="line">                    rt--;</span><br><span class="line">                    <span class="comment">// Skip duplicate elements</span></span><br><span class="line">                    <span class="keyword">while</span> (lt &lt; rt &amp;&amp; nums[lt] == nums[lt - <span class="number">1</span>])</span><br><span class="line">                        lt++;</span><br><span class="line">                    <span class="keyword">while</span> (lt &lt; rt &amp;&amp; nums[rt] == nums[rt + <span class="number">1</span>])</span><br><span class="line">                        rt--;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; target)</span><br><span class="line">                &#123;</span><br><span class="line">                    lt++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    rt--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>e.g.<br>nums &#x3D; [-1,0,1,2,-1,-4]<br>Output: [[-1,-1,2],[-1,0,1]]</p>
+<ol>
+<li><p>sort the array<br>nums &#x3D; [-4,-1,-1,0,1,2]</p>
+</li>
+<li><p>set <code>i = 0</code>, <code>lt = 1</code>, <code>rt = 5</code></p>
+</li>
+<li><p>set <code>target = -nums[i] = 4</code><br>……</p>
+</li>
+<li><p>set <code>i = 1</code>, <code>lt = 2</code>, <code>rt = 5</code></p>
+</li>
+<li><p>set <code>target = -nums[i] = 1</code></p>
+</li>
+<li><p>set <code>sum = nums[lt] + nums[rt] = -1 + 2 = 1</code></p>
+</li>
+<li><p>set <code>result.push_back([-1, -1, 2])</code></p>
+</li>
+<li><p>set <code>lt = 3</code>, <code>rt = 4</code></p>
+</li>
+<li><p>set <code>sum = nums[lt] + nums[rt] = 0 + 1 = 1</code></p>
+</li>
+<li><p>set <code>result.push_back([-1, 0, 1])</code></p>
+</li>
+<li><p>set <code>lt = 4</code>, <code>rt = 3</code></p>
+</li>
+<li><p>end of loop</p>
+</li>
+</ol>
+<h2 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h2><p>Only this method is easy to understand…😥</p>
+]]></content>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
 </search>
