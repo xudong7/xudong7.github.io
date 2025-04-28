@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="异步秒杀秒杀是一个非常经典的场景，秒杀的核心是高并发下的库存扣减。 正常操作是将进行如查询库存、一人一单、扣减库存等操作。但是在高并发的情况下，这些操作可能有有性能低下的问题。 这时需要使用异步秒杀的方式来解决这个问题。 优化异步秒杀的核心是将秒杀的操作进行异步化处理。 使用 Redis 来完成查询库存以及一人一单的操作。 这个操作完成后将所需信息写入阻塞队列中，然后返回必要信息给用户，如订单号等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异步秒杀">
+<meta property="og:url" content="https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/index.html">
+<meta property="og:site_name" content="Dunjia&#39;s Blog">
+<meta property="og:description" content="异步秒杀秒杀是一个非常经典的场景，秒杀的核心是高并发下的库存扣减。 正常操作是将进行如查询库存、一人一单、扣减库存等操作。但是在高并发的情况下，这些操作可能有有性能低下的问题。 这时需要使用异步秒杀的方式来解决这个问题。 优化异步秒杀的核心是将秒杀的操作进行异步化处理。 使用 Redis 来完成查询库存以及一人一单的操作。 这个操作完成后将所需信息写入阻塞队列中，然后返回必要信息给用户，如订单号等">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xudong7.github.io/images/image41.png">
+<meta property="article:published_time" content="2025-04-27T15:38:06.000Z">
+<meta property="article:modified_time" content="2025-04-28T04:18:46.848Z">
+<meta property="article:author" content="Dunjia">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xudong7.github.io/images/image41.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>异步秒杀</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/04/27/change-default-docker-image-path/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&text=异步秒杀"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&title=异步秒杀"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&is_video=false&description=异步秒杀"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=异步秒杀&body=Check out this article: https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&title=异步秒杀"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&title=异步秒杀"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&title=异步秒杀"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&title=异步秒杀"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&name=异步秒杀&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&t=异步秒杀"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80"><span class="toc-number">1.</span> <span class="toc-text">异步秒杀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        异步秒杀
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Dunjia</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-04-27T15:38:06.000Z" class="dt-published" itemprop="datePublished">2025-04-27</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/redis/" rel="tag">redis</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="异步秒杀"><a href="#异步秒杀" class="headerlink" title="异步秒杀"></a>异步秒杀</h2><p>秒杀是一个非常经典的场景，秒杀的核心是高并发下的库存扣减。</p>
+<p>正常操作是将进行如查询库存、一人一单、扣减库存等操作。<br>但是在高并发的情况下，这些操作可能有有性能低下的问题。</p>
+<p>这时需要使用异步秒杀的方式来解决这个问题。</p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>异步秒杀的核心是将秒杀的操作进行异步化处理。</p>
+<p>使用 Redis 来完成查询库存以及一人一单的操作。</p>
+<p>这个操作完成后将所需信息写入阻塞队列中，然后返回必要信息给用户，如订单号等，这时业务逻辑已经完成。</p>
+<p>之后的写入数据库操作的时效性就不那么重要了，可以使用异步的方式来完成，降低数据库的压力。</p>
+<p><img src="/images/image41.png" alt="alt text"></p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// lua脚本</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> DefaultRedisScript&lt;Long&gt; SECKILL_SCRIPT;</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    SECKILL_SCRIPT = <span class="keyword">new</span> <span class="title class_">DefaultRedisScript</span>&lt;&gt;();</span><br><span class="line">    SECKILL_SCRIPT.setLocation(<span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;seckill.lua&quot;</span>));</span><br><span class="line">    SECKILL_SCRIPT.setResultType(Long.class);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 阻塞队列</span></span><br><span class="line"><span class="keyword">private</span> BlockingQueue&lt;VoucherOrder&gt; orderTasks = <span class="keyword">new</span> <span class="title class_">ArrayBlockingQueue</span>&lt;&gt;(<span class="number">1024</span> * <span class="number">1024</span>);</span><br><span class="line"><span class="comment">// 线程池</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ExecutorService</span> <span class="variable">SECKILL_ORDER_EXECUTOR</span> <span class="operator">=</span> Executors.newSingleThreadExecutor();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在类创建后立刻执行</span></span><br><span class="line"><span class="meta">@PostConstruct</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> &#123;</span><br><span class="line">    SECKILL_ORDER_EXECUTOR.submit(<span class="keyword">new</span> <span class="title class_">VoucherOrderHandler</span>());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 异步秒杀</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">VoucherOrderHandler</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 1. 获取阻塞队列中的订单</span></span><br><span class="line">                <span class="type">VoucherOrder</span> <span class="variable">voucherOrder</span> <span class="operator">=</span> orderTasks.take();</span><br><span class="line">                <span class="comment">// 2. 创建订单</span></span><br><span class="line">                handleVoucherOrder(voucherOrder);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                log.error(<span class="string">&quot;处理订单异常&quot;</span>, e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">handleVoucherOrder</span><span class="params">(VoucherOrder voucherOrder)</span> &#123;</span><br><span class="line">    <span class="comment">// 1. 获取用户</span></span><br><span class="line">    <span class="type">Long</span> <span class="variable">userId</span> <span class="operator">=</span> voucherOrder.getUserId();</span><br><span class="line">    <span class="comment">// 2. 创建锁对象</span></span><br><span class="line">    <span class="type">RLock</span> <span class="variable">lock</span> <span class="operator">=</span> redissonClient.getLock(<span class="string">&quot;lock:order:&quot;</span> + userId);</span><br><span class="line">    <span class="comment">// 3. 获取锁</span></span><br><span class="line">    <span class="type">boolean</span> <span class="variable">isLock</span> <span class="operator">=</span> lock.tryLock();</span><br><span class="line">    <span class="comment">// 4. 判断获取锁是否成功</span></span><br><span class="line">    <span class="keyword">if</span> (!isLock) &#123;</span><br><span class="line">        <span class="comment">// 获取锁失败</span></span><br><span class="line">        log.error(<span class="string">&quot;不允许重复下单&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        proxy.createVoucherOrder(voucherOrder);</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="comment">// 释放锁</span></span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> IVoucherOrderService proxy;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">seckillVoucher</span><span class="params">(Long voucherId)</span> &#123;</span><br><span class="line">    <span class="comment">// 获取用户id</span></span><br><span class="line">    <span class="type">Long</span> <span class="variable">userId</span> <span class="operator">=</span> UserHolder.getUser().getId();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1. 执行lua脚本</span></span><br><span class="line">    <span class="type">Long</span> <span class="variable">result</span> <span class="operator">=</span> stringRedisTemplate.execute(</span><br><span class="line">            SECKILL_SCRIPT,</span><br><span class="line">            Collections.emptyList(),</span><br><span class="line">            voucherId.toString(), <span class="comment">// 代金券id</span></span><br><span class="line">            userId.toString() <span class="comment">// 用户id</span></span><br><span class="line">    );</span><br><span class="line">    <span class="comment">// 2. 判断结果是否为0</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> result.intValue();</span><br><span class="line">    <span class="keyword">if</span> (r != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 2.1. 不为0，代表没有购买资格</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(r == <span class="number">1</span> ? <span class="string">&quot;库存不足&quot;</span> : <span class="string">&quot;不能重复下单&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 2.2. 为0，有购买资格，把下单信息保存到阻塞队列</span></span><br><span class="line">    <span class="type">VoucherOrder</span> <span class="variable">voucherOrder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">VoucherOrder</span>();</span><br><span class="line">    <span class="comment">// 2.3. 订单id</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">orderId</span> <span class="operator">=</span> redisIdWorker.nextId(<span class="string">&quot;order&quot;</span>);</span><br><span class="line">    voucherOrder.setId(orderId);</span><br><span class="line">    <span class="comment">// 2.4. 用户id</span></span><br><span class="line">    voucherOrder.setUserId(userId);</span><br><span class="line">    <span class="comment">// 2.5. 代金券id</span></span><br><span class="line">    voucherOrder.setVoucherId(voucherId);</span><br><span class="line">    <span class="comment">// 2.6. 放入阻塞队列</span></span><br><span class="line">    orderTasks.add(voucherOrder);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 获取代理对象(事务)</span></span><br><span class="line">    <span class="type">IVoucherOrderService</span> <span class="variable">proxy</span> <span class="operator">=</span> (IVoucherOrderService) AopContext.currentProxy();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 返回订单id</span></span><br><span class="line">    <span class="keyword">return</span> Result.ok(orderId);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">createVoucherOrder</span><span class="params">(VoucherOrder voucherOrder)</span> &#123; <span class="comment">// 注意，不能加方法锁，会导致串行化，性能下降</span></span><br><span class="line">    <span class="comment">// 5. 一人一单</span></span><br><span class="line">    <span class="type">Long</span> <span class="variable">userId</span> <span class="operator">=</span> voucherOrder.getUserId();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5.1 查询订单</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> query().eq(<span class="string">&quot;user_id&quot;</span>, userId).eq(<span class="string">&quot;voucher_id&quot;</span>, voucherOrder.getVoucherId()).count();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5.2 判断是否存在</span></span><br><span class="line">    <span class="keyword">if</span> (count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 用户已经购买过</span></span><br><span class="line">        log.error(<span class="string">&quot;用户已经购买过&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 6. 扣减库存(CAS)</span></span><br><span class="line">    <span class="type">boolean</span> <span class="variable">success</span> <span class="operator">=</span> seckillVoucherService.update()</span><br><span class="line">            .setSql(<span class="string">&quot;stock = stock - 1&quot;</span>) <span class="comment">// set stock = stock - 1</span></span><br><span class="line">            .eq(<span class="string">&quot;voucher_id&quot;</span>, voucherOrder.getVoucherId()) <span class="comment">// where voucher_id = #&#123;voucherId&#125;</span></span><br><span class="line">            .gt(<span class="string">&quot;stock&quot;</span>, <span class="number">0</span>) <span class="comment">// and stock &gt; 0</span></span><br><span class="line">            <span class="comment">//                .eq(&quot;stock&quot;, voucher.getStock()) // where stock = #&#123;stock&#125;</span></span><br><span class="line">            .update(); <span class="comment">// 原子性操作 不会存在都为1然后都修改的情况</span></span><br><span class="line">    <span class="keyword">if</span> (!success) &#123;</span><br><span class="line">        <span class="comment">// 扣减库存失败</span></span><br><span class="line">        log.error(<span class="string">&quot;扣减库存失败&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 7. 创建订单</span></span><br><span class="line">    save(voucherOrder);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中lua脚本的内容如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 1. 参数列表</span></span><br><span class="line"><span class="comment">-- 1，1. 优惠券id</span></span><br><span class="line"><span class="keyword">local</span> voucherId = ARGV[<span class="number">1</span>]</span><br><span class="line"><span class="comment">-- 1，2. 用户id</span></span><br><span class="line"><span class="keyword">local</span> userId = ARGV[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 2. 数据key</span></span><br><span class="line"><span class="comment">-- 2.1. 库存key</span></span><br><span class="line"><span class="keyword">local</span> stockKey = <span class="string">&#x27;seckill:stock:&#x27;</span> .. voucherId</span><br><span class="line"><span class="comment">-- 2.2. 订单key</span></span><br><span class="line"><span class="keyword">local</span> orderKey = <span class="string">&#x27;seckill:order:&#x27;</span> .. voucherId</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 3. 脚本业务</span></span><br><span class="line"><span class="comment">-- 3.1. 判断库存是否充足 get stockKey</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">tonumber</span>(redis.call(<span class="string">&#x27;get&#x27;</span>, stockKey)) &lt;= <span class="number">0</span>) <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- 3.2. 库存不足，返回1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- 3.3. 判断用户是否下单过 SISMEMBER orderKey userId</span></span><br><span class="line"><span class="keyword">if</span> (redis.call(<span class="string">&#x27;sismember&#x27;</span>, orderKey, userId) == <span class="number">1</span>) <span class="keyword">then</span></span><br><span class="line">    <span class="comment">-- 3.4. 下单过，返回2</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- 3.4. 扣减库存 incrby stockKey -1</span></span><br><span class="line">redis.call(<span class="string">&#x27;incrby&#x27;</span>, stockKey, <span class="number">-1</span>)</span><br><span class="line"><span class="comment">-- 3.5. 下单成功，保存订单记录 sadd orderKey userId</span></span><br><span class="line">redis.call(<span class="string">&#x27;sadd&#x27;</span>, orderKey, userId)</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>秒杀业务的优化思路：</p>
+<ol>
+<li>先利用 Redis 完成库存余量、一人一单判断，完成抢单业务</li>
+<li>再将下单业务放入阻塞队列，利用独立线程异步下单</li>
+</ol>
+<p>基于阻塞队列的异步秒杀的问题：</p>
+<ol>
+<li>内存限制问题：<br> 阻塞队列是基于内存的，内存有限，阻塞队列的长度有限制</li>
+<li>数据安全问题：<br> 如果阻塞队列满了，后续的请求会被拒绝<br> 如果在执行阻塞队列的过程中，发生了异常，可能会导致数据丢失</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80"><span class="toc-number">1.</span> <span class="toc-text">异步秒杀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&text=异步秒杀"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&title=异步秒杀"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&is_video=false&description=异步秒杀"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=异步秒杀&body=Check out this article: https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&title=异步秒杀"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&title=异步秒杀"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&title=异步秒杀"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&title=异步秒杀"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&name=异步秒杀&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://xudong7.github.io/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/&t=异步秒杀"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    Dunjia
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
