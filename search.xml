@@ -2475,4 +2475,66 @@
         <tag>redis</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Redis message queue</title>
+    <url>/2025/04/28/Redis-message-queue/</url>
+    <content><![CDATA[<h2 id="Redis-message-queue"><a href="#Redis-message-queue" class="headerlink" title="Redis message queue"></a>Redis message queue</h2><p>消息队列(Message Queue)，字面意思就是存放消息的队列。最简单的消息队列模型包括三个角色：</p>
+<ul>
+<li>消息队列：存储和管理消息，也被称为消息代理(Message Broker)。</li>
+<li>生产者：负责发送消息到消息队列。</li>
+<li>消费者：负责从消息队列中获取消息并处理。</li>
+</ul>
+<h2 id="与阻塞队列的区别"><a href="#与阻塞队列的区别" class="headerlink" title="与阻塞队列的区别"></a>与阻塞队列的区别</h2><ul>
+<li>不使用JVM内存，因此不会出现内存溢出的问题。</li>
+<li>持久化：Redis支持将数据持久化到磁盘上，而JVM内存中的数据在程序退出后会丢失。</li>
+<li>确认机制：Redis支持消息的确认机制，可以确保消息被成功消费。</li>
+</ul>
+<h2 id="Redis消息队列的实现"><a href="#Redis消息队列的实现" class="headerlink" title="Redis消息队列的实现"></a>Redis消息队列的实现</h2><ul>
+<li>list结构：基于List结构模拟消息队列。</li>
+<li>PubSub：基本的点对点消息模型。</li>
+<li>Stream：基于Stream结构实现的消息队列，支持持久化和消费确认机制。</li>
+</ul>
+<h3 id="基于List结构的消息队列"><a href="#基于List结构的消息队列" class="headerlink" title="基于List结构的消息队列"></a>基于List结构的消息队列</h3><p>使用Redis的List结构实现消息队列，生产者使用<code>LPUSH</code>命令将消息推送到队列的左侧，消费者使用<code>BRPOP</code>命令从队列的右侧获取消息。<code>BRPOP</code>命令是阻塞式的，如果队列为空，消费者会等待直到有新消息到达。</p>
+<p>缺点：</p>
+<ul>
+<li>消息丢失：如果消费者在处理消息时崩溃，消息会丢失。(<code>BRPOP</code>命令会删除消息)</li>
+<li>只支持单个消费者：如果有多个消费者同时消费同一个队列，可能会导致消息被多个消费者消费，造成重复消费。</li>
+</ul>
+<h3 id="基于PubSub的消息队列"><a href="#基于PubSub的消息队列" class="headerlink" title="基于PubSub的消息队列"></a>基于PubSub的消息队列</h3><p>消费者可以订阅一个或多个频道，生产者将消息发布到这些频道。消费者会接收到发布到它们订阅的频道的消息。</p>
+<ul>
+<li>SUBSCRIBE channel [channel …]：订阅一个或多个频道。</li>
+<li>PUBLISH channel message：将消息发布到指定频道。</li>
+<li>PSUBSCRIBE pattern [pattern …]：订阅与pattern格式匹配的所有频道。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode-3</title>
+    <url>/2025/04/28/leetcode-3/</url>
+    <content><![CDATA[<h2 id="3-Longest-Substring-Without-Repeating-Characters"><a href="#3-Longest-Substring-Without-Repeating-Characters" class="headerlink" title="3. Longest Substring Without Repeating Characters"></a>3. Longest Substring Without Repeating Characters</h2><p><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">Leetcode 3</a></p>
+<p>I solved this problem using C++.<br>My idea: use unordered_set to store the characters in the substring and use two pointers to iterate through the string.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> lt = <span class="number">0</span>, rt = <span class="number">0</span>, maxLength = <span class="number">0</span>;</span><br><span class="line">        unordered_set&lt;<span class="type">char</span>&gt; charSet;</span><br><span class="line">        <span class="keyword">while</span> (rt &lt; s.<span class="built_in">size</span>()) &#123;</span><br><span class="line">            <span class="type">char</span> ch = s[rt];</span><br><span class="line">            <span class="keyword">if</span> (charSet.<span class="built_in">find</span>(ch) == charSet.<span class="built_in">end</span>()) &#123;</span><br><span class="line">                <span class="comment">// not in set</span></span><br><span class="line">                charSet.<span class="built_in">insert</span>(ch);</span><br><span class="line">                rt++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                maxLength = <span class="built_in">max</span>(maxLength, rt - lt); <span class="comment">// update maxLength</span></span><br><span class="line">                <span class="comment">// jump to the same character from the left side</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> i = lt; i &lt; rt; i++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (s[i] == ch) &#123;</span><br><span class="line">                        lt = i + <span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        charSet.<span class="built_in">erase</span>(s[i]);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                charSet.<span class="built_in">insert</span>(ch);</span><br><span class="line">                rt++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(maxLength, rt - lt); <span class="comment">// return the last length</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>e.g.</p>
+<p>input: s &#x3D; “pwwkew”<br>output: 3</p>
+<ol>
+<li>lt &#x3D; 0, rt &#x3D; 0, maxLength &#x3D; 0, charSet &#x3D; {}</li>
+<li>charSet.insert(‘p’), rt &#x3D; 1</li>
+<li>charSet.insert(‘w’), rt &#x3D; 2</li>
+<li>s[rt] &#x3D; ‘w’, charSet.find(‘w’) !&#x3D; charSet.end()<br>4.1. maxLength &#x3D; max(0, 2 - 0) &#x3D; 2<br>4.2. search for ‘w’ in the set, if not found, erase the character from the set<br>4.3. i &#x3D; 0, s[i] &#x3D; ‘p’, charSet.erase(‘p’)<br>4.4. i &#x3D; 1, s[i] &#x3D; ‘w’, lt &#x3D; i + 1 &#x3D; 2<br>4.5. charSet.insert(s[rt]), and rt++, now charSet &#x3D; {‘w’} and ‘p’ is erased</li>
+<li>charSet.insert(‘k’), rt &#x3D; 3</li>
+<li>charSet.insert(‘e’), rt &#x3D; 4</li>
+<li>charSet.insert(‘w’), rt &#x3D; 5</li>
+<li>s[rt] &#x3D; ‘w’, charSet.find(‘w’) !&#x3D; charSet.end()<br>8.1. maxLength &#x3D; max(2, 5 - 2) &#x3D; 3<br>8.2. search for ‘w’ in the set, if not found, erase the character from the set<br>8.3. i &#x3D; 2, s[i] &#x3D; ‘w’, lt &#x3D; i + 1 &#x3D; 3<br>8.4. charSet.insert(s[rt]), and rt++, now charSet &#x3D; {‘k’, ‘e’} and ‘w’ is erased</li>
+<li>now rt &#x3D; 6 and rt &lt; s.size() is false, return max(3, 6 - 3) &#x3D; 3</li>
+</ol>
+<h2 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h2><p>I remembered this problem when I was grade 1 in college, and I found it difficult to solve at that time.<br>Now I can solve it quickly…😏😋</p>
+]]></content>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
 </search>

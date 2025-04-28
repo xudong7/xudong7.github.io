@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Redis message queue消息队列(Message Queue)，字面意思就是存放消息的队列。最简单的消息队列模型包括三个角色：  消息队列：存储和管理消息，也被称为消息代理(Message Broker)。 生产者：负责发送消息到消息队列。 消费者：负责从消息队列中获取消息并处理。  与阻塞队列的区别 不使用JVM内存，因此不会出现内存溢出的问题。 持久化：Redis支持将数据持久化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis message queue">
+<meta property="og:url" content="https://xudong7.github.io/2025/04/28/Redis-message-queue/index.html">
+<meta property="og:site_name" content="Dunjia&#39;s Blog">
+<meta property="og:description" content="Redis message queue消息队列(Message Queue)，字面意思就是存放消息的队列。最简单的消息队列模型包括三个角色：  消息队列：存储和管理消息，也被称为消息代理(Message Broker)。 生产者：负责发送消息到消息队列。 消费者：负责从消息队列中获取消息并处理。  与阻塞队列的区别 不使用JVM内存，因此不会出现内存溢出的问题。 持久化：Redis支持将数据持久化">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-04-28T04:43:46.000Z">
+<meta property="article:modified_time" content="2025-04-28T13:37:56.214Z">
+<meta property="article:author" content="Dunjia">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Redis message queue</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/04/28/leetcode-3/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/04/27/%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://xudong7.github.io/2025/04/28/Redis-message-queue/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&text=Redis message queue"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&title=Redis message queue"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&is_video=false&description=Redis message queue"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Redis message queue&body=Check out this article: https://xudong7.github.io/2025/04/28/Redis-message-queue/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&title=Redis message queue"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&title=Redis message queue"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&title=Redis message queue"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&title=Redis message queue"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&name=Redis message queue&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://xudong7.github.io/2025/04/28/Redis-message-queue/&t=Redis message queue"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-message-queue"><span class="toc-number">1.</span> <span class="toc-text">Redis message queue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.</span> <span class="toc-text">与阻塞队列的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">Redis消息队列的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EList%E7%BB%93%E6%9E%84%E7%9A%84%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="toc-number">3.1.</span> <span class="toc-text">基于List结构的消息队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EPubSub%E7%9A%84%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="toc-number">3.2.</span> <span class="toc-text">基于PubSub的消息队列</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Redis message queue
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Dunjia</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-04-28T04:43:46.000Z" class="dt-published" itemprop="datePublished">2025-04-28</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/redis/" rel="tag">redis</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="Redis-message-queue"><a href="#Redis-message-queue" class="headerlink" title="Redis message queue"></a>Redis message queue</h2><p>消息队列(Message Queue)，字面意思就是存放消息的队列。最简单的消息队列模型包括三个角色：</p>
+<ul>
+<li>消息队列：存储和管理消息，也被称为消息代理(Message Broker)。</li>
+<li>生产者：负责发送消息到消息队列。</li>
+<li>消费者：负责从消息队列中获取消息并处理。</li>
+</ul>
+<h2 id="与阻塞队列的区别"><a href="#与阻塞队列的区别" class="headerlink" title="与阻塞队列的区别"></a>与阻塞队列的区别</h2><ul>
+<li>不使用JVM内存，因此不会出现内存溢出的问题。</li>
+<li>持久化：Redis支持将数据持久化到磁盘上，而JVM内存中的数据在程序退出后会丢失。</li>
+<li>确认机制：Redis支持消息的确认机制，可以确保消息被成功消费。</li>
+</ul>
+<h2 id="Redis消息队列的实现"><a href="#Redis消息队列的实现" class="headerlink" title="Redis消息队列的实现"></a>Redis消息队列的实现</h2><ul>
+<li>list结构：基于List结构模拟消息队列。</li>
+<li>PubSub：基本的点对点消息模型。</li>
+<li>Stream：基于Stream结构实现的消息队列，支持持久化和消费确认机制。</li>
+</ul>
+<h3 id="基于List结构的消息队列"><a href="#基于List结构的消息队列" class="headerlink" title="基于List结构的消息队列"></a>基于List结构的消息队列</h3><p>使用Redis的List结构实现消息队列，生产者使用<code>LPUSH</code>命令将消息推送到队列的左侧，消费者使用<code>BRPOP</code>命令从队列的右侧获取消息。<code>BRPOP</code>命令是阻塞式的，如果队列为空，消费者会等待直到有新消息到达。</p>
+<p>缺点：</p>
+<ul>
+<li>消息丢失：如果消费者在处理消息时崩溃，消息会丢失。(<code>BRPOP</code>命令会删除消息)</li>
+<li>只支持单个消费者：如果有多个消费者同时消费同一个队列，可能会导致消息被多个消费者消费，造成重复消费。</li>
+</ul>
+<h3 id="基于PubSub的消息队列"><a href="#基于PubSub的消息队列" class="headerlink" title="基于PubSub的消息队列"></a>基于PubSub的消息队列</h3><p>消费者可以订阅一个或多个频道，生产者将消息发布到这些频道。消费者会接收到发布到它们订阅的频道的消息。</p>
+<ul>
+<li>SUBSCRIBE channel [channel …]：订阅一个或多个频道。</li>
+<li>PUBLISH channel message：将消息发布到指定频道。</li>
+<li>PSUBSCRIBE pattern [pattern …]：订阅与pattern格式匹配的所有频道。</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-message-queue"><span class="toc-number">1.</span> <span class="toc-text">Redis message queue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.</span> <span class="toc-text">与阻塞队列的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">Redis消息队列的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EList%E7%BB%93%E6%9E%84%E7%9A%84%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="toc-number">3.1.</span> <span class="toc-text">基于List结构的消息队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EPubSub%E7%9A%84%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="toc-number">3.2.</span> <span class="toc-text">基于PubSub的消息队列</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://xudong7.github.io/2025/04/28/Redis-message-queue/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&text=Redis message queue"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&title=Redis message queue"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&is_video=false&description=Redis message queue"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Redis message queue&body=Check out this article: https://xudong7.github.io/2025/04/28/Redis-message-queue/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&title=Redis message queue"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&title=Redis message queue"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&title=Redis message queue"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&title=Redis message queue"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://xudong7.github.io/2025/04/28/Redis-message-queue/&name=Redis message queue&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://xudong7.github.io/2025/04/28/Redis-message-queue/&t=Redis message queue"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    Dunjia
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/xudong7?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
