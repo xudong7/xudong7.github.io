@@ -2656,4 +2656,61 @@
         <tag>lock</tag>
       </tags>
   </entry>
+  <entry>
+    <title>feed flow</title>
+    <url>/2025/05/05/feed-flow/</url>
+    <content><![CDATA[<h2 id="Feed-Flow"><a href="#Feed-Flow" class="headerlink" title="Feed Flow"></a>Feed Flow</h2><p>Feed 流是用来进行消息推送的一个流式数据结构，类似于消息队列。它可以用来实现实时消息推送、数据流处理等场景。<br>例如在社交网络中，用户的动态、评论、点赞等信息都可以通过 Feed 流进行实时推送。</p>
+<p>Feed 流可以使用 Redis 的 ZSET 数据结构来实现。ZSET 是一个有序集合，可以用来存储带有时间戳的消息。每条消息都有一个唯一的 ID 和一个时间戳，时间戳可以用来排序消息。</p>
+<h2 id="Feed-流的实现"><a href="#Feed-流的实现" class="headerlink" title="Feed 流的实现"></a>Feed 流的实现</h2><p>Feed 流的实现可以分为以下几个步骤：</p>
+<ol>
+<li>添加消息到 Feed 流</li>
+<li>滚动分页查询信息</li>
+</ol>
+<h3 id="滚动分页查询存在的问题"><a href="#滚动分页查询存在的问题" class="headerlink" title="滚动分页查询存在的问题"></a>滚动分页查询存在的问题</h3><p>正常的分页是使用角标来进行分页的，但是在 Feed 流中，使用角标来进行分页查询是有问题的。</p>
+<p>因为 Feed 流中的消息是实时变化的，使用角标来进行分页查询会导致数据不一致的问题。</p>
+<p>例如，假设现在有 A 到 F 6 条消息，使用角标来进行分页查询，第一页查询到 F 到 D 3 条消息，第二页原本应该查询到 C 到 A 3 条消息，但是如果此时新增了一条消息 G，那么第二页查询到的消息就会变成 D 到 B 3 条消息，因为新插入信息导致原本的角标发生变化，这就是角标分页查询的问题。</p>
+<p>为了解决这个问题，我们可以使用滚动分页查询的方式来进行分页查询。</p>
+<p>使用 ZSET 数据结构来实现 Feed 流，ZSET 中的每条消息都有一个唯一的 ID 和一个时间戳，时间戳可以用来排序消息。<br>通过使用排名而不是角标来进行分页查询，可以避免数据不一致的问题。</p>
+<h2 id="滚动分页查询的实现"><a href="#滚动分页查询的实现" class="headerlink" title="滚动分页查询的实现"></a>滚动分页查询的实现</h2><p>使用 ZREVRANGEBYSCORE 而不是 ZRANGEBYSCORE 来进行分页查询，ZREVRANGEBYSCORE 支持排名进行分页查询。</p>
+<p>e.g.</p>
+<p>现在 <code>z1</code> 中有 8 条消息，分别是 <code>m7</code> 到 <code>m0</code>，排名分别是 7 到 0。</p>
+<p>第一次查询：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZREVRANGEBYSCORE z1 1000 0 WITHSCORES LIMIT 0 3</span><br><span class="line">1) <span class="string">&quot;m7&quot;</span></span><br><span class="line">2) <span class="string">&quot;7&quot;</span></span><br><span class="line">3) <span class="string">&quot;m6&quot;</span></span><br><span class="line">4) <span class="string">&quot;6&quot;</span></span><br><span class="line">5) <span class="string">&quot;m5&quot;</span></span><br><span class="line">6) <span class="string">&quot;5&quot;</span>  </span><br></pre></td></tr></table></figure>
+
+<p>这时新增了一条消息 <code>m8</code>，排名为 8。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZADD z1 8 m8</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure>
+
+<p>第二次查询：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZREVRANGEBYSCORE z1 5 0 WITHSCORES LIMIT 1 3</span><br><span class="line">1) <span class="string">&quot;m4&quot;</span></span><br><span class="line">2) <span class="string">&quot;4&quot;</span></span><br><span class="line">3) <span class="string">&quot;m3&quot;</span></span><br><span class="line">4) <span class="string">&quot;3&quot;</span></span><br><span class="line">5) <span class="string">&quot;m2&quot;</span></span><br><span class="line">6) <span class="string">&quot;2&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意偏移量应该设置为 1，因为是从 <code>m4</code> 开始查询的，不从 <code>m5</code> 开始查询的。同时最大值设置为 5，用来限制查询的最大值。</p>
+<p>这时成功查询到 <code>m4</code> 到 <code>m2</code> 3 条消息，而不是 <code>m5</code> 到 <code>m3</code> 3 条消息。<br>这就是使用排名进行分页查询的好处。</p>
+]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode-560</title>
+    <url>/2025/05/05/leetcode-560/</url>
+    <content><![CDATA[<h2 id="LeetCode-560-Subarray-Sum-Equals-K"><a href="#LeetCode-560-Subarray-Sum-Equals-K" class="headerlink" title="LeetCode 560: Subarray Sum Equals K"></a>LeetCode 560: Subarray Sum Equals K</h2><p><a href="https://leetcode.com/problems/subarray-sum-equals-k/">LeetCode 560</a></p>
+<p>I solved this problem using C++.<br>My idea: use <code>for</code> loop to find the sum of subarrays, but this is not efficient.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">subarraySum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = i; j &lt; nums.<span class="built_in">size</span>(); j++) &#123;</span><br><span class="line">                sum += nums[j];</span><br><span class="line">                <span class="keyword">if</span> (sum == k) count++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>It’s hard for me to find a better solution.<br>So I searched for it and found a solution using <code>unordered_map</code> to store the sum of subarrays.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">subarraySum</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;nums, <span class="type">int</span> k)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; prefixSumCount;</span><br><span class="line">        prefixSumCount[<span class="number">0</span>] = <span class="number">1</span>; <span class="comment">// Initialize with sum 0 to handle the case when a subarray starts from index 0</span></span><br><span class="line">        <span class="type">int</span> prefixSum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> num: nums) &#123;</span><br><span class="line">            prefixSum += num; <span class="comment">// Calculate the prefix sum</span></span><br><span class="line">            <span class="keyword">if</span> (prefixSumCount.<span class="built_in">find</span>(prefixSum - k) != prefixSumCount.<span class="built_in">end</span>()) &#123;</span><br><span class="line">                ans += prefixSumCount[prefixSum - k]; <span class="comment">// If the difference exists, add its count to the answer</span></span><br><span class="line">            &#125;</span><br><span class="line">            prefixSumCount[prefixSum]++; <span class="comment">// Increment the count of the current prefix sum</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans; <span class="comment">// Return the total count of subarrays with sum equal to k</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>This solution is more efficient than the previous one.</p>
+<p>Explanation:<br>input: nums &#x3D; [3, 4, 7, 2, -3, 1, 4, 2], k &#x3D; 7<br>output: 4</p>
+<p><code>prefixSumCount</code> is a hash map that stores the count of prefix sums encountered so far.<br><code>prefixSum</code> is the current prefix sum.</p>
+<p><code>prefixSum[i]</code> means the sum of <code>nums[0]</code> to <code>nums[i]</code>.<br><code>prefixSum[i]</code> &#x3D; <code>prefixSum[i-1] + nums[i]</code></p>
+<p>so <code>prefixSum[i-j]</code> means the sum of <code>nums[j]</code> to <code>nums[i]</code>.<br>If the sum of <code>nums[j]</code> to <code>nums[i]</code> is equal to <code>k</code>, then <code>prefixSum[i] - prefixSum[j-1] = k</code>.</p>
+<p>so if we want to know how many subarrays have a sum equal to <code>k</code>, we can get it by checking how many times <code>prefixSum[i] - k</code> has appeared in the hash map.</p>
+<p>so we can use <code>unordered_map&lt;int, int&gt;</code> to store the prefix sum and its count.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Today’s problem is difficult for me…😥</p>
+]]></content>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
 </search>
