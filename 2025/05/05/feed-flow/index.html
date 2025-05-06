@@ -6,18 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="Feed FlowFeed 流是用来进行消息推送的一个流式数据结构，类似于消息队列。它可以用来实现实时消息推送、数据流处理等场景。例如在社交网络中，用户的动态、评论、点赞等信息都可以通过 Feed 流进行实时推送。 Feed 流可以使用 Redis 的 ZSET 数据结构来实现。ZSET 是一个有序集合，可以用来存储带有时间戳的消息。每条消息都有一个唯一的 ID 和一个时间戳，时间戳可以用来排序消">
+    <meta name="description" content="Feed 流Feed 流是用来进行消息推送的一个流式数据结构，类似于消息队列。它可以用来实现实时消息推送、数据流处理等场景。例如在社交网络中，用户的动态、评论、点赞等信息都可以通过 Feed 流进行实时推送。 Feed 流可以使用 Redis 的 ZSET 数据结构来实现。ZSET 是一个有序集合，可以用来存储带有时间戳的消息。每条消息都有一个唯一的 ID 和一个时间戳，时间戳可以用来排序消息。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="feed flow">
 <meta property="og:url" content="https://xudong7.github.io/2025/05/05/feed-flow/index.html">
 <meta property="og:site_name" content="Dunjia&#39;s Blog">
-<meta property="og:description" content="Feed FlowFeed 流是用来进行消息推送的一个流式数据结构，类似于消息队列。它可以用来实现实时消息推送、数据流处理等场景。例如在社交网络中，用户的动态、评论、点赞等信息都可以通过 Feed 流进行实时推送。 Feed 流可以使用 Redis 的 ZSET 数据结构来实现。ZSET 是一个有序集合，可以用来存储带有时间戳的消息。每条消息都有一个唯一的 ID 和一个时间戳，时间戳可以用来排序消">
+<meta property="og:description" content="Feed 流Feed 流是用来进行消息推送的一个流式数据结构，类似于消息队列。它可以用来实现实时消息推送、数据流处理等场景。例如在社交网络中，用户的动态、评论、点赞等信息都可以通过 Feed 流进行实时推送。 Feed 流可以使用 Redis 的 ZSET 数据结构来实现。ZSET 是一个有序集合，可以用来存储带有时间戳的消息。每条消息都有一个唯一的 ID 和一个时间戳，时间戳可以用来排序消息。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xudong7.github.io/images/image42.png">
+<meta property="og:image" content="https://xudong7.github.io/images/image43.png">
+<meta property="og:image" content="https://xudong7.github.io/images/image44.png">
 <meta property="article:published_time" content="2025-05-05T11:39:08.000Z">
-<meta property="article:modified_time" content="2025-05-05T12:38:54.777Z">
+<meta property="article:modified_time" content="2025-05-06T07:23:55.499Z">
 <meta property="article:author" content="Dunjia">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xudong7.github.io/images/image42.png">
     
     
       
@@ -115,7 +119,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Feed-Flow"><span class="toc-number">1.</span> <span class="toc-text">Feed Flow</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feed-%E6%B5%81%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">Feed 流的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.1.</span> <span class="toc-text">滚动分页查询存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">滚动分页查询的实现</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Feed-%E6%B5%81"><span class="toc-number">1.</span> <span class="toc-text">Feed 流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">常见模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%89%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">拉模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text">推模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E6%8B%89%E7%BB%93%E5%90%88"><span class="toc-number">2.3.</span> <span class="toc-text">推拉结合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feed-%E6%B5%81%E7%9A%84%E5%AE%9E%E7%8E%B0-%E6%8E%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">Feed 流的实现 (推模式)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">3.1.</span> <span class="toc-text">滚动分页查询存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.</span> <span class="toc-text">滚动分页查询的实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%90%8D%E9%87%8D%E5%A4%8D%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">排名重复问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B6%E5%8F%91%E6%95%B0%E6%8D%AE"><span class="toc-number">6.</span> <span class="toc-text">收发数据</span></a></li></ol>
       </div>
     
   </span>
@@ -160,9 +164,21 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h2 id="Feed-Flow"><a href="#Feed-Flow" class="headerlink" title="Feed Flow"></a>Feed Flow</h2><p>Feed 流是用来进行消息推送的一个流式数据结构，类似于消息队列。它可以用来实现实时消息推送、数据流处理等场景。<br>例如在社交网络中，用户的动态、评论、点赞等信息都可以通过 Feed 流进行实时推送。</p>
+    <h2 id="Feed-流"><a href="#Feed-流" class="headerlink" title="Feed 流"></a>Feed 流</h2><p>Feed 流是用来进行消息推送的一个流式数据结构，类似于消息队列。它可以用来实现实时消息推送、数据流处理等场景。<br>例如在社交网络中，用户的动态、评论、点赞等信息都可以通过 Feed 流进行实时推送。</p>
 <p>Feed 流可以使用 Redis 的 ZSET 数据结构来实现。ZSET 是一个有序集合，可以用来存储带有时间戳的消息。每条消息都有一个唯一的 ID 和一个时间戳，时间戳可以用来排序消息。</p>
-<h2 id="Feed-流的实现"><a href="#Feed-流的实现" class="headerlink" title="Feed 流的实现"></a>Feed 流的实现</h2><p>Feed 流的实现可以分为以下几个步骤：</p>
+<h2 id="常见模式"><a href="#常见模式" class="headerlink" title="常见模式"></a>常见模式</h2><ul>
+<li><p>Timeline: 不做内容筛选，简单地按照内容发布时间排序</p>
+</li>
+<li><p>智能排序: 利用智能算法进行个性化推荐</p>
+</li>
+</ul>
+<h3 id="拉模式"><a href="#拉模式" class="headerlink" title="拉模式"></a>拉模式</h3><p><img src="/images/image42.png" alt="alt text"></p>
+<p>这种方式在大量数据的情况下，延迟可能会比较高</p>
+<h3 id="推模式"><a href="#推模式" class="headerlink" title="推模式"></a>推模式</h3><p><img src="/images/image43.png" alt="alt text"></p>
+<p>这种方式延迟很低，但会占用大量存储空间</p>
+<h3 id="推拉结合"><a href="#推拉结合" class="headerlink" title="推拉结合"></a>推拉结合</h3><p><img src="/images/image44.png" alt="alt text"></p>
+<p>这种方式结合了推和拉两者的优点，但是实现较复杂</p>
+<h2 id="Feed-流的实现-推模式"><a href="#Feed-流的实现-推模式" class="headerlink" title="Feed 流的实现 (推模式)"></a>Feed 流的实现 (推模式)</h2><p>Feed 流的实现可以分为以下几个步骤：</p>
 <ol>
 <li>添加消息到 Feed 流</li>
 <li>滚动分页查询信息</li>
@@ -186,6 +202,21 @@
 
 <p>注意偏移量应该设置为 1，因为是从 <code>m4</code> 开始查询的，不从 <code>m5</code> 开始查询的。同时最大值设置为 5，用来限制查询的最大值。</p>
 <p>这时成功查询到 <code>m4</code> 到 <code>m2</code> 3 条消息，而不是 <code>m5</code> 到 <code>m3</code> 3 条消息。<br>这就是使用排名进行分页查询的好处。</p>
+<h2 id="排名重复问题"><a href="#排名重复问题" class="headerlink" title="排名重复问题"></a>排名重复问题</h2><p>在使用排名进行分页查询时，可能会出现排名重复的问题。</p>
+<p>例如，假设现在 <code>z1</code> 中有 8 条消息，分别是 <code>m7</code> 到 <code>m0</code>，排名分别是 7 到 0。如果其中 <code>m5</code> 和 <code>m6</code> 的时间戳相同，那么它们的排名就会重复，都会是 5。</p>
+<p>这时在进行分页查询时，就会出现问题。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZREVRANGEBYSCORE z1 1000 0 WITHSCORES LIMIT 0 3</span><br><span class="line">1) <span class="string">&quot;m7&quot;</span></span><br><span class="line">2) <span class="string">&quot;7&quot;</span></span><br><span class="line">3) <span class="string">&quot;m6&quot;</span></span><br><span class="line">4) <span class="string">&quot;5&quot;</span></span><br><span class="line">5) <span class="string">&quot;m5&quot;</span></span><br><span class="line">6) <span class="string">&quot;5&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZREVRANGEBYSCORE z1 5 0 WITHSCORES LIMIT 1 3</span><br><span class="line">1) <span class="string">&quot;m5&quot;</span></span><br><span class="line">2) <span class="string">&quot;5&quot;</span></span><br><span class="line">3) <span class="string">&quot;m4&quot;</span></span><br><span class="line">4) <span class="string">&quot;4&quot;</span></span><br><span class="line">5) <span class="string">&quot;m3&quot;</span></span><br><span class="line">6) <span class="string">&quot;3&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这时就会出现重复的排名，导致查询结果不一致。</p>
+<p>我们发现这与偏移量有关，偏移量设置为 1 时，查询到的消息是 <code>m5</code> 到 <code>m3</code> 3 条消息，而不是 <code>m4</code> 到 <code>m2</code> 3 条消息。</p>
+<p>发现偏移量应该与上一次查询的最小排名的出现次数有关，比如 <code>5</code> 为上一次查询的最小排名，出现了 2 次，那么偏移量应该设置为 2，而不是 1。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZREVRANGEBYSCORE z1 5 0 WITHSCORES LIMIT 2 3</span><br><span class="line">1) <span class="string">&quot;m4&quot;</span></span><br><span class="line">2) <span class="string">&quot;4&quot;</span></span><br><span class="line">3) <span class="string">&quot;m3&quot;</span></span><br><span class="line">4) <span class="string">&quot;3&quot;</span></span><br><span class="line">5) <span class="string">&quot;m2&quot;</span></span><br><span class="line">6) <span class="string">&quot;2&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这时成功查询到 <code>m4</code> 到 <code>m2</code> 3 条消息，而不是 <code>m5</code> 到 <code>m3</code> 3 条消息。</p>
+<h2 id="收发数据"><a href="#收发数据" class="headerlink" title="收发数据"></a>收发数据</h2><p>请求参数为 <code>lastId</code> 和 <code>offset</code>, 即上一次查询的最小时间戳和偏移量。</p>
+<p>查询完毕后，返回数据和 <code>min</code>, <code>offset</code>, 即小于指定时间戳的消息集合和本次查询的推送的最小时间戳以及偏移量。</p>
 
   </div>
 </article>
@@ -213,7 +244,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Feed-Flow"><span class="toc-number">1.</span> <span class="toc-text">Feed Flow</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feed-%E6%B5%81%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">Feed 流的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.1.</span> <span class="toc-text">滚动分页查询存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">滚动分页查询的实现</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Feed-%E6%B5%81"><span class="toc-number">1.</span> <span class="toc-text">Feed 流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">常见模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%89%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">拉模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text">推模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E6%8B%89%E7%BB%93%E5%90%88"><span class="toc-number">2.3.</span> <span class="toc-text">推拉结合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feed-%E6%B5%81%E7%9A%84%E5%AE%9E%E7%8E%B0-%E6%8E%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">Feed 流的实现 (推模式)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">3.1.</span> <span class="toc-text">滚动分页查询存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.</span> <span class="toc-text">滚动分页查询的实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%90%8D%E9%87%8D%E5%A4%8D%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">排名重复问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B6%E5%8F%91%E6%95%B0%E6%8D%AE"><span class="toc-number">6.</span> <span class="toc-text">收发数据</span></a></li></ol>
       </div>
     
 
