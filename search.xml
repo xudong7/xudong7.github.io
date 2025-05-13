@@ -2777,6 +2777,7 @@
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>这学期上了 Rust 的课程，最后的期末大作业是用 Rust 完成一个项目。</p>
 <p>我大致在 Github 上浏览了有关 Rust 及其相关的应用层面的框架，发现了有 Slint、Tauri、Iced、以及 Actix、Axum 等等。</p>
 <p>在这些和 Rust 相关的框架中，我选择了 Tauri 来进行练习。</p>
+<p>最终项目的 Github 地址是：<a href="https://github.com/xudong7/tauri-rmusic">tauri-rmusic</a></p>
 <h2 id="Tauri"><a href="#Tauri" class="headerlink" title="Tauri"></a>Tauri</h2><p>Tauri 是一个用于构建跨平台桌面应用程序的框架，使用 Rust 作为后端语言，前端可以使用任何 Web 技术（如 HTML、CSS 和 JavaScript）。它的设计目标是提供一个轻量级、高性能的解决方案，同时保持良好的安全性和隐私保护。<br>Tauri 的主要特点包括：</p>
 <ul>
 <li><strong>小巧</strong>：Tauri 应用程序的大小通常比 Electron 应用程序小得多，因为它不需要捆绑整个浏览器引擎。</li>
