@@ -2829,4 +2829,21 @@
         <tag>rust</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Learning-The 3 Laws of Writing Readable Code</title>
+    <url>/2025/05/20/Learning-The-3-Laws-of-Writing-Readable-Code/</url>
+    <content><![CDATA[<h2 id="The-3-Laws-of-Writing-Readable-Code"><a href="#The-3-Laws-of-Writing-Readable-Code" class="headerlink" title="The 3 Laws of Writing Readable Code"></a>The 3 Laws of Writing Readable Code</h2><p>视频链接: <a href="https://www.youtube.com/watch?v=-AzSRHiV9Cc">The 3 Laws of Writing Readable Code</a></p>
+<h3 id="1-Deeply-nested-code"><a href="#1-Deeply-nested-code" class="headerlink" title="1. Deeply nested code"></a>1. Deeply nested code</h3><p>避免深度嵌套的代码</p>
+<p>对于<code>if</code>、<code>for</code>、<code>while</code>、<code>switch</code>等语句，尽量避免深度嵌套。</p>
+<p>可以尝试使用卫语句来减少嵌套的层数。</p>
+<p>使用反转的条件来减少嵌套的层数。</p>
+<h3 id="2-Avoid-code-duplication"><a href="#2-Avoid-code-duplication" class="headerlink" title="2. Avoid code duplication"></a>2. Avoid code duplication</h3><p>避免代码重复</p>
+<p>当一段代码在多个地方出现时，应该考虑将其提取为一个函数或方法。</p>
+<h4 id="3-Use-meaningful-names"><a href="#3-Use-meaningful-names" class="headerlink" title="3. Use meaningful names"></a>3. Use meaningful names</h4><p>使用有意义的名称</p>
+<p>变量、函数、类、模块等的名称应该能够清晰地表达其含义和用途。</p>
+]]></content>
+      <tags>
+        <tag>learning</tag>
+      </tags>
+  </entry>
 </search>
