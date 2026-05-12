@@ -6,7 +6,7 @@ academia: true
 
 ## About Me
 
-I am a researcher at **Sun Yat-sen University**, working at the intersection of **large language models** and **software engineering** (LLM4SE). My research focuses on leveraging structured code representations — such as knowledge graphs — to enhance LLM-based code understanding, documentation generation, and repository-level reasoning.
+I am an undergraduate researcher at **Sun Yat-sen University**, working at the intersection of **large language models** and **software engineering** (LLM4SE). My research focuses on leveraging structured code representations — such as knowledge graphs — to enhance LLM-based code understanding, documentation generation, and repository-level reasoning.
 
 ## Research Interests
 
@@ -17,10 +17,8 @@ I am a researcher at **Sun Yat-sen University**, working at the intersection of 
 
 ## Education
 
-- **M.Sc. in Software Engineering**, Sun Yat-sen University
-  School of Software Engineering, SYSUSELab
 - **B.Eng. in Software Engineering**, Sun Yat-sen University
-  School of Software Engineering
+  School of Software Engineering, SYSUSELab
 
 ## Tech Stack
 
