@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Xudong Xu
+title: Dong Xu
 subtitle: ''
-description: Personal academic website — software engineering, systems, and research notes.
-keywords:
-author: Xudong Xu
+description: Personal academic website — LLM4SE, software engineering, and research notes.
+keywords: LLM4SE,software engineering,code intelligence,large language models
+author: Dong Xu
 language: en
 timezone: 'Asia/Shanghai'
 

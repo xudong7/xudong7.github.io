@@ -6,19 +6,22 @@ academia: true
 
 ## About Me
 
-I'm a student at **School of Software Engineering, Sun Yat-sen University**, passionate about building things that work well. My interests span full-stack development, systems programming, and distributed systems.
+I am a researcher at **Sun Yat-sen University**, working at the intersection of **large language models** and **software engineering** (LLM4SE). My research focuses on leveraging structured code representations — such as knowledge graphs — to enhance LLM-based code understanding, documentation generation, and repository-level reasoning.
 
 ## Research Interests
 
-- **Distributed Systems** — consistency, fault tolerance, message queues
-- **Systems Programming** — Rust, performance optimization, concurrent programming
-- **Software Engineering** — full-stack development, developer tools, CI/CD
+- **LLM4SE** — applying large language models to software engineering tasks
+- **Code Intelligence** — code representation learning, repository knowledge graphs, semantic code search
+- **AI for Documentation** — automated documentation generation, maintenance, and incremental update
+- **Software Engineering** — developer tools, program analysis, full-stack systems
 
 ## Education
 
+- **M.Sc. in Software Engineering**, Sun Yat-sen University
+  School of Software Engineering, SYSUSELab
 - **B.Eng. in Software Engineering**, Sun Yat-sen University
   School of Software Engineering
 
 ## Tech Stack
 
-`Go` `Java` `Rust` `JavaScript` `Python` `Docker` `Redis` `SpringBoot` `Vue` `MySQL` `Nginx` `Linux`
+`Python` `Go` `Rust` `Java` `JavaScript` `TypeScript` `Vue` `Docker` `Redis` `MySQL` `Nginx` `Linux`
