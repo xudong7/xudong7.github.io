@@ -48,7 +48,7 @@ a:hover {
 .nav {
   display: flex;
   align-items: center;
-  max-width: 1420px;
+  max-width: 1340px;
   height: 58px;
   margin: 0 auto;
   padding: 0 3rem;
@@ -71,19 +71,30 @@ a:hover {
   font-size: 1.42rem;
   font-weight: 700;
   text-decoration: none;
+  transition: background-color 160ms ease, color 160ms ease, opacity 160ms ease;
 }
 
-.nav-links a:hover,
 .nav-links a.active {
   background: var(--accent);
   color: #fff;
+}
+
+.nav-links a:hover {
+  background: rgba(0, 102, 51, 0.08);
+  color: #144f2d;
+}
+
+.nav-links a.active:hover {
+  background: var(--accent);
+  color: #fff;
+  opacity: 0.88;
 }
 
 .page-shell {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 230px;
   gap: 4rem;
-  max-width: 1420px;
+  max-width: 1340px;
   height: min(720px, calc(100vh - 58px));
   margin: 0 auto;
   padding: 1.8rem 3rem 2.4rem;
@@ -102,7 +113,7 @@ a:hover {
 }
 
 .page-shell-simple .content-wide {
-  max-width: 1260px;
+  max-width: 1190px;
   margin: 0 auto;
 }
 
@@ -183,8 +194,8 @@ li {
 
 .publication-item {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 3.6rem;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 2.8rem;
   align-items: start;
   margin-bottom: 1.5rem;
   padding-bottom: 1.4rem;
