@@ -736,9 +736,14 @@ body
   min-height: 100%
   background: $academic-bg
   color: $academic-text
-  font-family: Georgia, "Times New Roman", FangSong, STFangsong, serif
-  font-size: 1.7em
-  line-height: 1.65
+  font-family: Arial, Helvetica, "Microsoft YaHei", sans-serif
+  font-size: 1.6em
+  line-height: 1.55
+
+a,
+span,
+.btn
+  font-family: Arial, Helvetica, "Microsoft YaHei", sans-serif
 
 #page_header
   background: #fff
@@ -747,7 +752,7 @@ body
 .header_wrap
   max-width: 1260px
   min-height: 58px
-  padding: 0 2.4rem
+  padding: 0 1.8rem
   display: flex
   align-items: center
   gap: 2.6rem
@@ -758,7 +763,7 @@ body
     margin: 0
     padding: 1.4rem 0
     color: #3f4652
-    font-size: 2.1rem
+    font-size: 1.9rem
     font-weight: 700
 
 @media (min-width: 34em)
@@ -770,7 +775,7 @@ body
         margin: 0
         padding: 1.5rem 1.35rem
         color: $academic-accent
-        font-size: 1.55rem
+        font-size: 1.5rem
         font-weight: 700
         letter-spacing: 0
         line-height: 1
@@ -785,7 +790,7 @@ body
   min-height: 76vh
   margin-top: 0
   margin-bottom: 0
-  padding: 0 2.4rem 6rem
+  padding: 0 3rem 5.4rem
   background: #fff
   border-left: 28px solid rgba(255,255,255,0.28)
   border-right: 28px solid rgba(255,255,255,0.28)
@@ -797,8 +802,8 @@ body
 @media (min-width: 50em)
   #page_main
     display: grid
-    grid-template-columns: minmax(0, 1fr) 260px
-    gap: 5rem
+    grid-template-columns: minmax(0, 1fr) 230px
+    gap: 4.4rem
     align-items: start
 
   .page
@@ -806,7 +811,7 @@ body
     float: none
     grid-column: 1
     order: 1
-    padding-top: 3.8rem
+    padding-top: 2.2rem
 
   .side-card
     width: auto
@@ -815,7 +820,7 @@ body
     grid-column: 2
     order: 2
     margin: 0
-    padding-top: 4rem
+    padding-top: 2.6rem
     opacity: 1
 
 .page
@@ -826,29 +831,32 @@ body
 
 .page article
   padding: 0
-  max-width: 800px
+  max-width: 830px
   h1
-    margin: 0 0 1.2rem
+    margin: 0 0 1rem
     color: $academic-heading
-    font-size: 3rem
+    font-size: 2.5rem
     line-height: 1.15
   h2
-    margin: 2.4rem 0 0.9rem
+    margin: 2rem 0 0.55rem
     color: $academic-heading
-    font-size: 2rem
+    font-size: 1.75rem
     line-height: 1.25
   h3
     color: $academic-heading
-    font-size: 1.7rem
+    font-size: 1.55rem
     line-height: 1.35
   p,
   li
-    font-size: 1.6rem
+    font-size: 1.55rem
   p
-    margin: 0 0 1.25rem
+    margin: 0 0 1.05rem
   ul
-    margin-top: 0.4rem
+    margin-top: 0.35rem
+    margin-bottom: 1.15rem
     padding-left: 2.2rem
+  li
+    margin: 0.16rem 0
   a
     color: #59677b
     text-decoration: underline
@@ -871,7 +879,7 @@ body
   img
     display: block
     width: 100%
-    max-width: 220px
+    max-width: 190px
     border: 1px solid $academic-border
     border-radius: 0
     padding: 0
@@ -882,16 +890,16 @@ body
   color: $academic-text
   h3
     margin: 0 0 1.2rem
-    padding: 0.65rem 1rem
+    padding: 0.65rem 0.9rem
     background: #d8d8d4
     color: #555b61
-    font-size: 1.9rem
+    font-size: 1.7rem
     line-height: 1.2
   p
     margin: 0
-    padding: 1.1rem 1rem
+    padding: 0.9rem 0.9rem
     border-bottom: 1px solid $academic-border
-    font-size: 1.45rem
+    font-size: 1.35rem
     line-height: 1.35
   a
     color: #59677b
@@ -905,7 +913,7 @@ body
   position: static
   width: auto
   margin: 1.2rem 0 0
-  padding: 0 1rem 1.1rem
+  padding: 0 0.9rem 1rem
   list-style: none
   border: 0
   box-shadow: none
@@ -917,13 +925,13 @@ body
     display: inline-block
     margin: 0
   a
-    font-size: 1.8rem
+    font-size: 1.6rem
     color: #59677b
 
 .social-links
   display: block
   margin: 0
-  padding: 0 1rem
+  padding: 0 0.9rem
   list-style: none
   li
     margin: 0
@@ -931,7 +939,7 @@ body
     border-top: 1px solid $academic-border
   .e-social-link
     color: #59677b
-    font-size: 1.45rem
+    font-size: 1.35rem
     .fas,
     .fab
       padding-right: 0.5rem
@@ -939,90 +947,8 @@ body
 .m-social-links
   display: none
 
-.publication-list
-  margin-top: 1.1rem
-
-.publication-card
-  display: grid
-  grid-template-columns: minmax(0, 1fr) 190px
-  gap: 3rem
-  padding: 2.7rem 0
-  border-bottom: 1px solid $academic-border
-  h3
-    margin: 0 0 1rem
-    color: $academic-green
-    font-size: 2.1rem
-    line-height: 1.25
-    a
-      color: $academic-green
-      text-decoration: none
-      &:hover
-        text-decoration: underline
-  p
-    margin-bottom: 0.75rem
-
-.publication-authors
-  color: $academic-muted
-
-.publication-venue
-  color: $academic-green
-  font-style: italic
-  font-weight: 700
-
-.publication-summary
-  color: $academic-muted
-  text-align: justify
-
-.publication-links
-  display: flex
-  gap: 0.7rem
-  a
-    display: inline-block
-    padding: 0.25rem 0.8rem
-    border: 1px solid $academic-border
-    color: #59677b
-    font-size: 1.35rem
-    text-decoration: none
-    &:hover
-      border-color: $academic-accent
-      color: $academic-accent
-
-.publication-thumb
-  align-self: start
-  min-height: 145px
-  padding: 1.4rem
-  border: 1px solid $academic-border
-  background: linear-gradient(135deg, #f8f6ed 0%, #fff 55%, #eef4ef 100%)
-  color: $academic-green
-  display: flex
-  flex-direction: column
-  justify-content: center
-  text-align: center
-  span
-    font-size: 1.8rem
-    font-weight: 700
-  small
-    margin-top: 0.9rem
-    color: $academic-muted
-    font-size: 1.2rem
-    line-height: 1.35
-
-.project-grid
-  display: grid
-  grid-template-columns: repeat(3, minmax(0, 1fr))
-  gap: 1.4rem
-  margin: 1rem 0 2.4rem
-
-.project-item
-  padding: 1.4rem 1.5rem
-  border-top: 3px solid $academic-accent
-  background: #f8f8f6
-  h3
-    margin: 0 0 0.7rem
-    color: $academic-heading
-  p
-    margin: 0
-    color: $academic-muted
+.page article h2#Selected-Papers + ul li
+  margin-bottom: 0.75rem
 
 #page_footer
   background: #fff
@@ -1031,7 +957,7 @@ body
 
 .footer_wrap
   max-width: 1260px
-  padding: 2rem 2.4rem
+  padding: 1.6rem 3rem
   margin-top: 0
 
 @media (max-width: 49.99em)
@@ -1067,13 +993,3 @@ body
 
   .author-avatar img
     max-width: 180px
-
-  .publication-card
-    grid-template-columns: 1fr
-    gap: 1.4rem
-
-  .publication-thumb
-    min-height: 105px
-
-  .project-grid
-    grid-template-columns: 1fr

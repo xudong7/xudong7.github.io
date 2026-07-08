@@ -13,8 +13,8 @@ since: 2020
 # 也可以配置为其他页面链接或外链
 menu:
   Home: /
-  Research: /#Research
-  Publications: /#Publications
+  Publications: /#Selected-Papers
+  Research: /#Research-Interests
   Projects: /#Projects
   Education: /#Education
 
