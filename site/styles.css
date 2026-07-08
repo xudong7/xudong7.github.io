@@ -12,17 +12,23 @@
 
 * {
   box-sizing: border-box;
+  font-family: Arial, Helvetica, "Microsoft YaHei", sans-serif;
 }
 
 html {
+  height: 100%;
   font-size: 62.5%;
+  overflow: hidden;
 }
 
 body {
+  height: 100%;
   margin: 0;
+  overflow: hidden;
   background: var(--page-bg);
   color: var(--text);
-  font: 1.55rem/1.6 Arial, Helvetica, "Microsoft YaHei", sans-serif;
+  font-size: 1.45rem;
+  line-height: 1.44;
 }
 
 a {
@@ -45,7 +51,7 @@ a:hover {
   align-items: center;
   gap: 3rem;
   max-width: 1260px;
-  min-height: 58px;
+  height: 58px;
   margin: 0 auto;
   padding: 0 3rem;
 }
@@ -53,7 +59,7 @@ a:hover {
 .brand {
   flex: 1 0 auto;
   color: #414956;
-  font-size: 1.9rem;
+  font-size: 1.85rem;
   font-weight: 700;
   text-decoration: none;
 }
@@ -66,9 +72,9 @@ a:hover {
 
 .nav-links a {
   display: block;
-  padding: 1.45rem 1.25rem;
+  padding: 1.35rem 1.25rem;
   color: var(--accent);
-  font-size: 1.5rem;
+  font-size: 1.42rem;
   font-weight: 700;
   text-decoration: none;
 }
@@ -82,11 +88,12 @@ a:hover {
 .page-shell {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 230px;
-  gap: 4.4rem;
+  gap: 4rem;
   max-width: 1260px;
-  min-height: 76vh;
+  height: calc(100vh - 58px);
   margin: 0 auto;
-  padding: 2.4rem 3rem 5.4rem;
+  padding: 1.8rem 3rem 2.4rem;
+  overflow: hidden;
   background: var(--paper);
   border-left: 28px solid var(--paper-edge);
   border-right: 28px solid var(--paper-edge);
@@ -104,30 +111,30 @@ h3 {
 }
 
 h1 {
-  margin: 0 0 1rem;
-  font-size: 2.6rem;
+  margin: 0 0 0.8rem;
+  font-size: 2.35rem;
 }
 
 h2 {
-  margin: 2rem 0 0.55rem;
-  font-size: 1.75rem;
+  margin: 1.45rem 0 0.4rem;
+  font-size: 1.65rem;
 }
 
 p {
-  margin: 0 0 1.05rem;
+  margin: 0 0 0.75rem;
 }
 
 ul {
-  margin: 0.35rem 0 1.15rem;
+  margin: 0.25rem 0 0.8rem;
   padding-left: 2.2rem;
 }
 
 li {
-  margin: 0.16rem 0;
+  margin: 0.06rem 0;
 }
 
 .paper-list li {
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.5rem;
 }
 
 .paper-list a {
@@ -146,30 +153,30 @@ li {
 .avatar {
   display: block;
   width: 100%;
-  max-width: 190px;
+  max-width: 180px;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border: 1px solid var(--rule);
 }
 
 .contact-card {
-  margin-top: 2rem;
+  margin-top: 1.4rem;
 }
 
 .contact-card h2 {
-  margin: 0 0 1.2rem;
-  padding: 0.65rem 0.9rem;
+  margin: 0 0 0.8rem;
+  padding: 0.55rem 0.8rem;
   background: var(--panel);
   color: #565d63;
-  font-size: 1.7rem;
+  font-size: 1.55rem;
 }
 
 .contact-card p {
   margin: 0;
-  padding: 0.9rem;
+  padding: 0.72rem 0.8rem;
   border-bottom: 1px solid var(--rule);
-  font-size: 1.35rem;
-  line-height: 1.38;
+  font-size: 1.25rem;
+  line-height: 1.32;
 }
 
 .profile-links a {
@@ -177,17 +184,13 @@ li {
   margin: 0.16rem 0;
 }
 
-.site-footer {
-  max-width: 1260px;
-  margin: 0 auto;
-  padding: 1.6rem 3rem;
-  background: var(--paper);
-  border-top: 1px solid var(--rule);
-  color: #8a8f97;
-  font-size: 1.25rem;
-}
-
 @media (max-width: 860px) {
+  html,
+  body {
+    height: auto;
+    overflow: auto;
+  }
+
   body {
     background: var(--paper);
   }
@@ -213,6 +216,8 @@ li {
   .page-shell {
     display: flex;
     flex-direction: column;
+    height: auto;
+    overflow: visible;
     padding: 2.2rem 1.8rem 4rem;
     border: 0;
   }
