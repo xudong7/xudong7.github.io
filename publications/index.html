@@ -7,7 +7,7 @@
     <meta name="author" content="Dong Xu">
     <meta name="description" content="Dong Xu's publications.">
     <link rel="icon" href="../assets/favicon.ico">
-    <link rel="stylesheet" href="../styles.css?v=20260709-8">
+    <link rel="stylesheet" href="../styles.css?v=20260709-9">
   </head>
   <body>
     <header class="site-header">
@@ -26,40 +26,57 @@
       <section class="content content-wide">
         <h1>Publications</h1>
 
-        <ul class="paper-list paper-list-detailed">
-          <li>
-            <a href="https://arxiv.org/abs/2604.26523" target="_blank" rel="noopener">
-              RepoDoc: A Knowledge Graph-Based Framework to Automatic Documentation
-              Generation and Incremental Updates
-            </a>
-            <span class="paper-note">(arXiv:2604.26523)</span>
-            <br>
-            <strong>Dong Xu</strong>, Mingwei Liu, Xiwen Wang, Jianfeng Zhong, Zibin Zheng
-            <p>
-              A repository knowledge graph based framework for modular documentation
-              generation, semantic impact propagation, and targeted incremental updates.
-            </p>
-            <p class="paper-actions">
-              <a href="https://arxiv.org/abs/2604.26523" target="_blank" rel="noopener">arXiv</a>
-              <a href="https://arxiv.org/pdf/2604.26523" target="_blank" rel="noopener">PDF</a>
-            </p>
+        <ul class="publication-list">
+          <li class="publication-item">
+            <div class="publication-copy">
+              <a href="https://arxiv.org/abs/2604.26523" target="_blank" rel="noopener">
+                RepoDoc: A Knowledge Graph-Based Framework to Automatic Documentation
+                Generation and Incremental Updates
+              </a>
+              <span class="paper-note">(arXiv:2604.26523)</span>
+              <p class="authors">
+                <strong>Dong Xu</strong>, Mingwei Liu, Xiwen Wang, Jianfeng Zhong, Zibin Zheng
+              </p>
+              <p>
+                RepoDoc builds repository knowledge graphs to generate modular documentation,
+                propagate semantic impact, and update affected documents incrementally after
+                code changes.
+              </p>
+              <p class="paper-actions">
+                <a href="https://arxiv.org/abs/2604.26523" target="_blank" rel="noopener">arXiv</a>
+                <a href="https://arxiv.org/pdf/2604.26523" target="_blank" rel="noopener">PDF</a>
+                <a href="https://github.com/SYSUSELab/RepoDoc" target="_blank" rel="noopener">Code</a>
+              </p>
+            </div>
+            <figure class="paper-figure">
+              <img src="../assets/papers/repodoc-architecture.png" alt="RepoDoc architecture">
+              <figcaption>RepoDoc architecture</figcaption>
+            </figure>
           </li>
-          <li>
-            <a href="https://arxiv.org/abs/2602.20799" target="_blank" rel="noopener">
-              Unseen-Codebases-Domain Data Synthesis and Training Based on Code Graphs
-            </a>
-            <span class="paper-note">(arXiv:2602.20799)</span>
-            <br>
-            Guangsheng Ou, Qiming Zhang, Sirong Chen, Anji Li, <strong>Dong Xu</strong>,
-            Tiancheng Luo, Dekun Dai, Cuiyun Gao, Long Wang, Jun Zhou, Mingwei Liu, Zibin Zheng
-            <p>
-              A code-graph-oriented approach for synthesizing repository-domain training
-              data and adapting models to previously unseen codebases.
-            </p>
-            <p class="paper-actions">
-              <a href="https://arxiv.org/abs/2602.20799" target="_blank" rel="noopener">arXiv</a>
-              <a href="https://arxiv.org/pdf/2602.20799" target="_blank" rel="noopener">PDF</a>
-            </p>
+          <li class="publication-item">
+            <div class="publication-copy">
+              <a href="https://arxiv.org/abs/2602.20799" target="_blank" rel="noopener">
+                Unseen-Codebases-Domain Data Synthesis and Training Based on Code Graphs
+              </a>
+              <span class="paper-note">(arXiv:2602.20799)</span>
+              <p class="authors">
+                Guangsheng Ou, Qiming Zhang, Sirong Chen, Anji Li, <strong>Dong Xu</strong>,
+                Tiancheng Luo, Dekun Dai, Cuiyun Gao, Long Wang, Jun Zhou, Mingwei Liu, Zibin Zheng
+              </p>
+              <p>
+                This work uses code graphs to synthesize repository-domain training data,
+                helping models adapt to previously unseen codebases and reason across
+                project-level dependencies.
+              </p>
+              <p class="paper-actions">
+                <a href="https://arxiv.org/abs/2602.20799" target="_blank" rel="noopener">arXiv</a>
+                <a href="https://arxiv.org/pdf/2602.20799" target="_blank" rel="noopener">PDF</a>
+              </p>
+            </div>
+            <figure class="paper-figure">
+              <img src="../assets/papers/ucd-overview.png" alt="Code graph data synthesis overview">
+              <figcaption>Code graph training-data synthesis</figcaption>
+            </figure>
           </li>
         </ul>
       </section>
