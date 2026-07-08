@@ -1,7 +1,7 @@
 :root {
   --page-bg: #637188;
   --paper: #fff;
-  --paper-edge: rgba(255, 255, 255, 0.28);
+  --paper-edge: #8793a6;
   --text: #5d6060;
   --heading: #44566a;
   --link: #2f6246;
@@ -48,13 +48,13 @@ a:hover {
 .nav {
   display: flex;
   align-items: center;
-  max-width: 1260px;
+  max-width: 1420px;
   height: 58px;
   margin: 0 auto;
   padding: 0 3rem;
   background: var(--paper);
-  border-right: 28px solid var(--paper-edge);
-  border-left: 28px solid var(--paper-edge);
+  border-right: 24px solid var(--paper-edge);
+  border-left: 24px solid var(--paper-edge);
   border-bottom: 1px solid var(--rule);
 }
 
@@ -83,18 +83,18 @@ a:hover {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 230px;
   gap: 4rem;
-  max-width: 1260px;
+  max-width: 1420px;
   height: min(720px, calc(100vh - 58px));
   margin: 0 auto;
   padding: 1.8rem 3rem 2.4rem;
   overflow: hidden;
   background: var(--paper);
-  border-left: 28px solid var(--paper-edge);
-  border-right: 28px solid var(--paper-edge);
+  border-left: 24px solid var(--paper-edge);
+  border-right: 24px solid var(--paper-edge);
 }
 
 .content {
-  max-width: 830px;
+  max-width: 900px;
 }
 
 .content-wide {
@@ -102,7 +102,7 @@ a:hover {
 }
 
 .page-shell-simple .content-wide {
-  max-width: 1120px;
+  max-width: 1260px;
   margin: 0 auto;
 }
 
@@ -184,7 +184,7 @@ li {
 .publication-item {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 3rem;
+  gap: 3.6rem;
   align-items: start;
   margin-bottom: 1.5rem;
   padding-bottom: 1.4rem;
