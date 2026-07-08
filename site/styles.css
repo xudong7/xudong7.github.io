@@ -2,17 +2,17 @@
   --page-bg: #637188;
   --paper: #fff;
   --paper-edge: rgba(255, 255, 255, 0.28);
-  --text: #765a73;
-  --heading: #55657e;
-  --link: #5d6e86;
-  --accent: #7d5279;
+  --text: #5d6060;
+  --heading: #44566a;
+  --link: #2f6246;
+  --accent: #006633;
   --rule: #e2e3df;
   --panel: #d9d9d4;
 }
 
 * {
   box-sizing: border-box;
-  font-family: Arial, Helvetica, "Microsoft YaHei", sans-serif;
+  font-family: "Helvetica Neue", Arial, Helvetica, "Microsoft YaHei", sans-serif;
 }
 
 html {
@@ -27,8 +27,8 @@ body {
   overflow: hidden;
   background: var(--page-bg);
   color: var(--text);
-  font-size: 1.45rem;
-  line-height: 1.44;
+  font-size: 1.46rem;
+  line-height: 1.55;
 }
 
 a {
@@ -42,26 +42,20 @@ a:hover {
 }
 
 .site-header {
-  background: var(--paper);
-  border-bottom: 1px solid var(--rule);
+  background: var(--page-bg);
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 3rem;
   max-width: 1260px;
   height: 58px;
   margin: 0 auto;
   padding: 0 3rem;
-}
-
-.brand {
-  flex: 1 0 auto;
-  color: #414956;
-  font-size: 1.85rem;
-  font-weight: 700;
-  text-decoration: none;
+  background: var(--paper);
+  border-right: 28px solid var(--paper-edge);
+  border-left: 28px solid var(--paper-edge);
+  border-bottom: 1px solid var(--rule);
 }
 
 .nav-links {
@@ -72,7 +66,7 @@ a:hover {
 
 .nav-links a {
   display: block;
-  padding: 1.35rem 1.25rem;
+  padding: 1.36rem 1.2rem;
   color: var(--accent);
   font-size: 1.42rem;
   font-weight: 700;
@@ -90,7 +84,7 @@ a:hover {
   grid-template-columns: minmax(0, 1fr) 230px;
   gap: 4rem;
   max-width: 1260px;
-  height: calc(100vh - 58px);
+  height: min(720px, calc(100vh - 58px));
   margin: 0 auto;
   padding: 1.8rem 3rem 2.4rem;
   overflow: hidden;
@@ -103,6 +97,18 @@ a:hover {
   max-width: 830px;
 }
 
+.content-wide {
+  max-width: 930px;
+}
+
+.page-shell-simple {
+  display: block;
+  height: auto;
+  min-height: 305px;
+  max-height: calc(100vh - 58px);
+  padding-top: 2.2rem;
+}
+
 h1,
 h2,
 h3 {
@@ -111,13 +117,13 @@ h3 {
 }
 
 h1 {
-  margin: 0 0 0.8rem;
-  font-size: 2.35rem;
+  margin: 0 0 0.75rem;
+  font-size: 2.32rem;
 }
 
 h2 {
-  margin: 1.45rem 0 0.4rem;
-  font-size: 1.65rem;
+  margin: 1.35rem 0 0.38rem;
+  font-size: 1.68rem;
 }
 
 p {
@@ -135,15 +141,62 @@ li {
 
 .paper-list li {
   margin-bottom: 0.5rem;
+  line-height: 1.45;
+}
+
+.paper-list-detailed li {
+  margin-bottom: 1.5rem;
 }
 
 .paper-list a {
   font-weight: 700;
 }
 
+.paper-actions {
+  margin-top: 0.55rem;
+}
+
+.paper-actions a {
+  display: inline-block;
+  margin-right: 0.55rem;
+  padding: 0.12rem 0.45rem;
+  border: 1px solid var(--rule);
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
 .paper-note {
   color: var(--text);
   white-space: nowrap;
+}
+
+.project-list li {
+  margin-bottom: 0.72rem;
+}
+
+.project-meta {
+  color: #777b78;
+  font-size: 1.28rem;
+}
+
+.education-list {
+  margin: 0.4rem 0 0;
+  padding-left: 1.85rem;
+}
+
+.education-list li {
+  margin: 0 0 1.75rem;
+  color: var(--text);
+  line-height: 1.38;
+}
+
+.education-list strong,
+.education-list span {
+  display: block;
+}
+
+.education-list span {
+  margin-left: 1rem;
 }
 
 .sidebar {
@@ -154,6 +207,7 @@ li {
   display: block;
   width: 100%;
   max-width: 180px;
+  margin: 0 auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border: 1px solid var(--rule);
@@ -175,8 +229,8 @@ li {
   margin: 0;
   padding: 0.72rem 0.8rem;
   border-bottom: 1px solid var(--rule);
-  font-size: 1.25rem;
-  line-height: 1.32;
+  font-size: 1.3rem;
+  line-height: 1.42;
 }
 
 .profile-links a {
@@ -196,13 +250,9 @@ li {
   }
 
   .nav {
-    display: block;
     padding: 1.2rem 1.8rem 0;
-  }
-
-  .brand {
-    display: block;
-    margin-bottom: 0.8rem;
+    height: auto;
+    border: 0;
   }
 
   .nav-links {
