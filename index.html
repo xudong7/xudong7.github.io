@@ -3,81 +3,188 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dong Xu's Homepage</title>
+    <title>Dong Xu | Academic Homepage</title>
     <meta name="author" content="Dong Xu">
-    <meta name="description" content="Dong Xu's academic homepage: LLM4SE, repository-level code intelligence, code graphs, and software documentation.">
+    <meta name="description" content="Dong Xu is an undergraduate researcher at Sun Yat-sen University and an incoming M.Eng. student, working on LLM4SE, AI4SE, intelligent software engineering, and repository-level code intelligence.">
+    <link rel="canonical" href="https://xudong7.github.io/">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dong Xu">
+    <meta property="og:title" content="Dong Xu | Academic Homepage">
+    <meta property="og:description" content="Undergraduate researcher at Sun Yat-sen University and incoming M.Eng. student, working on LLM4SE, AI4SE, and intelligent software engineering.">
+    <meta property="og:url" content="https://xudong7.github.io/">
+    <meta property="og:image" content="https://xudong7.github.io/assets/avatar.jpg">
+    <meta property="og:image:alt" content="Portrait of Dong Xu">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Dong Xu | Academic Homepage">
+    <meta name="twitter:description" content="Undergraduate researcher at Sun Yat-sen University and incoming M.Eng. student, working on LLM4SE, AI4SE, and intelligent software engineering.">
+    <meta name="twitter:image" content="https://xudong7.github.io/assets/avatar.jpg">
+
     <link rel="icon" href="assets/favicon.ico">
-    <link rel="stylesheet" href="styles.css?v=20260709-12">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
+    <link rel="stylesheet" href="styles.css?v=20261024-6">
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Dong Xu",
+        "url": "https://xudong7.github.io/",
+        "image": "https://xudong7.github.io/assets/avatar.jpg",
+        "jobTitle": "Undergraduate Researcher",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Sun Yat-sen University",
+          "department": "School of Software Engineering"
+        },
+        "sameAs": [
+          "https://github.com/xudong7",
+          "https://scholar.google.com/citations?user=Ws_oO-8AAAAJ&hl=zh-CN",
+          "https://orcid.org/0009-0003-2221-9441"
+        ],
+        "knowsAbout": [
+          "LLM4SE",
+          "AI4SE",
+          "Intelligent Software Engineering",
+          "Repository-Level Code Intelligence",
+          "Code Graphs"
+        ]
+      }
+    </script>
   </head>
   <body>
     <header class="site-header">
-      <nav class="nav" aria-label="Primary navigation">
-        <div class="nav-links">
-          <a class="active" href="index.html">Home</a>
+      <div class="header-inner">
+        <a class="wordmark" href="index.html" aria-label="Home">SYSU &middot; SYSUSELab</a>
+        <nav class="nav" aria-label="Primary navigation">
+          <a class="active" href="index.html" aria-current="page">Home</a>
           <a href="publications/index.html">Publications</a>
           <a href="research/index.html">Research</a>
           <a href="projects/index.html">Projects</a>
           <a href="education/index.html">Education</a>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </header>
 
-    <main class="page-shell">
-      <section class="content">
-        <h1>Dong Xu</h1>
+    <main class="page">
+      <div class="home-layout">
+        <div class="main-column">
+          <section class="intro" aria-labelledby="about-title">
+            <p class="eyebrow">About</p>
+            <h1 id="about-title">Dong Xu</h1>
+            <p class="role-line">Undergraduate Researcher &middot; Incoming M.Eng. Student</p>
+            <p class="affiliation">Sun Yat-sen University &middot; School of Software Engineering &middot; SYSUSELab</p>
 
-        <p>
-          I am an undergraduate researcher at
-          <a href="https://www.sysu.edu.cn/" target="_blank" rel="noopener"><strong>Sun Yat-sen University</strong></a>,
-          affiliated with <a href="https://github.com/SYSUSELab" target="_blank" rel="noopener"><strong>SYSUSELab</strong></a>.
-          My research lies at the intersection of large language models and software
-          engineering, with a focus on repository-level code intelligence, code graphs,
-          and LLM-based software maintenance.
-        </p>
+            <p class="lede">
+              I work on LLM4SE and AI4SE: using large language models and AI to
+              understand, generate, test, and maintain software systems.
+            </p>
 
-        <p>
-          Currently, I am interested in using structured code representations,
-          such as repository knowledge graphs and dependency-aware code graphs, to
-          help language models understand, generate, document, and maintain large
-          software systems.
-        </p>
+            <p>
+              I am an undergraduate researcher at
+              <a href="https://www.sysu.edu.cn/" target="_blank" rel="noopener"><strong>Sun Yat-sen University</strong></a>,
+              affiliated with <a href="https://github.com/SYSUSELab" target="_blank" rel="noopener"><strong>SYSUSELab</strong></a>,
+              and will join the School of Software Engineering as an M.Eng. student in September 2027.
+              My research interests span LLM4SE, AI4SE, intelligent software engineering,
+              repository-level code intelligence, and code graphs.
+            </p>
 
-        <h2 id="publications">Selected Papers</h2>
-        <ul class="paper-list">
-          <li>
-            <a href="https://arxiv.org/abs/2604.26523" target="_blank" rel="noopener">
-              RepoDoc: A Knowledge Graph-Based Framework to Automatic Documentation
-              Generation and Incremental Updates
-            </a>
-          </li>
-          <li>
-            <a href="https://arxiv.org/abs/2602.20799" target="_blank" rel="noopener">
-              Unseen-Codebases-Domain Data Synthesis and Training Based on Code Graphs
-            </a>
-          </li>
-        </ul>
-      </section>
+            <p>
+              More broadly, I am interested in AI-powered methods and tools across the
+              software lifecycle, including structured code representations, automated
+              maintenance, and agentic developer tools for large software systems.
+            </p>
+          </section>
 
-      <aside class="sidebar" aria-label="Profile and contact">
-        <img class="avatar" src="assets/avatar.jpg" alt="Dong Xu avatar">
-        <section class="contact-card">
-          <h2>Contact</h2>
-          <p>
-            <strong>Email:</strong><br>
-            xudong7 at mail2.sysu.edu.cn
-          </p>
-          <p>
-            <strong>Affiliation:</strong><br>
-            School of Software Engineering,<br>
-            Sun Yat-sen University
-          </p>
-          <p class="profile-links">
-            <a href="https://github.com/xudong7" target="_blank" rel="noopener">GitHub</a><br>
-            <a href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a><br>
-            <a href="https://orcid.org/" target="_blank" rel="noopener">ORCID</a>
-          </p>
-        </section>
-      </aside>
+          <section aria-labelledby="selected-papers">
+            <div class="section-head">
+              <h2 id="selected-papers">Selected Papers</h2>
+              <a class="section-link" href="publications/index.html">All publications &rarr;</a>
+            </div>
+
+            <div class="pub-list">
+              <article class="pub">
+                <p class="pub-meta">
+                  <span class="pub-year">2026</span>
+                  <span>arXiv preprint</span>
+                </p>
+                <h3 class="pub-title">
+                  <a href="https://arxiv.org/abs/2604.26523" target="_blank" rel="noopener">
+                    RepoDoc: A Knowledge Graph-Based Framework to Automatic Documentation
+                    Generation and Incremental Updates
+                  </a>
+                </h3>
+                <p class="pub-authors">
+                  <strong>Dong Xu</strong>, Mingwei Liu, Xiwen Wang, Jianfeng Zhong, Zibin Zheng
+                </p>
+                <p class="pub-links">
+                  <a href="https://arxiv.org/abs/2604.26523" target="_blank" rel="noopener">arXiv</a>
+                  <a href="https://arxiv.org/pdf/2604.26523" target="_blank" rel="noopener">PDF</a>
+                  <a href="https://github.com/SYSUSELab/RepoDoc" target="_blank" rel="noopener">Code</a>
+                </p>
+              </article>
+
+              <article class="pub">
+                <p class="pub-meta">
+                  <span class="pub-year">2026</span>
+                  <span>arXiv preprint</span>
+                </p>
+                <h3 class="pub-title">
+                  <a href="https://arxiv.org/abs/2602.20799" target="_blank" rel="noopener">
+                    Unseen-Codebases-Domain Data Synthesis and Training Based on Code Graphs
+                  </a>
+                </h3>
+                <p class="pub-authors">
+                  Guangsheng Ou, Qiming Zhang, Sirong Chen, Anji Li, <strong>Dong Xu</strong>,
+                  Tiancheng Luo, Dekun Dai, Cuiyun Gao, Long Wang, Jun Zhou, Mingwei Liu, Zibin Zheng
+                </p>
+                <p class="pub-links">
+                  <a href="https://arxiv.org/abs/2602.20799" target="_blank" rel="noopener">arXiv</a>
+                  <a href="https://arxiv.org/pdf/2602.20799" target="_blank" rel="noopener">PDF</a>
+                </p>
+              </article>
+            </div>
+          </section>
+        </div>
+
+        <aside class="sidebar" aria-label="Profile and contact">
+          <img class="avatar" src="assets/avatar.jpg" alt="Portrait of Dong Xu" width="512" height="512">
+          <div class="profile-info">
+            <p class="profile-role">Incoming M.Eng. Student</p>
+            <p class="profile-affil">
+              School of Software Engineering<br>
+              Sun Yat-sen University<br>
+              Zhuhai, China
+            </p>
+            <p class="profile-lab">
+              <a href="https://github.com/SYSUSELab" target="_blank" rel="noopener">SYSUSELab</a>
+            </p>
+          </div>
+
+          <section class="side-section" aria-labelledby="contact-title">
+            <h2 class="side-title" id="contact-title">Contact</h2>
+            <ul class="contact-list">
+              <li>
+                <span class="label">Email</span>
+                <a href="mailto:xudong7@mail2.sysu.edu.cn">xudong7@mail2.sysu.edu.cn</a>
+              </li>
+              <li>
+                <span class="label">GitHub</span>
+                <a href="https://github.com/xudong7" target="_blank" rel="noopener">github.com/xudong7</a>
+              </li>
+              <li>
+                <span class="label">Google Scholar</span>
+                <a href="https://scholar.google.com/citations?user=Ws_oO-8AAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener">Profile</a>
+              </li>
+              <li>
+                <span class="label">ORCID</span>
+                <a href="https://orcid.org/0009-0003-2221-9441" target="_blank" rel="noopener">0009-0003-2221-9441</a>
+              </li>
+            </ul>
+          </section>
+        </aside>
+      </div>
     </main>
   </body>
 </html>

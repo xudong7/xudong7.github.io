@@ -5,63 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Projects | Dong Xu</title>
     <meta name="author" content="Dong Xu">
-    <meta name="description" content="Dong Xu's research projects.">
+    <meta name="description" content="Research projects and open-source software by Dong Xu, including RepoDoc, UCD-Training, and developer tools built with Tauri, Rust, and Vue.">
+    <link rel="canonical" href="https://xudong7.github.io/projects/">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dong Xu">
+    <meta property="og:title" content="Projects | Dong Xu">
+    <meta property="og:description" content="Research projects and open-source software for LLM4SE, AI4SE, and intelligent software engineering.">
+    <meta property="og:url" content="https://xudong7.github.io/projects/">
+    <meta property="og:image" content="https://xudong7.github.io/assets/avatar.jpg">
+    <meta property="og:image:alt" content="Portrait of Dong Xu">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Projects | Dong Xu">
+    <meta name="twitter:description" content="Research projects and open-source software for LLM4SE, AI4SE, and intelligent software engineering.">
+    <meta name="twitter:image" content="https://xudong7.github.io/assets/avatar.jpg">
+
     <link rel="icon" href="../assets/favicon.ico">
-    <link rel="stylesheet" href="../styles.css?v=20260709-12">
+    <link rel="apple-touch-icon" href="../assets/favicon.png">
+    <link rel="stylesheet" href="../styles.css?v=20261024-6">
   </head>
   <body>
     <header class="site-header">
-      <nav class="nav" aria-label="Primary navigation">
-        <div class="nav-links">
+      <div class="header-inner">
+        <a class="wordmark" href="../index.html" aria-label="Home">SYSU &middot; SYSUSELab</a>
+        <nav class="nav" aria-label="Primary navigation">
           <a href="../index.html">Home</a>
           <a href="../publications/index.html">Publications</a>
           <a href="../research/index.html">Research</a>
-          <a class="active" href="index.html">Projects</a>
+          <a class="active" href="index.html" aria-current="page">Projects</a>
           <a href="../education/index.html">Education</a>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </header>
 
-    <main class="page-shell page-shell-simple">
-      <section class="content content-wide">
+    <main class="page">
+      <header class="page-head">
+        <p class="eyebrow">Software</p>
         <h1>Projects</h1>
-        <h2>Research Projects</h2>
-        <ul>
-          <li>
-            <a href="https://arxiv.org/abs/2604.26523" target="_blank" rel="noopener"><strong>RepoDoc:</strong></a>
-            knowledge graph based automatic documentation generation and incremental updates.
-          </li>
-          <li>
-            <a href="https://arxiv.org/abs/2602.20799" target="_blank" rel="noopener"><strong>UCD-Training:</strong></a>
-            code-graph-grounded data synthesis and training for unseen codebases.
-          </li>
-        </ul>
+        <p class="page-intro">
+          Research software and open-source tools for LLM4SE, AI4SE, and intelligent
+          software engineering.
+        </p>
+      </header>
 
-        <h2>GitHub Projects</h2>
-        <ul class="project-list">
-          <li>
-            <a href="https://github.com/SYSUSELab/RepoDoc" target="_blank" rel="noopener"><strong>RepoDoc</strong></a>
-            <span class="project-meta">13 stars, Python</span><br>
-            SYSUSELab project for repository-level documentation generation and incremental updates.
+      <section aria-labelledby="research-projects">
+        <h2 id="research-projects">Research Projects</h2>
+        <div class="project-list">
+          <article class="project">
+            <div class="project-head">
+              <h3>
+                <a href="https://arxiv.org/abs/2604.26523" target="_blank" rel="noopener">RepoDoc</a>
+              </h3>
+              <span class="tag">Documentation &middot; Knowledge graphs</span>
+            </div>
+            <p>
+              A knowledge-graph-based framework for automatic documentation generation and
+              incremental updates in repository-level software.
+            </p>
+            <p class="pub-links">
+              <a href="https://arxiv.org/abs/2604.26523" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://github.com/SYSUSELab/RepoDoc" target="_blank" rel="noopener">Code</a>
+            </p>
+          </article>
+
+          <article class="project">
+            <div class="project-head">
+              <h3>
+                <a href="https://arxiv.org/abs/2602.20799" target="_blank" rel="noopener">UCD-Training</a>
+              </h3>
+              <span class="tag">Data synthesis &middot; Code graphs</span>
+            </div>
+            <p>
+              Code-graph-grounded data synthesis and training for adapting language models
+              to previously unseen codebases.
+            </p>
+            <p class="pub-links">
+              <a href="https://arxiv.org/abs/2602.20799" target="_blank" rel="noopener">arXiv</a>
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="open-source">
+        <h2 id="open-source">Open Source</h2>
+        <ul class="repo-list">
+          <li class="repo-item">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/xudong7/tauri-rmusic" target="_blank" rel="noopener">tauri-rmusic &nearr;</a>
+              <span class="tag">Vue</span>
+            </div>
+            <p class="repo-desc">
+              A cross-platform desktop music player built with Tauri, Rust, and Vue.js.
+            </p>
           </li>
-          <li>
-            <a href="https://github.com/xudong7/tauri-rmusic" target="_blank" rel="noopener"><strong>tauri-rmusic</strong></a>
-            <span class="project-meta">30 stars, Vue</span><br>
-            A cross-platform desktop music player built with Tauri, Rust, and Vue.js.
+          <li class="repo-item">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/xudong7/tauri-rbook" target="_blank" rel="noopener">tauri-rbook &nearr;</a>
+              <span class="tag">Vue</span>
+            </div>
+            <p class="repo-desc">
+              A cross-platform desktop EPUB eBook reader built with Tauri, Rust, and Vue.js.
+            </p>
           </li>
-          <li>
-            <a href="https://github.com/xudong7/tauri-rbook" target="_blank" rel="noopener"><strong>tauri-rbook</strong></a>
-            <span class="project-meta">5 stars, Vue</span><br>
-            A cross-platform desktop EPUB eBook reader built with Tauri, Rust, and Vue.js.
-          </li>
-          <li>
-            <a href="https://github.com/xudong7/sentence-segmentation" target="_blank" rel="noopener"><strong>sentence-segmentation</strong></a>
-            <span class="project-meta">4 stars, Python</span><br>
-            Sentence segmentation tool for splitting long sentences into shorter ones.
+          <li class="repo-item">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/xudong7/sentence-segmentation" target="_blank" rel="noopener">sentence-segmentation &nearr;</a>
+              <span class="tag">Python</span>
+            </div>
+            <p class="repo-desc">
+              A sentence segmentation tool for splitting long sentences into shorter ones.
+            </p>
           </li>
         </ul>
       </section>
-
     </main>
   </body>
 </html>

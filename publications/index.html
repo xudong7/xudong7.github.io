@@ -5,78 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Publications | Dong Xu</title>
     <meta name="author" content="Dong Xu">
-    <meta name="description" content="Dong Xu's publications.">
+    <meta name="description" content="Publications by Dong Xu on LLM4SE, AI4SE, intelligent software engineering, repository-level code intelligence, and code graphs.">
+    <link rel="canonical" href="https://xudong7.github.io/publications/">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dong Xu">
+    <meta property="og:title" content="Publications | Dong Xu">
+    <meta property="og:description" content="Publications on LLM4SE, AI4SE, intelligent software engineering, and repository-level code intelligence.">
+    <meta property="og:url" content="https://xudong7.github.io/publications/">
+    <meta property="og:image" content="https://xudong7.github.io/assets/avatar.jpg">
+    <meta property="og:image:alt" content="Portrait of Dong Xu">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Publications | Dong Xu">
+    <meta name="twitter:description" content="Publications on LLM4SE, AI4SE, intelligent software engineering, and repository-level code intelligence.">
+    <meta name="twitter:image" content="https://xudong7.github.io/assets/avatar.jpg">
+
     <link rel="icon" href="../assets/favicon.ico">
-    <link rel="stylesheet" href="../styles.css?v=20260709-12">
+    <link rel="apple-touch-icon" href="../assets/favicon.png">
+    <link rel="stylesheet" href="../styles.css?v=20261024-6">
   </head>
   <body>
     <header class="site-header">
-      <nav class="nav" aria-label="Primary navigation">
-        <div class="nav-links">
+      <div class="header-inner">
+        <a class="wordmark" href="../index.html" aria-label="Home">SYSU &middot; SYSUSELab</a>
+        <nav class="nav" aria-label="Primary navigation">
           <a href="../index.html">Home</a>
-          <a class="active" href="index.html">Publications</a>
+          <a class="active" href="index.html" aria-current="page">Publications</a>
           <a href="../research/index.html">Research</a>
           <a href="../projects/index.html">Projects</a>
           <a href="../education/index.html">Education</a>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </header>
 
-    <main class="page-shell page-shell-simple">
-      <section class="content content-wide">
+    <main class="page">
+      <header class="page-head">
+        <p class="eyebrow">Scholarship</p>
         <h1>Publications</h1>
+        <p class="page-intro">
+          Papers and preprints on LLM4SE, AI4SE, and intelligent software engineering,
+          with a focus on repository-level code intelligence and AI-powered software
+          maintenance.
+        </p>
+      </header>
 
-        <ul class="publication-list">
-          <li class="publication-item">
-            <div class="publication-copy">
+      <section aria-labelledby="year-2026">
+        <h2 class="year-heading" id="year-2026">2026</h2>
+
+        <article class="publication">
+          <div class="publication-copy">
+            <p class="pub-meta">
+              <span class="tag">arXiv preprint</span>
+              <span class="pub-id">arXiv:2604.26523</span>
+            </p>
+            <h3>
               <a href="https://arxiv.org/abs/2604.26523" target="_blank" rel="noopener">
                 RepoDoc: A Knowledge Graph-Based Framework to Automatic Documentation
                 Generation and Incremental Updates
               </a>
-              <p class="authors">
-                <strong>Dong Xu</strong>, Mingwei Liu, Xiwen Wang, Jianfeng Zhong, Zibin Zheng
-              </p>
-              <p>
-                RepoDoc builds repository knowledge graphs to generate modular documentation,
-                propagate semantic impact, and update affected documents incrementally after
-                code changes.
-              </p>
-              <p class="paper-actions">
-                <a href="https://arxiv.org/abs/2604.26523" target="_blank" rel="noopener">arXiv</a>
-                <a href="https://arxiv.org/pdf/2604.26523" target="_blank" rel="noopener">PDF</a>
-                <a href="https://github.com/SYSUSELab/RepoDoc" target="_blank" rel="noopener">Code</a>
-              </p>
-            </div>
-            <figure class="paper-figure">
-              <img src="../assets/papers/repodoc-architecture.png" alt="RepoDoc architecture">
-            </figure>
-          </li>
-          <li class="publication-item">
-            <div class="publication-copy">
+            </h3>
+            <p class="authors">
+              <strong>Dong Xu</strong>, Mingwei Liu, Xiwen Wang, Jianfeng Zhong, Zibin Zheng
+            </p>
+            <p class="abstract">
+              RepoDoc builds repository knowledge graphs to generate modular documentation,
+              propagate semantic impact, and update affected documents incrementally after
+              code changes.
+            </p>
+            <p class="pub-links">
+              <a href="https://arxiv.org/abs/2604.26523" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://arxiv.org/pdf/2604.26523" target="_blank" rel="noopener">PDF</a>
+              <a href="https://github.com/SYSUSELab/RepoDoc" target="_blank" rel="noopener">Code</a>
+            </p>
+          </div>
+          <figure class="paper-figure">
+            <img src="../assets/papers/repodoc-architecture.png" alt="RepoDoc architecture" width="752" height="452">
+            <figcaption>RepoDoc architecture: repository knowledge graphs, semantic impact propagation, and incremental documentation updates.</figcaption>
+          </figure>
+        </article>
+
+        <article class="publication">
+          <div class="publication-copy">
+            <p class="pub-meta">
+              <span class="tag">arXiv preprint</span>
+              <span class="pub-id">arXiv:2602.20799</span>
+            </p>
+            <h3>
               <a href="https://arxiv.org/abs/2602.20799" target="_blank" rel="noopener">
                 Unseen-Codebases-Domain Data Synthesis and Training Based on Code Graphs
               </a>
-              <p class="authors">
-                Guangsheng Ou, Qiming Zhang, Sirong Chen, Anji Li, <strong>Dong Xu</strong>,
-                Tiancheng Luo, Dekun Dai, Cuiyun Gao, Long Wang, Jun Zhou, Mingwei Liu, Zibin Zheng
-              </p>
-              <p>
-                This work uses code graphs to synthesize repository-domain training data,
-                helping models adapt to previously unseen codebases and reason across
-                project-level dependencies.
-              </p>
-              <p class="paper-actions">
-                <a href="https://arxiv.org/abs/2602.20799" target="_blank" rel="noopener">arXiv</a>
-                <a href="https://arxiv.org/pdf/2602.20799" target="_blank" rel="noopener">PDF</a>
-              </p>
-            </div>
-            <figure class="paper-figure">
-              <img src="../assets/papers/ucd-overview.png" alt="Code graph data synthesis overview">
-            </figure>
-          </li>
-        </ul>
+            </h3>
+            <p class="authors">
+              Guangsheng Ou, Qiming Zhang, Sirong Chen, Anji Li, <strong>Dong Xu</strong>,
+              Tiancheng Luo, Dekun Dai, Cuiyun Gao, Long Wang, Jun Zhou, Mingwei Liu, Zibin Zheng
+            </p>
+            <p class="abstract">
+              This work uses code graphs to synthesize repository-domain training data,
+              helping models adapt to previously unseen codebases and reason across
+              project-level dependencies.
+            </p>
+            <p class="pub-links">
+              <a href="https://arxiv.org/abs/2602.20799" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://arxiv.org/pdf/2602.20799" target="_blank" rel="noopener">PDF</a>
+            </p>
+          </div>
+          <figure class="paper-figure">
+            <img src="../assets/papers/ucd-overview.png" alt="Code graph data synthesis overview" width="900" height="536">
+            <figcaption>Overview of code-graph-based data synthesis and training for unseen codebases.</figcaption>
+          </figure>
+        </article>
       </section>
-
     </main>
   </body>
 </html>
